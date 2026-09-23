@@ -1,0 +1,10 @@
+# Godot
+.godot/
+# Generated test output (see docs/TOOLING.md)
+tests/results/
+# IDE / build
+.vscode/
+.idea/
+build/
+export_credentials.cfg
+*.tmp
