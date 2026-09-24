@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="FloorData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/floors/FloorData.gd" id="1_floor_data"]
+
+[resource]
+script = ExtResource("1_floor_data")
+floor_id = 1
+display_name = "Floor 1"
+bounds = Rect2(-1280, -720, 2560, 1440)
+height = 0.0
+theme_name = "concrete"
+ambient_color = Color(0.15, 0.15, 0.18, 1)
+danger_level = 1
+loot_table_path = ""
+loot_spawn_points = []
+initial_state = 0

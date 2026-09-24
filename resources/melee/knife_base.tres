@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="MeleeWeaponResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/melee/MeleeWeaponResource.gd" id="1_melee"]
+
+[resource]
+script = ExtResource("1_melee")
+weapon_name = "Combat Knife"
+weapon_id = &"knife_base"
+damage = 28.0
+damage_type = &"melee"
+knockback = 350.0
+hitstun = 0.18
+startup_frames = 2
+active_frames = 3
+recovery_frames = 8
+combo_window_frames = 12
+max_combo = 3
+arc_degrees = 100.0
+range = 52.0
+offset_angle = 0.0
+hitbox_shape = 0
+lunge_speed = 550.0
+lunge_duration = 0.08
+root_motion = true
+trail_color = Color(1, 0.5333333611488342, 0.2666666805744171, 1)
+hit_flash_color = Color(1, 1, 0.5333333611488342, 1)
+trail_length = 0.8
+stamina_cost = 8.0
+rage_gain = 6.0

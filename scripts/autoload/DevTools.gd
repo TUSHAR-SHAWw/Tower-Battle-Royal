@@ -61,6 +61,7 @@ func _register_default_commands() -> void:
 	register_command(&"overlay", _cmd_overlay, "Show or hide the debug overlay: on | off | toggle.", "overlay <on|off|toggle>")
 	register_command(&"state", _cmd_state, "Print the current GameState summary.")
 	register_command(&"quit", _cmd_quit, "Quit the game immediately.")
+	register_command(&"boot", _cmd_boot, "Re-run the boot self-check.")
 
 
 func _cmd_help(args: PackedStringArray) -> String:
@@ -127,3 +128,8 @@ func _cmd_state(_args: PackedStringArray) -> String:
 func _cmd_quit(_args: PackedStringArray) -> String:
 	get_tree().quit()
 	return "quitting"
+
+
+func _cmd_boot(_args: PackedStringArray) -> String:
+	InputActions.missing_actions()
+	return "input map: %s" % ("OK" if InputActions.missing_actions().is_empty() else "MISSING ACTIONS — see log")

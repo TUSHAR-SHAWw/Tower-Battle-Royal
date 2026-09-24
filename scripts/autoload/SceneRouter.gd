@@ -17,12 +17,12 @@ const ROUTE_SETTINGS := &"settings"
 ## Routes that exist today. Later milestones add their scene here.
 const ROUTES: Dictionary[StringName, String] = {
 	ROUTE_BOOT: "res://scenes/main/Main.tscn",
+	ROUTE_MATCH: "res://scenes/main/Match.tscn",           # M1 test / M2 proper
 }
 ## Routes that are planned but whose scenes do not exist yet. Kept explicit so
 ## "why doesn't this work?" is answerable from code instead of guesswork.
 const PLANNED_ROUTES: Dictionary[StringName, String] = {
 	ROUTE_MAIN_MENU: "res://scenes/menus/MainMenu.tscn",   # M17
-	ROUTE_MATCH: "res://scenes/main/Match.tscn",           # M2
 	ROUTE_RESULTS: "res://scenes/menus/Results.tscn",      # M17
 	ROUTE_SHOP: "res://scenes/shop/Shop.tscn",             # M18
 	ROUTE_SKINS: "res://scenes/menus/Skins.tscn",           # M16

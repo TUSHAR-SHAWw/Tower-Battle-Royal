@@ -28,7 +28,6 @@ func _register_debug_lines() -> void:
 	DevTools.register_provider("match", _debug_match_line)
 	DevTools.register_provider("route", _debug_route_line)
 	DevTools.register_provider("state", _debug_player_state_line)
-	DevTools.register_command(&"boot", _cmd_boot, "Re-run the boot self-check.")
 	DevTools.log_line("boot self-check done", &"result")
 
 
@@ -52,11 +51,6 @@ func _debug_player_state_line() -> String:
 	if health != null and health.has_method(&"debug_line"):
 		parts.append(str(health.call(&"debug_line")))
 	return ", ".join(PackedStringArray(parts)) if not parts.is_empty() else str(player.name)
-
-
-func _cmd_boot(_args: PackedStringArray) -> String:
-	_report_input_map()
-	return "input map: %s" % ("OK" if InputActions.missing_actions().is_empty() else "MISSING ACTIONS — see log")
 
 
 func _update_status_label() -> void:

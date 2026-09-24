@@ -24,8 +24,17 @@ func test_unknown_route_is_rejected_without_changing_scene() -> void:
 
 
 func test_planned_routes_are_declared_but_not_built() -> void:
-	assert_true(SceneRouter.is_planned(SceneRouter.ROUTE_MATCH), "the match route is planned for M2")
-	assert_false(SceneRouter.has_route(SceneRouter.ROUTE_MATCH), "the match scene must not exist yet in M0")
+	# In M1 we built a test match scene; it is no longer "planned only".
+	# The test now verifies the route exists and points to a real scene.
+	assert_true(SceneRouter.has_route(SceneRouter.ROUTE_MATCH), "M1 match test scene must exist")
+	var path := SceneRouter.route_path(SceneRouter.ROUTE_MATCH)
+	assert_true(ResourceLoader.exists(path), "match scene is missing on disk: %s" % path)
+	# Main menu, results, shop, skins, settings are still planned-only.
+	assert_true(SceneRouter.is_planned(SceneRouter.ROUTE_MAIN_MENU))
+	assert_true(SceneRouter.is_planned(SceneRouter.ROUTE_RESULTS))
+	assert_true(SceneRouter.is_planned(SceneRouter.ROUTE_SHOP))
+	assert_true(SceneRouter.is_planned(SceneRouter.ROUTE_SKINS))
+	assert_true(SceneRouter.is_planned(SceneRouter.ROUTE_SETTINGS))
 
 
 func test_reload_without_a_current_route_is_safe() -> void:

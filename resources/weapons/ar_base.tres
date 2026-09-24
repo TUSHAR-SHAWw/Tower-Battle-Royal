@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/weapons/WeaponResource.gd" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+weapon_name = "Assault Rifle"
+weapon_id = &"ar_base"
+damage = 12.0
+damage_type = &"bullet"
+knockback = 0.0
+fire_rate_rpm = 600.0
+burst_count = 1
+burst_delay = 0.06
+magazine_size = 30
+reserve_ammo = 120
+reload_time = 1.8
+infinite_ammo = false
+bullet_speed = 800.0
+bullet_lifetime = 2.0
+spread_degrees = 0.8
+bullet_gravity = 0.0
+pierce_count = 0
+muzzle_flash_color = Color(1, 0.6666666865348816, 0, 1)
+bullet_color = Color(1, 1, 0.5333333611488342, 1)
+bullet_size = 4.0
+tracer_length = 16.0
+recoil_impulse = 100.0
+recoil_recovery = 12.0
+screen_shake = 1.5
