@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format_version=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/Enemy.gd" id="1_enemy"]
+[ext_resource type="Script" path="res://scripts/enemies/EnemyAI.gd" id="2_ai"]
+[ext_resource type="Script" path="res://scripts/player/MovementComponent.gd" id="3_movement"]
+[ext_resource type="Script" path="res://scripts/player/HealthComponent.gd" id="4_health"]
+[ext_resource type="Script" path="res://scripts/player/VisualComponent.gd" id="5_visual"]
+[ext_resource type="Resource" path="res://resources/player/player_default.tres" id="6_config"]
+[ext_resource type="Resource" path="res://resources/enemies/grunt.tres" id="7_grunt"]
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_enemy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1_shape")
+
+[node name="EnemyAI" type="Node" parent="."]
+script = ExtResource("2_ai")
+
+[node name="MovementComponent" type="Node" parent="."]
+script = ExtResource("3_movement")
+body = NodePath("..")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("4_health")
+
+[node name="Visual" type="Node2D" parent="."]
+script = ExtResource("5_visual")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 20
+
+[node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("2_shape")
+
+[sub_resource type="CircleShape2D" id="1_shape"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="2_shape"]
+radius = 18.0

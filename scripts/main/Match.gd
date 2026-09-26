@@ -1,6 +1,6 @@
 extends Node2D
 
-## M11 test match: TowerController with 2 floors, central hub, player, and travel portal.
+## M12 test match: TowerController with floors, central hub, player, minimap, world map.
 
 @onready var player: Node = $PlayerInstance
 @onready var tower: Node = $TowerController
@@ -35,7 +35,7 @@ func _setup_player() -> void:
 		push_error("Match: PlayerInstance not found or not ready")
 		return
 	
-	GameLog.info("Match", "M11 test match ready — player at %s" % player.global_position)
+	GameLog.info("Match", "M12 test match ready — player at %s" % player.global_position)
 	
 	# Give the camera something to clamp to from the floor data
 	var camera_component = player.get_node_or_null("CameraComponent")
@@ -46,7 +46,17 @@ func _setup_player() -> void:
 	var spawn_pos: Vector2 = current_floor.get_random_spawn_point()
 	player.global_position = spawn_pos
 	
-	# Listen for floor changes to update camera bounds
+	# Initialize minimap and world map
+	var minimap := player.get_node_or_null("MinimapUI")
+	var world_map := player.get_node_or_null("WorldMapUI")
+	if minimap != null:
+		minimap.set_current_floor(spawn_floor)
+		minimap.mark_floor_explored(spawn_floor)
+	if world_map != null:
+		world_map.set_current_floor(spawn_floor)
+		world_map.mark_floor_explored(spawn_floor)
+	
+	# Listen for floor changes to update camera bounds and maps
 	tower.floor_changed.connect(_on_floor_changed)
 	
 	# Start match clock so debug overlay shows RUNNING.
@@ -64,6 +74,16 @@ func _on_floor_changed(new_floor_id: int) -> void:
 		# Re-spawn player at new floor's spawn point
 		var spawn_pos: Vector2 = current_floor.get_random_spawn_point()
 		player.global_position = spawn_pos
+		
+		# Update maps
+		var minimap := player.get_node_or_null("MinimapUI")
+		var world_map := player.get_node_or_null("WorldMapUI")
+		if minimap != null:
+			minimap.set_current_floor(new_floor_id)
+			minimap.mark_floor_explored(new_floor_id)
+		if world_map != null:
+			world_map.set_current_floor(new_floor_id)
+			world_map.mark_floor_explored(new_floor_id)
 		
 		GameLog.info("Match", "Moved to Floor %d" % new_floor_id)
 

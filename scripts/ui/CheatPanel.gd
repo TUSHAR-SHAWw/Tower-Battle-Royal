@@ -1,5 +1,5 @@
 class_name CheatPanel
-extends Control
+extends CanvasLayer
 
 ## Visual cheat panel (mod menu) with buttons for all cheat commands.
 ## Toggle with F10 (same as cheat console).
@@ -11,39 +11,39 @@ signal panel_toggled(visible: bool)
 var _visible: bool = false
 var _categories: Dictionary = {}
 var _main_vbox: VBoxContainer = null
+var _panel: PanelContainer = null
 
 func _ready() -> void:
 	# Hide by default
-	visible = false
 	_visible = false
+	layer = 1000  # On top of everything
 	
 	# Setup UI
 	_setup_ui()
 	
 	# Register all commands from DevTools as buttons
 	_populate_buttons()
-	
-	# Listen for toggle key
-	if dev_tools != null and dev_tools.cheat_console != null:
-		dev_tools.cheat_console.hook_key_pressed(KEY_F10)
 
 
 func _setup_ui() -> void:
 	# Main panel
-	var panel := PanelContainer.new()
-	panel.name = "CheatPanel"
-	panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	panel.anchor_left = 0.0
-	panel.anchor_top = 0.0
-	panel.anchor_right = 1.0
-	panel.anchor_bottom = 1.0
-	panel.offset_left = 200
-	panel.offset_top = 100
-	panel.offset_right = -200
-	panel.offset_bottom = -100
-	panel.add_theme_stylebox_override("panel", _make_stylebox())
-	add_child(panel)
+	_panel = PanelContainer.new()
+	_panel.name = "CheatPanel"
+	_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_panel.anchor_left = 0.0
+	_panel.anchor_top = 0.0
+	_panel.anchor_right = 1.0
+	_panel.anchor_bottom = 1.0
+	_panel.offset_left = 200
+	_panel.offset_top = 100
+	_panel.offset_right = -200
+	_panel.offset_bottom = -100
+	_panel.add_theme_stylebox_override("panel", _make_stylebox())
+	add_child(_panel)
+	
+	# Initially hidden
+	_panel.visible = false
 	
 	# Scroll container for content
 	var scroll := ScrollContainer.new()
@@ -55,7 +55,7 @@ func _setup_ui() -> void:
 	scroll.anchor_right = 1.0
 	scroll.anchor_bottom = 1.0
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	panel.add_child(scroll)
+	_panel.add_child(scroll)
 	
 	# Main VBox for categories
 	var vbox := VBoxContainer.new()
@@ -104,9 +104,6 @@ func _make_stylebox() -> StyleBoxFlat:
 
 
 func _populate_buttons() -> void:
-	if dev_tools == null or dev_tools.cheat_console == null:
-		return
-	
 	_main_vbox = get_node("CheatPanel/Scroll/Categories")
 	if _main_vbox == null:
 		return
@@ -203,6 +200,13 @@ func _add_category(category: String, commands: Array) -> void:
 func _on_button_pressed(cmd: String) -> void:
 	if dev_tools != null and dev_tools.cheat_console != null:
 		dev_tools.cheat_console.execute_command(cmd)
+	else:
+		# Fallback: execute via DevTools autoload directly
+		var dev_tools_node := get_node_or_null("/root/DevTools")
+		if dev_tools_node != null and dev_tools_node.has_method("cheat_console"):
+			var console: Object = dev_tools_node.cheat_console
+			if console != null and console.has_method("execute_command"):
+				console.execute_command(cmd)
 
 
 func _on_close_pressed() -> void:
@@ -211,20 +215,20 @@ func _on_close_pressed() -> void:
 
 func _toggle_panel() -> void:
 	_visible = not _visible
-	visible = _visible
+	_panel.visible = _visible
 	panel_toggled.emit(_visible)
 	
 	if _visible:
 		# Bring to front
-		move_child(get_node("CheatPanel"), -1)
-		grab_focus()
+		move_child(_panel, -1)
+		_panel.grab_focus()
 
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_F10:
 			_toggle_panel()
-			accept_event()
+			get_viewport().set_input_as_handled()
 
 
 func _notification(what: int) -> void:

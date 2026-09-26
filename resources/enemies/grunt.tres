@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/EnemyResource.gd" id="1_enemy"]
+
+[resource]
+script = ExtResource("1_enemy")
+enemy_name = "Grunt"
+enemy_id = &"grunt"
+description = "Basic melee enemy. Charges and slashes."
+max_health = 60.0
+move_speed = 120.0
+damage = 12.0
+damage_type = &"physical"
+knockback = 200.0
+xp_reward = 30
+gold_reward = 15
+attack_range = 40.0
+attack_cooldown = 1.8
+attack_windup = 0.6
+is_ranged = false
+aggro_range = 350.0
+deaggro_range = 600.0
+patrol_radius = 200.0
+prefers_melee = true
+body_color = Color(0.8, 0.3, 0.3, 1)
+size = 18.0
+has_shadow = true
+health_per_floor = 8.0
+damage_per_floor = 2.0
+speed_per_floor = 3.0

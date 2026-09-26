@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/floors/FloorController.gd" id="1_floor"]
 [ext_resource type="Script" path="res://scripts/core/StateMachine.gd" id="2_statemachine"]
 [ext_resource type="Script" path="res://scripts/core/State.gd" id="3_state"]
 [ext_resource type="Script" path="res://scripts/floors/FloorVisual.gd" id="4_visual"]
+[ext_resource type="Script" path="res://scripts/enemies/EnemySpawner.gd" id="5_spawner"]
 
 [node name="FloorController" type="Node2D"]
 script = ExtResource("1_floor")
@@ -14,3 +15,6 @@ script = ExtResource("4_visual")
 [node name="Collision" type="Node2D" parent="."]
 
 [node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="EnemySpawner" type="Node" parent="."]
+script = ExtResource("5_spawner")

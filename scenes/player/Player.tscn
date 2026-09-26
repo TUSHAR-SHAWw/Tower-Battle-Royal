@@ -23,6 +23,19 @@
 [ext_resource type="Script" uid="uid://fje7s2mxv8lq9" path="res://scripts/elements/ElementalComponent.gd" id="22_elemental"]
 [ext_resource type="Script" uid="uid://fje7s2mxv8lq9" path="res://scripts/merge/MergeComponent.gd" id="23_merge"]
 [ext_resource type="Script" uid="uid://fje7s2mxv8lq9" path="res://scripts/ui/CheatPanel.gd" id="24_cheat"]
+[ext_resource type="Script" uid="uid://fje7s2mxv8lq9" path="res://scripts/map/MinimapUI.gd" id="25_minimap"]
+[ext_resource type="Script" uid="uid://fje7s2mxv8lq9" path="res://scripts/map/WorldMapUI.gd" id="26_worldmap"]
+[ext_resource type="Resource" path="res://resources/map/tower_map.tres" id="27_tower_map"]
+[ext_resource type="Script" path="res://scripts/skins/LockerComponent.gd" id="28_locker"]
+[ext_resource type="Resource" path="res://resources/skins/default.tres" id="29_default_skin"]
+[ext_resource type="Resource" path="res://resources/skins/crimson_elite.tres" id="30_crimson"]
+[ext_resource type="Resource" path="res://resources/skins/frost_walker.tres" id="31_frost"]
+[ext_resource type="Resource" path="res://resources/skins/void_stalker.tres" id="32_void"]
+[ext_resource type="Resource" path="res://resources/skins/golden_king.tres" id="33_golden"]
+[ext_resource type="Script" path="res://scripts/economy/CurrencyComponent.gd" id="34_currency"]
+[ext_resource type="Script" path="res://scripts/economy/DailyRewardComponent.gd" id="35_daily"]
+[ext_resource type="Script" path="res://scripts/economy/BattlePassComponent.gd" id="36_battlepass"]
+[ext_resource type="Resource" path="res://resources/economy/season_1.tres" id="37_season"]
 
 [sub_resource type="CircleShape2D" id="1_shape"]
 radius = 14.0
@@ -94,9 +107,32 @@ script = ExtResource("22_elemental")
 [node name="MergeComponent" type="Node" parent="." unique_id=2109876544]
 script = ExtResource("23_merge")
 
+[node name="LockerComponent" type="Node" parent="." unique_id=5000000001]
+script = ExtResource("28_locker")
+owned_skins = [ExtResource("29_default_skin"), ExtResource("30_crimson"), ExtResource("31_frost"), ExtResource("32_void"), ExtResource("33_golden")]
+equipped_skin = ExtResource("29_default_skin")
+
+[node name="CurrencyComponent" type="Node" parent="." unique_id=6000000001]
+script = ExtResource("34_currency")
+
+[node name="DailyRewardComponent" type="Node" parent="." unique_id=6000000002]
+script = ExtResource("35_daily")
+
+[node name="BattlePassComponent" type="Node" parent="." unique_id=6000000003]
+script = ExtResource("36_battlepass")
+battle_pass = ExtResource("37_season")
+
 [node name="CheatPanel" type="Control" parent="." unique_id=3000000001]
 script = ExtResource("24_cheat")
 dev_tools = NodePath("/root/DevTools")
+
+[node name="MinimapUI" type="CanvasLayer" parent="." unique_id=4000000001]
+script = ExtResource("25_minimap")
+map_resource = ExtResource("27_tower_map")
+
+[node name="WorldMapUI" type="CanvasLayer" parent="." unique_id=4000000002]
+script = ExtResource("26_worldmap")
+map_resource = ExtResource("27_tower_map")
 
 [node name="HotbarUI" type="Node" parent="." unique_id=329084773]
 script = ExtResource("19_hotbar")

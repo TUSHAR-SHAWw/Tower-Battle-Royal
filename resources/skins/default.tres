@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SkinResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/skins/SkinResource.gd" id="1_skin"]
+
+[resource]
+script = ExtResource("1_skin")
+skin_name = "Default"
+skin_id = &"default"
+description = "Standard issue armor."
+rarity = 0
+unlock_cost = 0
+is_default = true
+body_color = Color(0.3, 0.5, 0.8, 1)
+accent_color = Color(0.5, 0.7, 1.0, 1)
+trail_color = Color(0.4, 0.6, 1.0, 1)
+particle_color = Color(0.5, 0.7, 1.0, 1)
+has_glow = false
+has_trail = false

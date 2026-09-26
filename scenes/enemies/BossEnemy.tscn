@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format_version=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/BossEnemy.gd" id="1_boss"]
+[ext_resource type="Script" path="res://scripts/enemies/BossAI.gd" id="2_ai"]
+[ext_resource type="Script" path="res://scripts/player/MovementComponent.gd" id="3_movement"]
+[ext_resource type="Script" path="res://scripts/player/HealthComponent.gd" id="4_health"]
+[ext_resource type="Script" path="res://scripts/player/VisualComponent.gd" id="5_visual"]
+[ext_resource type="Resource" path="res://resources/player/player_default.tres" id="6_config"]
+[ext_resource type="Script" path="res://scripts/enemies/BossAI.gd" id="7_ai_dup"]
+[ext_resource type="Resource" path="res://resources/enemies/floor_warden.tres" id="8_boss_data"]
+
+[node name="BossEnemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_boss")
+boss_data = ExtResource("8_boss_data")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1_shape")
+
+[node name="BossAI" type="Node" parent="."]
+script = ExtResource("2_ai")
+
+[node name="MovementComponent" type="Node" parent="."]
+script = ExtResource("3_movement")
+body = NodePath("..")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("4_health")
+
+[node name="Visual" type="Node2D" parent="."]
+script = ExtResource("5_visual")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 20
+
+[node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("2_shape")
+
+[sub_resource type="CircleShape2D" id="1_shape"]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="2_shape"]
+radius = 36.0

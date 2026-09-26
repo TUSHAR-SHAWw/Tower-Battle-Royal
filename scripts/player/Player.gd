@@ -21,6 +21,12 @@ class_name Player
 ##   ├── RageComponent
 ##   ├── ElementalComponent
 ##   ├── MergeComponent
+##   ├── MinimapUI
+##   ├── WorldMapUI
+##   ├── LockerComponent
+##   ├── CurrencyComponent
+##   ├── DailyRewardComponent
+##   ├── BattlePassComponent
 ##   └── PlayerConfig (Resource)
 
 signal died
@@ -40,6 +46,12 @@ signal died
 @export var rage: RageComponent
 @export var elemental: ElementalComponent
 @export var merge: MergeComponent
+@export var minimap: MinimapUI
+@export var world_map: WorldMapUI
+@export var locker: LockerComponent
+@export var currency: CurrencyComponent
+@export var daily_rewards: DailyRewardComponent
+@export var battle_pass: BattlePassComponent
 
 var _aim_direction: Vector2 = Vector2.RIGHT
 
@@ -148,6 +160,31 @@ func _wire_components() -> void:
 		merge.merge_started.connect(_on_merge_started)
 		merge.merge_completed.connect(_on_merge_completed)
 		merge.merge_failed.connect(_on_merge_failed)
+
+	# LockerComponent
+	if locker != null:
+		locker.skin_equipped.connect(_on_skin_equipped)
+		locker.skin_unequipped.connect(_on_skin_unequipped)
+		locker.skin_unlocked.connect(_on_skin_unlocked)
+
+	# CurrencyComponent
+	if currency != null:
+		currency.gold_changed.connect(_on_gold_changed)
+		currency.xp_changed.connect(_on_xp_changed)
+		currency.level_up.connect(_on_level_up)
+		currency.battle_pass_xp_changed.connect(_on_battle_pass_xp_changed)
+		currency.battle_pass_tier_unlocked.connect(_on_battle_pass_tier_unlocked)
+
+	# DailyRewardComponent
+	if daily_rewards != null:
+		daily_rewards.reward_claimed.connect(_on_daily_reward_claimed)
+		daily_rewards.streak_broken.connect(_on_streak_broken)
+
+	# BattlePassComponent
+	if battle_pass != null:
+		battle_pass.tier_unlocked.connect(_on_battle_pass_tier_unlocked)
+		battle_pass.xp_added.connect(_on_battle_pass_xp_added)
+		battle_pass.premium_purchased.connect(_on_premium_purchased)
 
 
 func _wire_signals() -> void:
@@ -365,6 +402,68 @@ func _on_merge_failed(recipe: MergeRecipe, reason: StringName) -> void:
 	SignalHub.merge_failed.emit(recipe, reason)
 
 
+# ------------------------------------------------------------------------ locker signals
+
+func _on_skin_equipped(skin: SkinResource) -> void:
+	SignalHub.skin_equipped.emit(skin)
+	_apply_skin(skin)
+
+
+func _on_skin_unequipped(skin: SkinResource) -> void:
+	SignalHub.skin_unequipped.emit(skin)
+	_apply_skin(locker.get_equipped_skin())
+
+
+func _on_skin_unlocked(skin: SkinResource) -> void:
+	SignalHub.skin_unlocked.emit(skin)
+
+
+func _apply_skin(skin: SkinResource) -> void:
+	if skin == null or visual == null:
+		return
+	# Apply skin colors to visual component
+	if visual.has_method("apply_skin"):
+		visual.apply_skin(skin)
+
+
+# ------------------------------------------------------------------------ economy signals
+
+func _on_gold_changed(current: int, delta: int) -> void:
+	SignalHub.gold_changed.emit(current, delta)
+
+
+func _on_xp_changed(current: int, delta: int) -> void:
+	SignalHub.xp_changed.emit(current, delta)
+
+
+func _on_level_up(new_level: int) -> void:
+	SignalHub.level_up.emit(new_level)
+
+
+func _on_battle_pass_xp_changed(current: int, delta: int) -> void:
+	SignalHub.battle_pass_xp_changed.emit(current, delta)
+
+
+func _on_battle_pass_tier_unlocked(tier: int, is_premium: bool) -> void:
+	SignalHub.battle_pass_tier_unlocked.emit(tier, is_premium)
+
+
+func _on_daily_reward_claimed(day: int, rewards: Array[Dictionary]) -> void:
+	SignalHub.daily_reward_claimed.emit(day, rewards)
+
+
+func _on_premium_purchased() -> void:
+	SignalHub.battle_pass_premium_purchased.emit()
+
+
+func _on_streak_broken(old_streak: int) -> void:
+	SignalHub.daily_streak_broken.emit(old_streak)
+
+
+func _on_battle_pass_xp_added(amount: int) -> void:
+	SignalHub.battle_pass_xp_added.emit(amount)
+
+
 # ------------------------------------------------------------------------ debug / cheats
 
 func _debug_player_line() -> String:
@@ -389,6 +488,14 @@ func _debug_player_line() -> String:
 		parts.append(elemental.debug_line())
 	if merge != null:
 		parts.append("merge: %s" % ["active" if merge.get_active_recipe() != null else "idle"])
+	if locker != null:
+		parts.append(locker.debug_line())
+	if currency != null:
+		parts.append(currency.debug_line())
+	if daily_rewards != null:
+		parts.append(daily_rewards.debug_line())
+	if battle_pass != null:
+		parts.append(battle_pass.debug_line())
 	return ", ".join(PackedStringArray(parts)) if not parts.is_empty() else name
 
 

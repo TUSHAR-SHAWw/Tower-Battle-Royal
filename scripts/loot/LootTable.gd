@@ -3,7 +3,7 @@ extends Resource
 
 ## Defines weighted loot drops for chests / enemies.
 
-@export var entries: Array[LootEntry] = []
+@export var entries: Array = []
 
 
 func roll() -> Array[LootResult]:
@@ -15,11 +15,11 @@ func roll() -> Array[LootResult]:
 	return results
 
 
-func roll_guaranteed(min_items: int = 1) -> Array[LootResult]:
+func roll_guaranteed(min_items: int = 1) -> Array:
 	var results := roll()
 	while results.size() < min_items and entries.size() > 0:
-		var entry := entries.pick_random()
-		var count := randi_range(entry.min_count, entry.max_count + 1)
+		var entry: Dictionary = entries.pick_random()
+		var count: int = randi_range(entry.min_count, entry.max_count + 1)
 		results.append(LootResult.new(entry.item, count))
 	return results
 

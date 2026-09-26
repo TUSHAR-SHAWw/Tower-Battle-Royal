@@ -8,6 +8,7 @@ class_name FloorController
 ##   - Collision (walls, boundaries)
 ##   - Spawn points (players, loot)
 ##   - State machine (ACTIVE → WARNING → COLLAPSING → DELETED)
+##   - EnemySpawner (wave-based enemy spawning)
 ##
 ## Only one floor is loaded at a time. The TowerController swaps floors
 ## by instancing the FloorController scene with a different FloorData.
@@ -17,6 +18,9 @@ signal player_entered(player: Node)
 signal player_exited(player: Node)
 
 @export var floor_data: FloorData
+@export var enemy_types: Array[EnemyResource] = []  # enemy types for this floor
+@export var is_boss_floor: bool = false
+@export var boss_data: BossData = null
 
 var _state: int = FloorData.FloorState.ACTIVE
 var _state_machine: StateMachine = null
@@ -29,6 +33,9 @@ var _collapse_duration: float = 5.0   # seconds of collapse animation
 @onready var _visual: Node2D = $Visual
 @onready var _collision: Node2D = $Collision
 @onready var _spawn_points: Node2D = $SpawnPoints
+@onready var _enemy_spawner: Node = $EnemySpawner
+
+var _current_floor: int = 1
 
 
 func _ready() -> void:
@@ -42,6 +49,27 @@ func _ready() -> void:
 		_state = FloorData.FloorState.ACTIVE
 	
 	_update_visual_state()
+	
+	# Setup enemy spawner
+	var spawner := _enemy_spawner as EnemySpawner
+	if spawner != null:
+		spawner.enemy_types = enemy_types
+		spawner.floor_controller = self
+		spawner.base_wave_count = 3 + _current_floor
+		spawner.enemies_per_wave = 4 + _current_floor
+		spawner.wave_interval = max(5.0, 15.0 - _current_floor)
+		
+		# Connect signals
+		spawner.wave_started.connect(_on_wave_started)
+		spawner.wave_completed.connect(_on_wave_completed)
+		spawner.all_waves_completed.connect(_on_all_waves_completed)
+		spawner.enemy_spawned.connect(_on_enemy_spawned)
+		
+		if is_boss_floor and boss_data != null:
+			# Setup boss instead of waves
+			_setup_boss()
+		else:
+			spawner.start_spawning(_current_floor)
 
 
 func _configure_from_data() -> void:
@@ -67,6 +95,10 @@ func _configure_from_data() -> void:
 			marker.global_position = pos
 			_spawn_points.add_child(marker)
 			marker.owner = _spawn_points
+	
+	# Set floor ID for spawner
+	if floor_data != null:
+		_current_floor = floor_data.floor_id
 
 
 ## Call this after instancing if floor_data wasn't set in the inspector.
@@ -74,6 +106,40 @@ func set_floor_data(data: FloorData) -> void:
 	floor_data = data
 	_configure_from_data()
 	_update_visual_state()
+	
+	# Start spawning if floor is active
+	if _state == FloorData.FloorState.ACTIVE:
+		if is_boss_floor and boss_data != null:
+			_setup_boss()
+		else:
+			var spawner := _enemy_spawner as EnemySpawner
+			if spawner != null:
+				spawner.start_spawning(_current_floor)
+
+
+func _setup_boss() -> void:
+	if boss_data == null:
+		return
+	
+	# Spawn boss at center of floor
+	var boss_scene := load("res://scenes/enemies/BossEnemy.tscn")
+	if boss_scene == null:
+		push_error("FloorController: BossEnemy.tscn not found")
+		return
+	
+	var boss := boss_scene.instantiate() as BossEnemy
+	boss.boss_data = boss_data
+	boss.global_position = floor_data.bounds.position + floor_data.bounds.size * 0.5
+	
+	var ai := boss.get_node_or_null("BossAI")
+	if ai != null:
+		ai.boss_data = boss_data
+		ai.phase_changed.connect(_on_boss_phase_changed)
+	
+	boss.died.connect(_on_boss_died)
+	add_child(boss)
+	
+	SignalHub.boss_spawned.emit(boss, _current_floor)
 
 
 func _setup_state_machine() -> void:
@@ -223,3 +289,60 @@ func _clear_spawn_points() -> void:
 	if _spawn_points != null:
 		for child in _spawn_points.get_children():
 			child.queue_free()
+
+
+# ======================================================================== ENEMY SPAWNER SIGNALS
+
+func _on_wave_started(wave: int) -> void:
+	SignalHub.wave_started.emit(wave, _current_floor)
+	GameLog.info("Floor", "Floor %d: Wave %d started" % [_current_floor, wave])
+
+
+func _on_wave_completed(wave: int) -> void:
+	SignalHub.wave_completed.emit(wave, _current_floor)
+	GameLog.info("Floor", "Floor %d: Wave %d completed" % [_current_floor, wave])
+
+
+func _on_all_waves_completed() -> void:
+	SignalHub.all_waves_completed.emit(_current_floor)
+	GameLog.info("Floor", "Floor %d: All waves completed" % [_current_floor])
+
+
+func _on_enemy_spawned(enemy: Node) -> void:
+	SignalHub.enemy_spawned_on_floor.emit(enemy, _current_floor)
+
+
+# ======================================================================== BOSS SIGNALS
+
+func _on_boss_phase_changed(phase: int) -> void:
+	SignalHub.boss_phase_changed_on_floor.emit(phase, _current_floor)
+	GameLog.info("Floor", "Floor %d: Boss phase %d" % [_current_floor, phase])
+
+
+func _on_boss_died(killer: Node) -> void:
+	SignalHub.boss_died_on_floor.emit(killer, _current_floor)
+	GameLog.info("Floor", "Floor %d: Boss defeated by %s" % [_current_floor, killer.name if killer else "unknown"])
+	
+	# Spawn boss rewards
+	_on_boss_rewards(killer)
+
+
+func _on_boss_rewards(killer: Node) -> void:
+	if boss_data == null or killer == null:
+		return
+	
+	var currency := killer.get_node_or_null("CurrencyComponent")
+	var inventory := killer.get_node_or_null("InventoryComponent")
+	
+	if currency != null:
+		currency.add_xp(boss_data.reward_xp)
+		currency.add_gold(boss_data.reward_gold)
+	
+	if inventory != null:
+		for item_drop in boss_data.reward_items:
+			if item_drop.type == "gold":
+				continue  # already handled
+			elif item_drop.type == "item":
+				var item := load("res://resources/items/%s.tres" % item_drop.item_id)
+				if item != null:
+					inventory.add_item(item, item_drop.count)

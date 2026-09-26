@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="MapResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/map/MapResource.gd" id="1_map"]
+
+[resource]
+script = ExtResource("1_map")
+map_name = "Spire of Eternity"
+total_floors = 10
+central_platform_floor = 5
+floor_positions = [Vector2i(2, 9), Vector2i(2, 8), Vector2i(2, 7), Vector2i(2, 6), Vector2i(2, 5), Vector2i(2, 4), Vector2i(2, 3), Vector2i(2, 2), Vector2i(2, 1), Vector2i(2, 0)]
+floor_connections = {
+1: [2],
+2: [1, 3],
+3: [2, 4],
+4: [3, 5],
+5: [4, 6],
+6: [5, 7],
+7: [6, 8],
+8: [7, 9],
+9: [8, 10],
+10: [9]
+}
+tower_width = 5
+tower_height = 10
+cell_size = 24.0
+unexplored_color = Color(0.1, 0.1, 0.15, 1)
+explored_color = Color(0.2, 0.3, 0.5, 1)
+current_floor_color = Color(0.2, 0.8, 1.0, 1)
+completed_floor_color = Color(0.2, 1.0, 0.4, 1)
+central_platform_color = Color(1.0, 0.9, 0.3, 1)
+connection_color = Color(0.4, 0.6, 0.8, 0.8)

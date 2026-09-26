@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/EnemyResource.gd" id="1_enemy"]
+
+[resource]
+script = ExtResource("1_enemy")
+enemy_name = "Sniper"
+enemy_id = &"sniper"
+description = "Ranged enemy. Fires projectiles from distance."
+max_health = 40.0
+move_speed = 80.0
+damage = 18.0
+damage_type = &"bullet"
+knockback = 100.0
+xp_reward = 40
+gold_reward = 20
+attack_range = 400.0
+attack_cooldown = 2.5
+attack_windup = 1.0
+projectile_speed = 500.0
+is_ranged = true
+aggro_range = 500.0
+deaggro_range = 700.0
+patrol_radius = 100.0
+prefers_melee = false
+body_color = Color(0.3, 0.3, 0.8, 1)
+size = 16.0
+has_shadow = true
+health_per_floor = 5.0
+damage_per_floor = 3.0
+speed_per_floor = 1.0
