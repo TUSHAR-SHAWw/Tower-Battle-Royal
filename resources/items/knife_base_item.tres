@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/inventory/ItemResource.gd" id="1_item"]
+[ext_resource type="Script" path="res://scripts/weapons/WeaponResource.gd" id="2_gun"]
+[ext_resource type="Script" path="res://scripts/melee/MeleeWeaponResource.gd" id="3_melee"]
+
+[resource]
+script = ExtResource("1_item")
+item_name = "Combat Knife"
+item_id = &"knife_base"
+description = "Close-quarters blade for silent takedowns."
+max_stack = 1
+is_consumable = false
+is_equippable = true
+equip_slot = &"melee"
+weapon_type = &"melee"
+melee_resource = ExtResource("3_melee")

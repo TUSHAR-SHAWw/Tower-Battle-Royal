@@ -16,6 +16,10 @@ class_name Player
 ##   ├── StateMachine (states as children)
 ##   ├── GunComponent
 ##   ├── MeleeComponent
+##   ├── InventoryComponent
+##   ├── HungerComponent
+##   ├── RageComponent
+##   ├── ElementalComponent
 ##   └── PlayerConfig (Resource)
 
 signal died
@@ -30,6 +34,10 @@ signal died
 @export var hurtbox: Area2D
 @export var gun: GunComponent
 @export var melee: MeleeComponent
+@export var inventory: InventoryComponent
+@export var hunger: HungerComponent
+@export var rage: RageComponent
+@export var elemental: ElementalComponent
 
 var _aim_direction: Vector2 = Vector2.RIGHT
 
@@ -111,6 +119,28 @@ func _wire_components() -> void:
 		melee.combo_window_close.connect(_on_melee_combo_window_close)
 		melee.attack_blocked.connect(_on_melee_attack_blocked)
 
+	# InventoryComponent
+	if inventory != null:
+		inventory.item_used.connect(_on_item_used)
+
+	# HungerComponent
+	if hunger != null:
+		hunger.hunger_changed.connect(_on_hunger_changed)
+		hunger.threshold_crossed.connect(_on_hunger_threshold)
+		hunger.starving_damage.connect(_on_starving_damage)
+	
+	# RageComponent
+	if rage != null:
+		rage.rage_changed.connect(_on_rage_changed)
+		rage.rage_mode_activated.connect(_on_rage_mode_activated)
+		rage.rage_mode_deactivated.connect(_on_rage_mode_deactivated)
+
+	# ElementalComponent
+	if elemental != null:
+		elemental.status_applied.connect(_on_elemental_status_applied)
+		elemental.status_removed.connect(_on_elemental_status_removed)
+		elemental.status_damaged.connect(_on_elemental_status_damaged)
+
 
 func _wire_signals() -> void:
 	if health != null:
@@ -130,6 +160,24 @@ func _physics_process(delta: float) -> void:
 		# Handle melee input
 		if intent.melee_pressed and melee != null:
 			melee.try_attack(_aim_direction)
+		
+		# Handle item use input
+		if intent.use_pressed and inventory != null:
+			inventory.use_active_item()
+		
+		# Handle hotbar slot selection
+		if intent.requested_slot >= 0 and inventory != null:
+			inventory.set_active_slot(intent.requested_slot)
+	
+	# Apply hunger/rage speed multipliers to movement
+	if movement != null:
+		var hunger_mult := 1.0
+		var rage_mult := 1.0
+		if hunger != null:
+			hunger_mult = hunger.get_speed_multiplier()
+		if rage != null:
+			rage_mult = rage.get_speed_multiplier()
+		movement.speed_multiplier = hunger_mult * rage_mult
 	
 	# Camera follows in physics frame for stability.
 	if camera_component != null:
@@ -222,6 +270,69 @@ func _on_melee_attack_blocked(reason: StringName) -> void:
 	pass
 
 
+# ------------------------------------------------------------------------ inventory signals
+
+func _on_item_used(item_id: StringName) -> void:
+	SignalHub.item_used.emit(item_id)
+	
+	# Handle specific item effects
+	match item_id:
+		&"health_pack":
+			if health != null:
+				health.heal(50.0)
+			if hunger != null:
+				hunger.eat(30.0)
+			if rage != null:
+				rage.on_eat()
+		&"adrenaline":
+			if movement != null:
+				movement.apply_speed_boost(1.5, 10.0)
+
+
+# ------------------------------------------------------------------------ hunger signals
+
+func _on_hunger_changed(current: float, max: float) -> void:
+	SignalHub.hunger_changed.emit(current, max)
+
+
+func _on_hunger_threshold(level: int) -> void:
+	SignalHub.hunger_threshold_crossed.emit(level)
+
+
+func _on_starving_damage(amount: float) -> void:
+	if health != null:
+		health.apply_damage(DamageInfo.create(amount, DamageTypes.STARVATION, self, self))
+
+
+# ------------------------------------------------------------------------ rage signals
+
+func _on_rage_changed(current: float, max: float) -> void:
+	SignalHub.rage_changed.emit(current, max)
+
+
+func _on_rage_mode_activated() -> void:
+	SignalHub.rage_mode_changed.emit(true)
+
+
+func _on_rage_mode_deactivated() -> void:
+	SignalHub.rage_mode_changed.emit(false)
+
+
+# ------------------------------------------------------------------------ elemental signals
+
+func _on_elemental_status_applied(element_id: StringName, duration: float) -> void:
+	SignalHub.elemental_status_applied.emit(self, element_id, duration)
+
+
+func _on_elemental_status_removed(element_id: StringName) -> void:
+	SignalHub.elemental_status_removed.emit(self, element_id)
+
+
+func _on_elemental_status_damaged(element_id: StringName, amount: float) -> void:
+	if health != null:
+		health.apply_damage(DamageInfo.create(amount, DamageTypes.STATUS, self, self).with_element(element_id))
+
+
 # ------------------------------------------------------------------------ debug / cheats
 
 func _debug_player_line() -> String:
@@ -238,6 +349,12 @@ func _debug_player_line() -> String:
 		parts.append("gun: %s (%d/%d)%s" % [gun.weapon.weapon_name if gun.weapon != null else "none", gun.get_current_mag(), gun.get_reserve_ammo(), " RELOADING" if gun.is_reloading() else ""])
 	if melee != null:
 		parts.append("melee: %s (c%d %s)" % [melee.weapon.weapon_name if melee.weapon != null else "none", melee.get_combo_index(), melee.get_state()])
+	if hunger != null:
+		parts.append(hunger.debug_line())
+	if rage != null:
+		parts.append(rage.debug_line())
+	if elemental != null:
+		parts.append(elemental.debug_line())
 	return ", ".join(PackedStringArray(parts)) if not parts.is_empty() else name
 
 

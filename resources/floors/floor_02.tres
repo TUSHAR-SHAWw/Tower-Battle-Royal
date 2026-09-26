@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="FloorData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/floors/FloorData.gd" id="1_floor"]
+
+[resource]
+script = ExtResource("1_floor")
+floor_id = 2
+display_name = "Floor 2"
+bounds = Rect2(-1000, -1000, 2000, 2000)
+grid_size = 64.0
+ambient_color = Color(0.15, 0.1, 0.2, 1)
+initial_state = 0
+loot_spawn_points = []

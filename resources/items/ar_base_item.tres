@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/inventory/ItemResource.gd" id="1_item"]
+[ext_resource type="Script" path="res://scripts/weapons/WeaponResource.gd" id="2_gun"]
+[ext_resource type="Script" path="res://scripts/melee/MeleeWeaponResource.gd" id="3_melee"]
+
+[resource]
+script = ExtResource("1_item")
+item_name = "Assault Rifle"
+item_id = &"ar_base"
+description = "Standard issue automatic rifle."
+max_stack = 1
+is_consumable = false
+is_equippable = true
+equip_slot = &"gun"
+weapon_type = &"gun"
+weapon_resource = ExtResource("2_gun")

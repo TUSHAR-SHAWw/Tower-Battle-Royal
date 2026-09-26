@@ -81,6 +81,22 @@ func is_facing(dir: Vector2, tolerance_radians: float = 0.2) -> bool:
 	return absf(MathUtils.angle_diff(facing.angle(), dir.angle())) <= tolerance_radians
 
 
+## Temporarily multiplies speed_multiplier by `multiplier` for `duration` seconds.
+func apply_speed_boost(multiplier: float, duration: float) -> void:
+	speed_multiplier *= multiplier
+	# Reset after duration
+	var timer := Timer.new()
+	timer.one_shot = true
+	timer.wait_time = duration
+	timer.timeout.connect(_on_speed_boost_end.bind(multiplier))
+	add_child(timer)
+	timer.start()
+
+
+func _on_speed_boost_end(multiplier: float) -> void:
+	speed_multiplier /= multiplier
+
+
 func debug_line() -> String:
 	return "%.0f px/s %s" % [speed(), _compass(facing)]
 

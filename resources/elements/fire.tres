@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ElementalType" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/elements/ElementalType.gd" id="1_elem"]
+
+[resource]
+script = ExtResource("1_elem")
+element_name = "Fire"
+element_id = &"fire"
+color = Color(1, 0.3, 0.1, 1)
+status_effect_id = &"burn"
+status_dps = 8.0
+status_duration = 5.0
+status_tick_interval = 1.0
+vs_fire = 0.5
+vs_ice = 2.0
+vs_lightning = 1.0
+vs_poison = 1.0
+vs_physical = 1.0
+particle_color = Color(1, 0.4, 0.1, 1)
+screen_flash_color = Color(1, 0.3, 0.1, 0.4)

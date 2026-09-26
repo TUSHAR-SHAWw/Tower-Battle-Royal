@@ -34,10 +34,17 @@ signal rage_changed(owner: Node, current: float, maximum: float)
 signal super_hunger_changed(owner: Node, active: bool)
 signal merge_completed(owner: Node, result: Resource)
 
+# ------------------------------------------------------------------------ elemental
+signal elemental_status_applied(owner: Node, element_id: StringName, duration: float)
+signal elemental_status_removed(owner: Node, element_id: StringName)
+signal elemental_status_damaged(owner: Node, element_id: StringName, amount: float)
+
 # ------------------------------------------------------------------ tower & floors
 signal floor_changed(player: Node, from_floor_id: int, to_floor_id: int)
+signal tower_floor_changed(floor_id: int)
 signal floor_state_changed(floor_id: int, state: int)
 signal floor_warning_started(floor_id: int, seconds_left: float)
+signal floor_deletion_started(floor_id: int)
 signal floor_deleted(floor_id: int)
 
 # ------------------------------------------------------------------ floor travel

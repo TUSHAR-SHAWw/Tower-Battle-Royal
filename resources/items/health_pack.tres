@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/inventory/ItemResource.gd" id="1_item"]
+[ext_resource type="Script" path="res://scripts/weapons/WeaponResource.gd" id="2_gun"]
+[ext_resource type="Script" path="res://scripts/melee/MeleeWeaponResource.gd" id="3_melee"]
+
+[resource]
+script = ExtResource("1_item")
+item_name = "Health Pack"
+item_id = &"health_pack"
+description = "Restores 50 health instantly."
+max_stack = 5
+is_consumable = true
+is_equippable = false
+effect_type = &"heal"
+effect_amount = 50.0
+effect_duration = 0.0

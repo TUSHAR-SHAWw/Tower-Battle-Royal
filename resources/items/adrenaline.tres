@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/inventory/ItemResource.gd" id="1_item"]
+[ext_resource type="Script" path="res://scripts/weapons/WeaponResource.gd" id="2_gun"]
+[ext_resource type="Script" path="res://scripts/melee/MeleeWeaponResource.gd" id="3_melee"]
+
+[resource]
+script = ExtResource("1_item")
+item_name = "Adrenaline Shot"
+item_id = &"adrenaline"
+description = "Temporarily increases movement speed by 50% for 10 seconds."
+max_stack = 3
+is_consumable = true
+is_equippable = false
+effect_type = &"speed"
+effect_amount = 1.5
+effect_duration = 10.0

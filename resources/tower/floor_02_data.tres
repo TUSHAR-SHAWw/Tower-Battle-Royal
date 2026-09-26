@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TowerData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/tower/TowerData.gd" id="1_tower"]
+[ext_resource type="PackedScene" path="res://scenes/floors/FloorController.tscn" id="2_floor_scene"]
+[ext_resource type="Resource" path="res://resources/floors/floor_02.tres" id="3_floor_data"]
+
+[resource]
+script = ExtResource("1_tower")
+floor_id = 2
+display_name = "Floor 2"
+floor_scene = ExtResource("2_floor_scene")
+floor_data = ExtResource("3_floor_data")
+travel_portal_position = Vector2(800, 0)
+is_central_platform = false
+difficulty_modifier = 1.2
