@@ -30,6 +30,7 @@ var melee_pressed: bool = false
 var interact_pressed: bool = false
 var use_pressed: bool = false
 var map_pressed: bool = false
+var merge_pressed: bool = false
 ## 0-based hotbar slot when a slot key was pressed this frame, -1 otherwise.
 var requested_slot: int = -1
 
@@ -47,6 +48,7 @@ func reset() -> void:
 	interact_pressed = false
 	use_pressed = false
 	map_pressed = false
+	merge_pressed = false
 	requested_slot = -1
 
 
@@ -63,6 +65,7 @@ func copy_from(other: InputIntent) -> void:
 	interact_pressed = other.interact_pressed
 	use_pressed = other.use_pressed
 	map_pressed = other.map_pressed
+	merge_pressed = other.merge_pressed
 	requested_slot = other.requested_slot
 
 

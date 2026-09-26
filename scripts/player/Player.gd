@@ -20,6 +20,7 @@ class_name Player
 ##   ├── HungerComponent
 ##   ├── RageComponent
 ##   ├── ElementalComponent
+##   ├── MergeComponent
 ##   └── PlayerConfig (Resource)
 
 signal died
@@ -38,6 +39,7 @@ signal died
 @export var hunger: HungerComponent
 @export var rage: RageComponent
 @export var elemental: ElementalComponent
+@export var merge: MergeComponent
 
 var _aim_direction: Vector2 = Vector2.RIGHT
 
@@ -141,6 +143,12 @@ func _wire_components() -> void:
 		elemental.status_removed.connect(_on_elemental_status_removed)
 		elemental.status_damaged.connect(_on_elemental_status_damaged)
 
+	# MergeComponent
+	if merge != null:
+		merge.merge_started.connect(_on_merge_started)
+		merge.merge_completed.connect(_on_merge_completed)
+		merge.merge_failed.connect(_on_merge_failed)
+
 
 func _wire_signals() -> void:
 	if health != null:
@@ -168,6 +176,12 @@ func _physics_process(delta: float) -> void:
 		# Handle hotbar slot selection
 		if intent.requested_slot >= 0 and inventory != null:
 			inventory.set_active_slot(intent.requested_slot)
+		
+		# Handle merge input (for testing - normally at merge station)
+		if intent.merge_pressed and merge != null:
+			# Try to merge using first available recipe
+			if merge.available_recipes.size() > 0:
+				merge.start_merge(merge.available_recipes[0], inventory)
 	
 	# Apply hunger/rage speed multipliers to movement
 	if movement != null:
@@ -333,6 +347,24 @@ func _on_elemental_status_damaged(element_id: StringName, amount: float) -> void
 		health.apply_damage(DamageInfo.create(amount, DamageTypes.STATUS, self, self).with_element(element_id))
 
 
+# ------------------------------------------------------------------------ merge signals
+
+func _on_merge_started(recipe: MergeRecipe) -> void:
+	SignalHub.merge_started.emit(recipe)
+
+
+func _on_merge_completed(recipe: MergeRecipe, success: bool, output: ItemResource) -> void:
+	SignalHub.merge_completed.emit(recipe, success, output)
+	if success and output != null and inventory != null:
+		inventory.add_item(output, 1)
+	elif not success and recipe != null and inventory != null:
+		inventory.add_item(recipe.input_item, 1)
+
+
+func _on_merge_failed(recipe: MergeRecipe, reason: StringName) -> void:
+	SignalHub.merge_failed.emit(recipe, reason)
+
+
 # ------------------------------------------------------------------------ debug / cheats
 
 func _debug_player_line() -> String:
@@ -355,6 +387,8 @@ func _debug_player_line() -> String:
 		parts.append(rage.debug_line())
 	if elemental != null:
 		parts.append(elemental.debug_line())
+	if merge != null:
+		parts.append("merge: %s" % ["active" if merge.get_active_recipe() != null else "idle"])
 	return ", ".join(PackedStringArray(parts)) if not parts.is_empty() else name
 
 

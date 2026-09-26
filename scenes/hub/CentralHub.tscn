@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format_version=3]
+
+[ext_resource type="Script" path="res://scripts/hub/HubController.gd" id="1_hub"]
+[ext_resource type="Script" path="res://scripts/hub/ShopComponent.gd" id="2_shop"]
+[ext_resource type="Script" path="res://scripts/hub/UpgradeStation.gd" id="3_upgrade"]
+[ext_resource type="Script" path="res://scripts/hub/CraftingStation.gd" id="4_craft"]
+
+[node name="CentralHub" type="Node2D"]
+script = ExtResource("1_hub")
+
+[node name="Shop" type="Node" parent="."]
+script = ExtResource("2_shop")
+
+[node name="UpgradeStation" type="Node" parent="."]
+script = ExtResource("3_upgrade")
+
+[node name="CraftingStation" type="Node" parent="."]
+script = ExtResource("4_craft")
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(0, 0)

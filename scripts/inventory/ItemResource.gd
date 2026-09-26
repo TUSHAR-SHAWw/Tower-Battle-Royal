@@ -20,6 +20,7 @@ extends Resource
 @export var is_consumable: bool = false
 @export var is_equippable: bool = false
 @export var equip_slot: StringName = &""  # "gun", "melee", "armor", etc.
+@export var tier: int = 0  # upgrade tier
 
 @export_group("Weapon Stats (if equippable to gun/melee)")
 @export var weapon_type: StringName = &""  # "gun" or "melee" or "" for non-weapon items

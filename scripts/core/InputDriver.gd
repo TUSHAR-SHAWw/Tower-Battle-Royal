@@ -30,6 +30,7 @@ func _read_input(intent: InputIntent, host: Node2D) -> void:
 	intent.melee_pressed = Input.is_action_just_pressed(InputActions.MELEE_ATTACK)
 	intent.interact_pressed = Input.is_action_just_pressed(InputActions.INTERACT)
 	intent.use_pressed = Input.is_action_just_pressed(InputActions.USE_SELECTED)
+	intent.merge_pressed = Input.is_action_just_pressed(InputActions.MERGE)
 	intent.map_pressed = Input.is_action_just_pressed(InputActions.TOGGLE_MAP)
 
 	_read_aim(intent, host)

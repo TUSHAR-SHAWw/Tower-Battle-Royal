@@ -21,6 +21,8 @@
 [ext_resource type="Script" uid="uid://djjy14q263qgj" path="res://scripts/metabolism/HungerComponent.gd" id="20_hunger"]
 [ext_resource type="Script" uid="uid://b7w46alkg3emi" path="res://scripts/metabolism/RageComponent.gd" id="21_rage"]
 [ext_resource type="Script" uid="uid://fje7s2mxv8lq9" path="res://scripts/elements/ElementalComponent.gd" id="22_elemental"]
+[ext_resource type="Script" uid="uid://fje7s2mxv8lq9" path="res://scripts/merge/MergeComponent.gd" id="23_merge"]
+[ext_resource type="Script" uid="uid://fje7s2mxv8lq9" path="res://scripts/ui/CheatPanel.gd" id="24_cheat"]
 
 [sub_resource type="CircleShape2D" id="1_shape"]
 radius = 14.0
@@ -88,6 +90,13 @@ script = ExtResource("21_rage")
 
 [node name="ElementalComponent" type="Node" parent="." unique_id=2109876543]
 script = ExtResource("22_elemental")
+
+[node name="MergeComponent" type="Node" parent="." unique_id=2109876544]
+script = ExtResource("23_merge")
+
+[node name="CheatPanel" type="Control" parent="." unique_id=3000000001]
+script = ExtResource("24_cheat")
+dev_tools = NodePath("/root/DevTools")
 
 [node name="HotbarUI" type="Node" parent="." unique_id=329084773]
 script = ExtResource("19_hotbar")

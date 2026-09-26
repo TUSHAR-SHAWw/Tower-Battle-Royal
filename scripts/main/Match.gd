@@ -1,9 +1,10 @@
 extends Node2D
 
-## M7 test match: TowerController with 2 floors, player, and travel portal.
+## M11 test match: TowerController with 2 floors, central hub, player, and travel portal.
 
 @onready var player: Node = $PlayerInstance
 @onready var tower: Node = $TowerController
+@onready var hub: Node = $CentralHub
 
 @export var spawn_floor: int = 1
 
@@ -12,6 +13,10 @@ func _ready() -> void:
 	# TowerController handles floor loading automatically
 	if tower == null or not tower.is_inside_tree():
 		push_error("Match: TowerController not found or not ready")
+		return
+	
+	if hub == null or not hub.is_inside_tree():
+		push_error("Match: CentralHub not found or not ready")
 		return
 	
 	# Wait for first floor to load, then setup player
@@ -30,7 +35,7 @@ func _setup_player() -> void:
 		push_error("Match: PlayerInstance not found or not ready")
 		return
 	
-	GameLog.info("Match", "M7 test match ready — player at %s" % player.global_position)
+	GameLog.info("Match", "M11 test match ready — player at %s" % player.global_position)
 	
 	# Give the camera something to clamp to from the floor data
 	var camera_component = player.get_node_or_null("CameraComponent")

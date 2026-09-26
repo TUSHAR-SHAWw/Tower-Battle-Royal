@@ -28,11 +28,17 @@ signal player_state_changed(player: Node, from_state: StringName, to_state: Stri
 # ------------------------------------------------------------------ combat & items
 signal weapon_changed(owner: Node, weapon: Resource)
 signal item_collected(owner: Node, item: Resource, amount: int)
+signal item_bought(item: ItemResource, price: int, remaining_stock: int)
+signal item_sold(item: ItemResource, price: int)
 signal food_consumed(owner: Node, food: Resource)
 signal hunger_changed(owner: Node, current: float, maximum: float)
 signal rage_changed(owner: Node, current: float, maximum: float)
 signal super_hunger_changed(owner: Node, active: bool)
-signal merge_completed(owner: Node, result: Resource)
+
+# ------------------------------------------------------------------------ merge
+signal merge_started(recipe: MergeRecipe)
+signal merge_completed(recipe: MergeRecipe, success: bool, output: ItemResource)
+signal merge_failed(recipe: MergeRecipe, reason: StringName)
 
 # ------------------------------------------------------------------------ elemental
 signal elemental_status_applied(owner: Node, element_id: StringName, duration: float)

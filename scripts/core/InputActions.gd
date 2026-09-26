@@ -26,6 +26,7 @@ const RELOAD := &"reload"
 const INTERACT := &"interact"
 ## Uses the selected hotbar slot (eat food, spend a merge item, ...).
 const USE_SELECTED := &"use_selected"
+const MERGE := &"merge"
 
 # UI / systems.
 const TOGGLE_MAP := &"toggle_map"
@@ -43,7 +44,7 @@ static func all() -> Array[StringName]:
 	var actions: Array[StringName] = [
 		MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, SPRINT,
 		AIM_UP, AIM_DOWN, AIM_LEFT, AIM_RIGHT,
-		FIRE, MELEE_ATTACK, RELOAD, INTERACT, USE_SELECTED,
+		FIRE, MELEE_ATTACK, RELOAD, INTERACT, USE_SELECTED, MERGE,
 		TOGGLE_MAP,
 		DEBUG_TOGGLE_OVERLAY, DEBUG_TOGGLE_CONSOLE,
 	]

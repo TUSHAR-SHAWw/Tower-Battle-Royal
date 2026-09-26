@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="ShopInventory" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/hub/ShopInventory.gd" id="1_inv"]
+[ext_resource type="Script" path="res://scripts/hub/ShopItem.gd" id="2_item"]
+[ext_resource type="Resource" path="res://resources/items/health_pack.tres" id="3_hp"]
+[ext_resource type="Resource" path="res://resources/items/adrenaline.tres" id="4_adrenaline"]
+[ext_resource type="Resource" path="res://resources/items/ar_base_item.tres" id="5_ar"]
+[ext_resource type="Resource" path="res://resources/items/knife_base_item.tres" id="6_knife"]
+
+[resource]
+script = ExtResource("1_inv")
+shop_name = "Hub Armory"
+buyback_multiplier = 0.5
+items = [SubResource("2_item_0"), SubResource("2_item_1"), SubResource("2_item_2"), SubResource("2_item_3")]
+
+[sub_resource type="ShopItem" id="2_item_0"]
+item = ExtResource("3_hp")
+price = 75
+stock = 10
+min_floor = 1
+required_reputation = 0
+
+[sub_resource type="ShopItem" id="2_item_1"]
+item = ExtResource("4_adrenaline")
+price = 200
+stock = 5
+min_floor = 2
+required_reputation = 0
+
+[sub_resource type="ShopItem" id="2_item_2"]
+item = ExtResource("5_ar")
+price = 500
+stock = 1
+min_floor = 3
+required_reputation = 10
+
+[sub_resource type="ShopItem" id="2_item_3"]
+item = ExtResource("6_knife")
+price = 300
+stock = 1
+min_floor = 1
+required_reputation = 5

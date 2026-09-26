@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MergeRecipe" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/merge/MergeRecipe.gd" id="1_merge"]
+[ext_resource type="Resource" path="res://resources/items/health_pack.tres" id="2_item"]
+[ext_resource type="Resource" path="res://resources/items/adrenaline.tres" id="3_item2"]
+
+[resource]
+script = ExtResource("1_merge")
+input_item = ExtResource("2_item")
+input_count = 3
+output_item = ExtResource("3_item")
+gold_cost = 50
+success_chance = 0.8
+xp_reward = 25
