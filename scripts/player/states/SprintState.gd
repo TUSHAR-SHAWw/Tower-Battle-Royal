@@ -14,11 +14,13 @@ var _config: PlayerConfig
 func enter(_message: Dictionary = {}) -> void:
 	_movement = host.get_node_or_null("MovementComponent") as MovementComponent
 	_health = host.get_node_or_null("HealthComponent") as HealthComponent
-	_input = host.get_node_or_null("InputSource") as InputSource
 	_config = PlayerStateUtil.resolve_config(host)
 
 
 func physics_update(delta: float) -> void:
+	# Re-resolved every frame: an InputSource can be replaced at runtime (bots,
+	# netplay, tests) and a cached reference would leave the actor unresponsive.
+	_input = PlayerStateUtil.resolve_input(host)
 	if _health != null and _health.is_dead():
 		transition_to(&"dead")
 		return

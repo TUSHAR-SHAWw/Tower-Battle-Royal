@@ -262,10 +262,16 @@ func shaft_center_x() -> float:
 ## Builds the invisible side walls of the room.
 ##
 ## Floors are thousands of pixels wide and the view only shows ~853, so without
-## walls the player
-## simply walks off the floor data and keeps going forever — there is no geometry
-## out there to stop them. These StaticBody2D walls sit just inside the bounds and
-## are tall enough to cover the room plus the slab.
+## walls the player simply walks off the floor data and keeps going forever — there
+## is no geometry out there to stop them. These StaticBody2D walls sit just inside
+## the bounds and are tall enough to cover the room plus the slab.
+##
+## Building is deferred when the physics server is mid-flush, because a floor can be
+## constructed from inside a physics callback: travelling through a portal happens
+## in `area_entered`, and TowerController loads the next floor straight from there.
+## Adding a body (and so a collision shape) during query flushing is illegal, and
+## the error it produces left the wall without its collision — a wall that silently
+## does not exist.
 func _build_walls() -> void:
 	if _collision == null or floor_data == null:
 		return
@@ -275,11 +281,28 @@ func _build_walls() -> void:
 	var top := bounds.position.y - 200.0
 	var height := bounds.size.y + 200.0
 
-	_add_wall(Vector2(bounds.position.x + thickness * 0.5, top + height * 0.5), Vector2(thickness, height))
-	_add_wall(Vector2(bounds.position.x + bounds.size.x - thickness * 0.5, top + height * 0.5), Vector2(thickness, height))
+	var left := Vector2(bounds.position.x + thickness * 0.5, top + height * 0.5)
+	var right := Vector2(bounds.position.x + bounds.size.x - thickness * 0.5, top + height * 0.5)
+	var wall_size := Vector2(thickness, height)
+
+	# Build now when the physics server is idle; defer when it is mid-flush. A floor
+	# can legitimately be constructed from inside a physics callback — travelling
+	# through a portal happens in `area_entered`, and TowerController loads the next
+	# floor straight from there — and adding a collision shape during query flushing
+	# is illegal. The error it raises left the wall without its collision, i.e. a
+	# wall that silently does not exist.
+	var flushing: bool = Engine.is_in_physics_frame()
+	if flushing:
+		_add_wall.call_deferred(left, wall_size)
+		_add_wall.call_deferred(right, wall_size)
+	else:
+		_add_wall(left, wall_size)
+		_add_wall(right, wall_size)
 
 
 func _add_wall(center: Vector2, size: Vector2) -> void:
+	if _collision == null:
+		return
 	var body := StaticBody2D.new()
 	body.name = "Wall"
 	body.collision_layer = PhysicsLayers.WORLD
@@ -289,8 +312,10 @@ func _add_wall(center: Vector2, size: Vector2) -> void:
 	rect.size = size
 	shape.shape = rect
 	body.add_child(shape)
+	# Position before entering the tree so the shape is never inserted at the
+	# origin and then moved, which is what triggered the one-way-collision error.
+	body.position = center
 	_collision.add_child(body)
-	body.global_position = center
 
 
 ## Places loot on the lip of the shaft, which is what makes the hole read as the

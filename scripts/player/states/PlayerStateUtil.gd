@@ -30,6 +30,32 @@ static func resolve_config(host: Node) -> PlayerConfig:
 	return null
 
 
+## Resolves the InputSource that is currently driving the host.
+##
+## This exists because an InputSource can be REPLACED at runtime — bots attach a
+## BotInputDriver, a networked player swaps in a NetworkInputDriver and removes it
+## on disconnect, a test installs a scripted source. The states used to cache the
+## reference in `enter()`, so a replaced source was ignored until the player
+## happened to leave and re-enter the state: the actor would simply stop
+## responding to input, with nothing in the log to explain it.
+##
+## Resolved fresh every frame instead, which also means an `input_source` export
+## assigned from code takes effect immediately.
+##
+## Falls back to the host's export when the child node is missing, and returns null
+## when neither resolves, so callers can treat "no input" as a real state.
+static func resolve_input(host: Node) -> InputSource:
+	if host == null:
+		return null
+	var node := host.get_node_or_null("InputSource") as InputSource
+	if node != null:
+		return node
+	var value: Variant = host.get("input_source")
+	if value is InputSource:
+		return value as InputSource
+	return null
+
+
 ## Feeds jump intent into the movement component.
 ##
 ## `request_jump` buffers the press; `set_jump_held` drives variable jump height.

@@ -11,7 +11,9 @@ var _health: HealthComponent
 
 func enter(_message: Dictionary = {}) -> void:
 	_movement = host.get_node_or_null("MovementComponent") as MovementComponent
-	_input = host.get_node_or_null("InputSource") as InputSource
+	# Re-resolved rather than cached: the source may have been replaced since this
+	# state last ran (bots, netplay, tests).
+	_input = PlayerStateUtil.resolve_input(host)
 	_health = host.get_node_or_null("HealthComponent") as HealthComponent
 
 	if _movement != null:
@@ -24,8 +26,9 @@ func enter(_message: Dictionary = {}) -> void:
 
 
 func exit() -> void:
-	if _input != null:
-		_input.set_enabled(true)
+	var source := PlayerStateUtil.resolve_input(host)
+	if source != null:
+		source.set_enabled(true)
 
 
 func physics_update(_delta: float) -> void:

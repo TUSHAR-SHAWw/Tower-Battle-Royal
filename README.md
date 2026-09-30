@@ -1,7 +1,7 @@
 # Tower Battle Royal
 
-A multiplayer **vertical tower survival battle royale**, built in **Godot 4.7**
-(2D top-down, flat-vector art direction).
+A multiplayer **2D platformer battle royale** set inside a vertical tower, built in
+**Godot 4.7** (side-view, flat-vector art direction).
 
 Players spawn on random floors of a tall tower, loot weapons, food and rare resources,
 fight with guns and melee, travel between floors, and survive as floors are

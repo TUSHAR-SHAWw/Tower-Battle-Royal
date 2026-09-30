@@ -64,31 +64,23 @@ collision_mask = 0
 shape = SubResource("2_shape")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1835986099]
+process_callback = 0
 limit_left = 0
 limit_top = 0
 limit_right = 0
 limit_bottom = 0
-# Smoothing, drag and limits are owned by CameraComponent: it is the single
-# framing authority. Leaving position_smoothing_enabled on here as well means
-# two easing curves fight, which reads as soft laggy drift.
-position_smoothing_enabled = false
-drag_horizontal_enabled = false
-drag_vertical_enabled = false
-process_callback = 0
 
 [node name="InputSource" type="Node" parent="." unique_id=249810791]
 script = ExtResource("9_input")
 
 [node name="MovementComponent" type="Node" parent="." unique_id=1991568200]
 script = ExtResource("2_movement")
-body = NodePath("..")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1559913650]
 script = ExtResource("3_health")
 
 [node name="CameraComponent" type="Node" parent="." unique_id=1140493413]
 script = ExtResource("4_camera")
-camera = NodePath("Camera2D")
 
 [node name="GunComponent" type="Node" parent="." unique_id=2009115921]
 script = ExtResource("13_gun")

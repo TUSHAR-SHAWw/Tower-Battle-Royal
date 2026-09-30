@@ -13,7 +13,6 @@ var _input: InputSource
 func enter(_message: Dictionary = {}) -> void:
 	_movement = host.get_node_or_null("MovementComponent") as MovementComponent
 	_health = host.get_node_or_null("HealthComponent") as HealthComponent
-	_input = host.get_node_or_null("InputSource") as InputSource
 	# Deliberately no halt() here.
 	#
 	# Idle is the state a player starts in and returns to constantly, and entering
@@ -29,6 +28,9 @@ func enter(_message: Dictionary = {}) -> void:
 
 
 func physics_update(delta: float) -> void:
+	# Re-resolved every frame: an InputSource can be replaced at runtime (bots,
+	# netplay, tests) and a cached reference would leave the actor unresponsive.
+	_input = PlayerStateUtil.resolve_input(host)
 	if _health != null and _health.is_dead():
 		transition_to(&"dead")
 		return
@@ -47,7 +49,12 @@ func physics_update(delta: float) -> void:
 			transition_to(&"move")
 		return
 
-	_movement.brake(_resolve_friction(), delta)
+	# Braking is skipped when the body already carries more horizontal speed than
+	# this actor could produce on its own. That keeps externally-driven motion
+	# (a lunge, a knockback, a bot or network input) from being cancelled by the
+	# idle state on the very next frame.
+	if absf(_movement.velocity().x) <= _resolve_friction_speed_cap():
+		_movement.brake(_resolve_friction(), delta)
 	PlayerStateUtil.apply_vertical(_movement, intent)
 	_movement.apply_motion(delta)
 
@@ -55,6 +62,13 @@ func physics_update(delta: float) -> void:
 func _resolve_friction() -> float:
 	var config := PlayerStateUtil.resolve_config(host)
 	return config.friction if config != null else 1200.0
+
+
+## Above this horizontal speed Idle stops applying friction. Set just over sprint
+## speed so normal movement is always braked, but an impulse is not.
+func _resolve_friction_speed_cap() -> float:
+	var config := PlayerStateUtil.resolve_config(host)
+	return (config.sprint_speed * 1.2) if config != null else 400.0
 
 
 func debug_line() -> String:

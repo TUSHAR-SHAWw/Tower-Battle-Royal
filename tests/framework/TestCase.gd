@@ -37,17 +37,18 @@ func after_each() -> void:
 ## Discovers `test_*` methods, in alphabetical order, and runs them.
 func run_suite() -> void:
 	await get_tree().process_frame
-	# before_suite() is frequently a coroutine (it awaits physics frames to let a
-	# scene come up). Calling it without `await` let every test start before the
-	# fixture existed, so suites died on null components while still reporting
-	# "2 assertions, 0 failures". It must be awaited like the tests are.
+	# Both hooks are awaited. They are frequently coroutines — `before_suite()`
+	# awaits physics frames to let a scene come up, `before_each()` waits for the
+	# player to settle — and an un-awaited coroutine is abandoned at its first
+	# `await`. That failure mode is invisible: the hook's first half runs, the
+	# rest never does, and the suite still reports PASS.
 	await before_suite()
 	for test_method: StringName in test_method_names():
 		_current_test = String(test_method)
-		before_each()
+		await before_each()
 		await call(test_method)
-		after_each()
-	after_suite()
+		await after_each()
+	await after_suite()
 
 
 func test_method_names() -> Array[StringName]:

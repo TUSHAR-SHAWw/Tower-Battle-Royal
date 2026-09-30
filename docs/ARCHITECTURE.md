@@ -16,11 +16,12 @@ the risk/reward decisions.
 | Decision | Value | Why |
 | --- | --- | --- |
 | Engine | **Godot 4.7 stable** | Installed and already used for this developer's other project |
-| Perspective | **2D top-down** | Confirmed by the developer; flat-vector art direction |
+| Perspective | **2D side-view platformer** | Confirmed by the developer; gravity, jumping, and wide one-screen-tall floors stacked vertically. Flat-vector art direction |
 | Renderer | `gl_compatibility` | Best fit for flat 2D, mobile and future Web export. All materials avoid forward-only features, so switching to `mobile`/`forward_plus` stays a one-line project setting |
 | Tick rate | 60 Hz physics | Determinism for replays, tests and the future authoritative server |
-| Units | Pixels (Godot's 2D default) | Player radius ≈ 14 px, floor ≈ 2560×1440 px |
-| Combat model | Twin-stick aim (`move_dir` + `aim_dir`) | Works for mouse, gamepad, touch and bots through one interface |
+| Units | Pixels (Godot's 2D default) | Player collision radius 70 px, sprite drawn at 1/5 of the floor height (216 px on a 1080-tall floor); floor 6400×1080 px |
+| Combat model | Twin-stick aim (`move_dir` + `aim_dir`) | Works for mouse, gamepad, touch and bots through one interface. Aim is independent of gravity, so strafing while firing works |
+| Camera | Scrolling framing rig (`CameraComponent`), zoom 0.75 | Shows 1707×960 of a 6400-wide floor: the room scrolls horizontally while the horizon stays still. One floor is *not* visible at once — the live map is the whole-tower view |
 | Tower model | Floors are **separate scenes loaded on demand**, not physically stacked | 12+ floors cost no memory; the map and tower logic never need a floor scene loaded |
 | Main scene (now) | `scenes/main/Match.tscn` (tower match with 10 floors + central platform) | Replaced by the menu (M17) |
 | Networking | **Built (server-authoritative)** | Architecture was designed for migration; M16 implemented GameServer/GameClient with snapshot interpolation and input prediction |
@@ -39,7 +40,12 @@ res://
 │   ├── core/                engine-agnostic building blocks (input, states, damage)
 │   ├── main/                boot scene script
 │   ├── player/              player + components (M1)
+│   ├── enemies/             AI actors, wave spawner, bosses
+│   ├── floors/              one floor: tiles, walls, shaft, spawn points
+│   ├── tower/               tower sequencing, travel portals, central platform
 │   ├── weapons/ melee/ ...  one folder per system, added by its milestone
+│   ├── map/                 minimap + live world map
+│   ├── network/             server/client, snapshots, input prediction
 │   ├── ui/                  HUD / debug UI (code-built, no gameplay logic)
 │   └── utilities/           GameLog, MathUtils, ObjectPool
 ├── resources/               .tres data: player config, weapons, floors, audio, ...
@@ -193,7 +199,9 @@ ask instead of quietly changing it:
     and is always a strategic decision.
 12. Exactly one floor-changing item per player at match start; it is slow, has a
     cooldown, warns the destination floor, and spawns the traveller in that floor's centre.
-13. Normal camera shows one floor; the map is the only whole-tower view.
+13. Normal camera shows one floor at a time; the map is the only whole-tower view.
+    ("Shows one floor" means the frame never spans two storeys — the floor itself is
+    wider than the view and scrolls. See §2 for the current framing numbers.)
 14. The hotbar is Minecraft-*structured* (six slots, categories, keys 1–6) with
     original art.
 15. Skins are cosmetic only — never any gameplay advantage.

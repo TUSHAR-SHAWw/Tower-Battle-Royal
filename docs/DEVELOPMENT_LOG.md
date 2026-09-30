@@ -171,8 +171,9 @@ and wire the central platform into the live map visualization.
 
 ### Context
 The repository contained only a one-line `README.md`. Engine confirmed as **Godot
-4.7 stable**; perspective confirmed by the developer as **2D top-down** with a
-flat-vector art direction. This milestone builds the foundation only — no gameplay.
+4.7 stable**; perspective confirmed by the developer as **2D side-view platformer**
+with a flat-vector art direction. This milestone builds the foundation only — no
+gameplay.
 
 ### Implemented
 * **Project config** (`project.godot`): 4.7 / GL Compatibility, 1280×720 with
