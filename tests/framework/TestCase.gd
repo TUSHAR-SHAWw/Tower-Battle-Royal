@@ -37,7 +37,11 @@ func after_each() -> void:
 ## Discovers `test_*` methods, in alphabetical order, and runs them.
 func run_suite() -> void:
 	await get_tree().process_frame
-	before_suite()
+	# before_suite() is frequently a coroutine (it awaits physics frames to let a
+	# scene come up). Calling it without `await` let every test start before the
+	# fixture existed, so suites died on null components while still reporting
+	# "2 assertions, 0 failures". It must be awaited like the tests are.
+	await before_suite()
 	for test_method: StringName in test_method_names():
 		_current_test = String(test_method)
 		before_each()

@@ -18,14 +18,12 @@ var _player_body: Node = null
 
 
 func _get_player_body() -> Node:
-	## The Player.tscn is instanced under PlayerInstance, so the actual
-	## CharacterBody2D is at PlayerInstance/Player. Find it once.
+	## The Player.tscn is instanced under PlayerInstance. When instanced,
+	## the root CharacterBody2D is flattened, so PlayerInstance IS the body.
 	if _player_body != null:
 		return _player_body
-	for child in player.get_children():
-		if child is CharacterBody2D or child.has_method("get_aim_direction"):
-			_player_body = child
-			break
+	# Use PlayerInstance directly — it has all the Player's children.
+	_player_body = player
 	return _player_body
 
 
@@ -54,18 +52,22 @@ func _setup_player() -> void:
 
 	GameLog.info("Match", "Tower match ready — player at floor %d" % tower.get_current_floor_id())
 
-	# Give the camera something to clamp to from the floor data
-	var camera_component := body.get_node_or_null("CameraComponent")
+	# Give the camera something to clamp to from the floor data, and size the
+	# character against the floor it is about to stand on.
+	var camera_component := body.get_node_or_null("CameraComponent") as CameraComponent
 	if camera_component != null and current_floor.floor_data != null:
 		camera_component.set_floor_bounds(current_floor.floor_data.bounds)
 		print("[DEBUG] Match: Camera bounds set to: %s" % current_floor.floor_data.bounds)
-		var cam := body.get_node_or_null("Camera2D") as Camera2D
-		if cam != null:
-			print("[DEBUG] Match: Camera2D global_position: %s, zoom: %s" % [cam.global_position, cam.zoom])
+	_apply_floor_scale(body, current_floor)
 
-	# Spawn player at a floor spawn point (or center)
-	var spawn_pos: Vector2 = current_floor.get_random_spawn_point()
+	# Spawn the player on the floor's ground surface, not floating mid-room.
+	var spawn_pos := Vector2.ZERO
+	if current_floor.has_method("get_player_spawn_position"):
+		spawn_pos = current_floor.get_player_spawn_position() as Vector2
+	else:
+		spawn_pos = current_floor.get_random_spawn_point()
 	body.global_position = spawn_pos
+	body.velocity = Vector2.ZERO
 
 	print("[DEBUG] Match: Player spawn location: %s (floor bounds: %s)" % [spawn_pos, current_floor.floor_data.bounds])
 	print("[DEBUG] Match: Camera component: %s, Camera2D: %s" % [camera_component, body.get_node_or_null("Camera2D")])
@@ -83,9 +85,7 @@ func _setup_player() -> void:
 		world_map.mark_floor_explored(spawn_floor)
 
 	# Find the travel portal spawned by the floor
-	_travel_portal = _find_travel_portal()
-	if _travel_portal != null:
-		_travel_portal.activated.connect(_on_portal_activated)
+	_set_travel_portal(_find_travel_portal())
 
 	# Listen for floor changes
 	tower.floor_changed.connect(_on_floor_changed)
@@ -96,6 +96,30 @@ func _setup_player() -> void:
 	# Start match clock so debug overlay shows RUNNING.
 	GameState.start_match(300.0, 1)
 	SignalHub.player_spawned.emit(body, body.global_position)
+
+
+## Points the match at a floor's portal, replacing any previous subscription.
+func _set_travel_portal(portal: TravelPortal) -> void:
+	if _travel_portal == portal:
+		return
+	if _travel_portal != null and is_instance_valid(_travel_portal) \
+			and _travel_portal.activated.is_connected(_on_portal_activated):
+		_travel_portal.activated.disconnect(_on_portal_activated)
+	_travel_portal = portal
+	if _travel_portal != null and not _travel_portal.activated.is_connected(_on_portal_activated):
+		_travel_portal.activated.connect(_on_portal_activated)
+
+
+## Sizes the player's sprite from the loaded floor's height.
+##
+## The character is drawn at FloorData.PLAYER_HEIGHT_RATIO of the floor height, so
+## the two are always in proportion: a floor resize keeps the player looking like a
+## person in a room rather than a dot on a wall.
+func _apply_floor_scale(body: Node, floor: Node) -> void:
+	if body == null or floor == null or floor.floor_data == null:
+		return
+	if body.has_method(&"apply_floor_scale"):
+		body.call(&"apply_floor_scale", floor.floor_data.bounds.size.y)
 
 
 func _find_travel_portal() -> TravelPortal:
@@ -118,6 +142,7 @@ func _on_floor_changed(_new_floor_id: int) -> void:
 	var camera_component := body.get_node_or_null("CameraComponent")
 	if camera_component != null:
 		camera_component.set_floor_bounds(current_floor.floor_data.bounds)
+	_apply_floor_scale(body, current_floor)
 
 	# Update platform stops to only include unvisited floors
 	var stops: Array[int] = []
@@ -126,9 +151,11 @@ func _on_floor_changed(_new_floor_id: int) -> void:
 			stops.append(fd.floor_id)
 	central_platform.floor_stops = stops
 
-	# Re-spawn player at new floor's spawn point
-	var spawn_pos: Vector2 = current_floor.get_random_spawn_point()
+	# Re-spawn player on the new floor's slab, clear of the central shaft.
+	var spawn_pos: Vector2 = current_floor.get_player_spawn_position() if current_floor.has_method(&"get_player_spawn_position") \
+		else current_floor.get_random_spawn_point()
 	body.global_position = spawn_pos
+	body.velocity = Vector2.ZERO
 	print("[DEBUG] Match: Player respawned at floor %d, position: %s" % [_new_floor_id, spawn_pos])
 
 	# Update maps
@@ -141,20 +168,29 @@ func _on_floor_changed(_new_floor_id: int) -> void:
 		world_map.set_current_floor(_new_floor_id)
 		world_map.mark_floor_explored(_new_floor_id)
 
-	# Re-find the portal on the new floor
-	_travel_portal = _find_travel_portal()
-	if _travel_portal != null:
-		_travel_portal.activated.connect(_on_portal_activated)
+	# Snap the camera to the new floor instead of letting it ease across the room,
+	# which read as the whole level sliding sideways on every floor change.
+	if camera_component != null and camera_component.has_method(&"snap_to_target"):
+		camera_component.call(&"snap_to_target")
+
+	# Re-find the portal on the new floor. The old floor (and its portal) is on its
+	# way out, so drop the previous connection first — reconnecting every floor
+	# change leaked one signal binding per floor and fired the handler repeatedly.
+	_set_travel_portal(_find_travel_portal())
 
 	GameLog.info("Match", "Moved to Floor %d" % _new_floor_id)
 
 
 func _on_portal_activated(body: Node2D) -> void:
-	if body.is_in_group(&"player") and body == _player_body:
-		if _travel_portal != null:
-			var target := _travel_portal.target_floor
-			if target > 0:
-				tower.start_travel(target)
+	if not body.is_in_group(&"player"):
+		return
+	if _travel_portal == null:
+		return
+	var target := _travel_portal.target_floor
+	if target <= 0:
+		return
+	print("[DEBUG] Match: Portal entered by %s -> starting travel to floor %d" % [body.name, target])
+	tower.start_travel(target)
 
 
 func _exit_tree() -> void:

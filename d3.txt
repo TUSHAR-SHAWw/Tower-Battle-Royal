@@ -1,0 +1,21 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[DEBUG] TowerController: Loading floor 1 (bounds: [P: (-3200.0, -1080.0), S: (6400.0, 1080.0)], target_floor: 6)
+[DEBUG] FloorController: Floor 1 spawned TravelPortal at position: (2560.0, -540.0) (target_floor: 6, bounds: [P: (-3200.0, -1080.0), S: (6400.0, 1080.0)])
+[StateMachine] <none> -> ACTIVE
+[DEBUG] FloorController: Floor 1 ready, bounds: [P: (-3200.0, -1080.0), S: (6400.0, 1080.0)], spawn points: 0
+[DEBUG] FloorController: Floor 1 starting enemy spawning (waves: 4, enemies/wave: 5, interval: 14.0)
+[DEBUG] EnemySpawner: Floor 1, Wave 1/4 starting (spawning 5 enemies)
+[Floor] Floor 1: Wave 1 started
+[DEBUG] TowerController: Floor 1 loaded, position: (0.0, 0.0)
+[StateMachine] <none> -> idle
+[Match] Tower match ready — player at floor 1
+[DEBUG] Match: Camera bounds set to: [P: (-3200.0, -1080.0), S: (6400.0, 1080.0)]
+[DEBUG] Match: Player spawn location: (-2724.724, -69.0) (floor bounds: [P: (-3200.0, -1080.0), S: (6400.0, 1080.0)])
+[DEBUG] Match: Camera component: CameraComponent:<Node#67410855563>, Camera2D: Camera2D:<Camera2D#67326969438>
+[Match] Player spawned at (-2724.724, -69.0), camera=Camera2D:<Camera2D#67326969438>
+[DEBUG] CameraComponent: pos=(-2724.724, -69.0) zoom=(1.5, 1.5) view=[P: (-3684.724, -609.0), S: (1920.0, 1080.0)]
+DIAG drawn_height=216.0 sprite scale=(9.0, 9.0)
+DIAG frame=():<AtlasTexture#-9223371943506342779> size=(24.0, 24.0)
+DIAG region=[P: (50.0, 0.0), S: (24.0, 24.0)] atlas size=(224.0, 74.0)
+DIAG moved -2724.7236328125 -> -2701.388671875 speed=0.0 state=idle

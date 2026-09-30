@@ -9,22 +9,42 @@ extends Resource
 ## docs/ARCHITECTURE.md §2.
 
 @export_group("Movement")
-## Radius of the collision circle. Art is deliberately independent of this.
-@export var radius: float = 14.0
-@export var walk_speed: float = 220.0
-@export var sprint_speed: float = 320.0
-@export var acceleration: float = 1800.0
+## Radius of the collision circle, in pixels.
+##
+## Matched to the drawn character: the sprite is 1/5 of the floor height (216 px on
+## a 1080 floor), so a radius of ~70 gives a 140 px body — slightly narrower than
+## the art, which is what you want in a platformer, since a collision circle that
+## matches the sprite exactly makes every ledge feel like it is grabbing you.
+@export var radius: float = 70.0
+
+## Movement speeds scale with the character, not the floor: these were tuned for a
+## 28 px body, and a 140 px body crossing a 6400 px room at 220 px/s would take
+## half a minute to walk across. Scaled ~5x with the body.
+@export var walk_speed: float = 620.0
+@export var sprint_speed: float = 900.0
+@export var acceleration: float = 4200.0
 ## Speed lost per second when no input is held (stopping is snappier than starting).
-@export var friction: float = 2200.0
+@export var friction: float = 5200.0
+
+@export_group("Physics")
+## Downward acceleration in px/s^2. MovementComponent reads this at startup.
+@export var gravity: float = 2600.0
+## Upward launch speed for a jump, in px/s. Peaks at ~190 px, which clears the
+## 190 px vertical dead zone with margin and stays under the 216 px body height.
+@export var jump_velocity: float = -1000.0
 
 @export_group("Health")
 @export var max_health: float = 100.0
 
 @export_group("Camera")
-@export var camera_zoom: float = 1.0
-## Pixels the camera leans toward the aim direction (0 disables the lean).
-@export var camera_lead_pixels: float = 48.0
-@export var camera_smoothing_speed: float = 8.0
+## Zoom for the framing rig. 1.5 shows 853x480 of a 6400-wide floor, so the room
+## scrolls and the ~216 px character reads clearly.
+@export var camera_zoom: float = 1.5
+## How far the frame leads in the direction of committed movement (0 disables it).
+## Read by CameraComponent when use_config_lead is on.
+@export var camera_lead_pixels: float = 150.0
+## How fast the rig catches up. Higher is snappier.
+@export var camera_smoothing_speed: float = 6.0
 
 @export_group("Visual")
 @export var body_color: Color = Color("#5ec2f5")

@@ -24,6 +24,10 @@ func _read_input(intent: InputIntent, host: Node2D) -> void:
 	)
 	intent.sprint_held = Input.is_action_pressed(InputActions.SPRINT)
 
+	# Side-view jumping: edge for the launch, held state for jump height.
+	intent.jump_pressed = Input.is_action_just_pressed(InputActions.JUMP)
+	intent.jump_held = Input.is_action_pressed(InputActions.JUMP)
+
 	intent.fire_held = Input.is_action_pressed(InputActions.FIRE)
 	intent.fire_pressed = Input.is_action_just_pressed(InputActions.FIRE)
 	intent.reload_pressed = Input.is_action_just_pressed(InputActions.RELOAD)

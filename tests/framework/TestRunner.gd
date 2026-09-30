@@ -17,6 +17,15 @@ const REPORT_PATH := "res://tests/results/last_run.md"
 ## Safety net: a broken test must not hang an automated run forever.
 const WATCHDOG_SECONDS := 120.0
 
+## A suite that runs but asserts nothing is treated as a failure.
+##
+## This exists because it already happened: player_test read its config from a
+## node that does not exist, so five of its six tests died on a null before
+## reaching an assertion. The suite reported "2 assertions, 0 failures" and the
+## whole gate stayed green while the player's movement, death and revive were
+## completely untested. Silence must not read as success.
+const MIN_ASSERTIONS_PER_SUITE := 1
+
 ## Suites run in this order. Add new suite scripts here.
 const SUITE_PATHS: Array[String] = [
 	"res://tests/foundation/signal_hub_test.gd",
@@ -86,15 +95,21 @@ func _run_all_suites() -> void:
 		await suite.run_suite()
 		var suite_ms := Time.get_ticks_msec() - suite_started
 
+		var suite_failures := suite.failures.duplicate()
+		if suite.assertion_count < MIN_ASSERTIONS_PER_SUITE:
+			suite_failures.append(
+				"suite ran but asserted nothing (expected >= %d) — it is not testing what it claims"
+				% MIN_ASSERTIONS_PER_SUITE)
+
 		_suite_results.append({
 			"path": suite_path,
 			"name": suite.suite_name(),
 			"assertions": suite.assertion_count,
-			"failures": suite.failures.duplicate(),
+			"failures": suite_failures,
 			"duration_ms": suite_ms,
 		})
 		_total_assertions += suite.assertion_count
-		_total_failures += suite.failures.size()
+		_total_failures += suite_failures.size()
 
 		GameLog.info("Tests", "%s: %d assertions, %d failures (%d ms)" % [
 			suite.suite_name(), suite.assertion_count, suite.failures.size(), suite_ms,

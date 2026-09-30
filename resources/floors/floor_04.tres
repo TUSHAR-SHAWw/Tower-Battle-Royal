@@ -6,7 +6,7 @@
 script = ExtResource("1_floor_data")
 floor_id = 4
 display_name = "Floor 4 - Ballroom"
-bounds = Rect2(-1280, -720, 2560, 1440)
+bounds = Rect2(-3200, -1080, 6400, 1080)
 height = 300.0
 theme_name = "ballroom"
 ambient_color = Color(0.25, 0.15, 0.2, 1)

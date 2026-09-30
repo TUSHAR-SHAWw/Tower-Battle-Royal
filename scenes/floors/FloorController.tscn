@@ -10,6 +10,10 @@ script = ExtResource("1_floor")
 [node name="Visual" type="Node2D" parent="." unique_id=627403123]
 script = ExtResource("4_visual")
 
+[node name="Decor" type="TileMapLayer" parent="." unique_id=1000000001]
+
+[node name="Ground" type="TileMapLayer" parent="." unique_id=1000000002]
+
 [node name="Collision" type="Node2D" parent="." unique_id=572744072]
 
 [node name="SpawnPoints" type="Node2D" parent="." unique_id=1070627186]

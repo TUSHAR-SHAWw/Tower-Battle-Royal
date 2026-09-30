@@ -72,6 +72,9 @@ func _apply_network_state(state: Dictionary) -> void:
 
 
 func _ready() -> void:
+	# Travel portals, loot and pickups all detect the player via this group.
+	add_to_group(&"player")
+
 	_configure_from_config()
 	_wire_components()
 	_wire_signals()
@@ -100,12 +103,12 @@ func _configure_from_config() -> void:
 		return
 
 	# Collision shape radius — use existing node if present, else create one.
+	# Player.tscn already has a CollisionShape2D, so this is normally a no-op.
 	var shape := get_node_or_null("CollisionShape2D") as CollisionShape2D
 	if shape == null:
 		shape = CollisionShape2D.new()
 		shape.name = "CollisionShape2D"
 		add_child(shape)
-		shape.owner = self
 	if shape.shape == null:
 		shape.shape = CircleShape2D.new()
 	(shape.shape as CircleShape2D).radius = config.radius
@@ -113,6 +116,11 @@ func _configure_from_config() -> void:
 	# Physics layers.
 	collision_layer = PhysicsLayers.PLAYER
 	collision_mask = PhysicsLayers.player_obstacles()
+
+	# A hurtbox on PLAYER_HURTBOX is what melee and projectiles aim at. Without a
+	# CollisionShape2D inside it the player is effectively invulnerable, so it is
+	# created and sized here rather than relying on the scene alone.
+	PlayerStateUtil.ensure_hurtbox(self, config.radius + 2.0)
 
 
 func _wire_components() -> void:
@@ -160,18 +168,28 @@ func _wire_components() -> void:
 	if input_source == null:
 		input_source = get_node_or_null("InputSource") as InputSource
 
-	# MovementComponent needs the body reference.
+	# MovementComponent needs the body reference and the physics config, so one
+	# resource owns gravity and jump height instead of two places disagreeing.
 	if movement != null:
 		movement.body = self
+		movement.config = config
+		movement.use_config_physics = true
 
 	# CameraComponent needs the camera and config.
 	if camera_component != null:
 		camera_component.camera = get_node_or_null("Camera2D") as Camera2D
 		camera_component.config = config
 
-	# VisualComponent needs config for drawing.
+	# VisualComponent needs config for drawing, and the floor height so the sprite
+	# can be drawn at a fixed fraction of it. The floor is not known yet at this
+	# point (TowerController loads it after the player exists), so the ratio is
+	# applied later by set_floor_height(); this pass just makes the sprite exist.
 	if visual != null and config != null:
 		visual.config = config
+		# Redraw now that config is available; the first automatic draw pass may
+		# have run while config was still null and bailed out early.
+		if visual.has_method("queue_redraw"):
+			visual.queue_redraw()
 
 	# HealthComponent gets max health from config.
 	if health != null and config != null:
@@ -253,6 +271,12 @@ func _wire_components() -> void:
 func _wire_signals() -> void:
 	if health != null:
 		health.died.connect(_on_died)
+		health.damaged.connect(_on_damaged)
+
+	# Landing and firing feedback belongs on the camera rig, so the player reports
+	# the facts and the rig decides how the frame reacts.
+	if movement != null and movement.has_signal(&"landed"):
+		movement.landed.connect(_on_landed)
 
 
 func _physics_process(delta: float) -> void:
@@ -297,6 +321,16 @@ func _physics_process(delta: float) -> void:
 	if camera_component != null:
 		camera_component.update(delta)
 
+	# Keep the sprite animation and facing in sync with actual motion.
+	if visual != null and visual.has_method("update_animation"):
+		var movement_comp := movement
+		var on_floor := false
+		if movement_comp != null and movement_comp.has_method("is_on_floor"):
+			on_floor = movement_comp.is_on_floor()
+		visual.update_animation(on_floor)
+	if visual != null and visual.has_method("set_facing"):
+		visual.set_facing(_aim_direction)
+
 
 func _process(delta: float) -> void:
 	# Visual flash on damage, etc. could go here.
@@ -315,6 +349,16 @@ func take_damage(info: DamageInfo) -> float:
 	return health.apply_damage(info)
 
 
+## Sizes the sprite against the floor it is standing on.
+##
+## Called by the match once a floor is loaded: the character is drawn at a fixed
+## fraction of the floor height (FloorData.PLAYER_HEIGHT_RATIO), so resizing a
+## floor keeps the player in proportion instead of turning them into a speck.
+func apply_floor_scale(floor_height: float) -> void:
+	if visual != null and visual.has_method(&"set_floor_height"):
+		visual.call(&"set_floor_height", floor_height)
+
+
 ## Revive at current position (used by cheat / respawn).
 func revive() -> void:
 	if health != null:
@@ -327,13 +371,38 @@ func revive() -> void:
 
 func _on_died(info: DamageInfo) -> void:
 	died.emit()
+	# SignalHub.player_damaged was declared in M0 and never emitted, so nothing
+	# listening to it (HUD, audio, kill credit) ever fired.
+	SignalHub.player_died.emit(self, info.instigator if info != null else null)
 	SignalHub.player_health_changed.emit(self, 0.0, health.max_health if health != null else 100.0)
+	GameState.notify_player_eliminated()
+
+
+func _on_damaged(info: DamageInfo, applied: float) -> void:
+	if info == null:
+		return
+	SignalHub.player_damaged.emit(self, info)
+	if health != null:
+		SignalHub.player_health_changed.emit(self, health.current_health, health.max_health)
+	# A hit that lands hard enough should read as an impact, not just a number.
+	if camera_component != null and applied > 0.0 and info.instigator != null:
+		var source := info.instigator as Node2D
+		if source != null:
+			var from: Vector2 = (global_position - source.global_position).normalized()
+			camera_component.shake(from, clampf(applied * 0.12, 1.5, 6.0), 0.15, 24.0)
+
+
+func _on_landed(impact_speed: float) -> void:
+	if camera_component != null:
+		camera_component.on_landed(impact_speed)
 
 
 # ------------------------------------------------------------------------ gun signals
 
 func _on_shot_fired(position: Vector2, direction: Vector2, weapon_id: StringName) -> void:
 	SignalHub.weapon_fired.emit(weapon_id, position, direction)
+	if camera_component != null:
+		camera_component.on_weapon_fired(direction)
 
 
 func _on_reload_started() -> void:

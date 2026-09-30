@@ -18,11 +18,14 @@ var _hit_targets: Array[int] = []  # instance IDs already hit this swing
 func _ready() -> void:
 	monitoring = false
 	monitorable = false
-	
-	# Collision layers: melee hits enemies/players
+
+	# The things a swing can cut are *hurtboxes*, not bodies: every damageable
+	# actor exposes an Area2D on PLAYER_HURTBOX or ENEMY_HURTBOX. Masking the body
+	# layers (PLAYER/ENEMY) here was the reason melee silently hit nothing — an
+	# Area2D never sees CharacterBody2D nodes at all.
 	collision_layer = 0
-	collision_mask = PhysicsLayers.ENEMY | PhysicsLayers.PLAYER | PhysicsLayers.ENVIRONMENT
-	
+	collision_mask = PhysicsLayers.PLAYER_HURTBOX | PhysicsLayers.ENEMY_HURTBOX
+
 	area_entered.connect(_on_area_entered)
 
 
@@ -83,14 +86,40 @@ func _on_area_entered(area: Area2D) -> void:
 	var angle_to_target: float = attack_dir.angle_to(to_target)
 	var half_arc: float = deg_to_rad(_weapon.arc_degrees * 0.5)
 	
-	if abs(angle_to_target) <= half_arc:
-		# Check distance
-		var dist: float = _owner.global_position.distance_to(area.global_position)
-		if dist <= _weapon.range:
-			_hit_targets.append(target_id)
-			var hit_pos: Vector2 = area.global_position
-			var hit_normal: Vector2 = to_target
-			hit.emit(area, hit_pos, hit_normal)
+	if abs(angle_to_target) > half_arc:
+		return
+
+	# Check distance
+	var dist: float = _owner.global_position.distance_to(area.global_position)
+	if dist > _weapon.range:
+		return
+
+	# Climb from the hurtbox to the actor that owns it, so callers get a node
+	# with take_damage() instead of a bare Area2D child.
+	var target := _resolve_target(area)
+	if target == null or target == _owner:
+		return
+	if _hit_targets.has(target.get_instance_id()):
+		return
+
+	_hit_targets.append(target_id)
+	_hit_targets.append(target.get_instance_id())
+	hit.emit(target, area.global_position, to_target)
+
+
+## Walks up from a hurtbox to the damageable actor. Hurtboxes are children of
+## the actor (Player/Hurtbox, Enemy/Hurtbox), so the parent is the target.
+func _resolve_target(area: Area2D) -> Node:
+	var node: Node = area.get_parent()
+	if node != null and node.has_method(&"take_damage"):
+		return node
+	# Fallback: any ancestor that can take damage.
+	node = area.get_parent()
+	while node != null:
+		if node.has_method(&"take_damage"):
+			return node
+		node = node.get_parent()
+	return null
 
 
 func _draw() -> void:

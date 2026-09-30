@@ -1,7 +1,8 @@
 class_name SprintState
 extends State
 
-## Sprinting. Transitions to Move when sprint released, Idle on no input, Dead on death.
+## Sprinting horizontally. Transitions to Move when sprint released, Idle on no
+## input, Dead on death. Gravity and jumping are handled by MovementComponent.
 
 
 var _movement: MovementComponent
@@ -14,17 +15,21 @@ func enter(_message: Dictionary = {}) -> void:
 	_movement = host.get_node_or_null("MovementComponent") as MovementComponent
 	_health = host.get_node_or_null("HealthComponent") as HealthComponent
 	_input = host.get_node_or_null("InputSource") as InputSource
-	var config_node := host.get_node_or_null("PlayerConfig")
-	_config = config_node.resource as PlayerConfig if config_node != null else null
+	_config = PlayerStateUtil.resolve_config(host)
 
 
 func physics_update(delta: float) -> void:
 	if _health != null and _health.is_dead():
 		transition_to(&"dead")
 		return
-	if _input == null or not _input.is_enabled() or _movement == null or _config == null:
+	if _input == null or not _input.is_enabled() or _movement == null:
 		transition_to(&"idle")
 		return
+	if _config == null:
+		_config = PlayerStateUtil.resolve_config(host)
+		if _config == null:
+			transition_to(&"idle")
+			return
 
 	var intent := _input.poll(host)
 	if not intent.is_moving():
@@ -36,7 +41,8 @@ func physics_update(delta: float) -> void:
 
 	_movement.set_facing(intent.move_dir)
 	_movement.accelerate_toward(intent.move_dir, _config.sprint_speed, _config.acceleration, delta)
-	_movement.commit()
+	PlayerStateUtil.apply_vertical(_movement, intent)
+	_movement.apply_motion(delta)
 
 
 func debug_line() -> String:

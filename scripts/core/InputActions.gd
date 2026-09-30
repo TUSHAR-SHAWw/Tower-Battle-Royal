@@ -13,6 +13,9 @@ const MOVE_LEFT := &"move_left"
 const MOVE_RIGHT := &"move_right"
 const SPRINT := &"sprint"
 
+## Side-view jumping. Space / W / Up / gamepad south button.
+const JUMP := &"jump"
+
 # Twin-stick aiming (gamepad right stick / touch stick later).
 const AIM_UP := &"aim_up"
 const AIM_DOWN := &"aim_down"
@@ -42,7 +45,7 @@ const DEBUG_TOGGLE_CONSOLE := &"debug_toggle_console"
 ## Every gameplay action this project expects to exist in the InputMap.
 static func all() -> Array[StringName]:
 	var actions: Array[StringName] = [
-		MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, SPRINT,
+		MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, SPRINT, JUMP,
 		AIM_UP, AIM_DOWN, AIM_LEFT, AIM_RIGHT,
 		FIRE, MELEE_ATTACK, RELOAD, INTERACT, USE_SELECTED, MERGE,
 		TOGGLE_MAP,

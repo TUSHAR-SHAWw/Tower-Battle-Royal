@@ -4,7 +4,7 @@
 [ext_resource type="Resource" path="res://resources/tower/tower_definition.tres" id="3_tower_def"]
 [ext_resource type="Script" uid="uid://vettwv2e1xbi" path="res://scripts/tower/TowerController.gd" id="4_tower"]
 [ext_resource type="Script" uid="uid://bm4iqstian43k" path="res://scripts/tower/CentralPlatformController.gd" id="5_platform"]
-[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="6_player"]
+[ext_resource type="PackedScene" uid="uid://dxycl5tre6cht" path="res://scenes/floors/Player.tscn" id="6_player"]
 
 [node name="Match" type="Node2D" unique_id=1694009777]
 script = ExtResource("1_match")
@@ -23,5 +23,4 @@ platform_radius = 128.0
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=311423730]
 
-[node name="PlayerInstance" type="Node2D" parent="." unique_id=418987525]
-instance = "res://scenes/player/Player.tscn"
+[node name="PlayerInstance" parent="." instance=ExtResource("6_player")]

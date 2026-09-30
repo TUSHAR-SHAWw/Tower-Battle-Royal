@@ -38,6 +38,10 @@ func _ready() -> void:
 	_draw_control.offset_right = 0
 	_draw_control.offset_bottom = 0
 	_draw_control.draw.connect(_on_draw)
+	# The Control must be focusable for grab_focus() to work when the map opens;
+	# without this the keyboard navigation silently does nothing.
+	_draw_control.focus_mode = Control.FOCUS_ALL
+	_draw_control.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_draw_control)
 
 	# Find player
@@ -46,27 +50,37 @@ func _ready() -> void:
 		var player_instance := tree.current_scene.get_node_or_null("PlayerInstance")
 		var player := tree.current_scene.get_node_or_null("Player")
 		_player = player_instance if player_instance != null else player
-		_draw_control.input.connect(_on_input)
+	_draw_control.focus_entered.connect(_on_focus_entered)
 
 
-func _on_input(event: InputEvent) -> void:
+## Redraws when the map takes focus so the selection highlight is never stale.
+func _on_focus_entered() -> void:
+	if _draw_control != null:
+		_draw_control.queue_redraw()
+
+
+func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
+		# Always allow opening the map
 		if event.keycode == KEY_TAB or event.keycode == KEY_M:
 			_toggle_map()
 			get_viewport().set_input_as_handled()
-		elif event.keycode == KEY_ESCAPE and _visible:
-			_toggle_map()
-			get_viewport().set_input_as_handled()
-		elif event.keycode == KEY_UP and _visible:
+			return
+		if not _visible:
+			return
+		if event.keycode == KEY_UP:
 			_select_floor(_selected_floor - 1)
 			_draw_control.queue_redraw()
 			get_viewport().set_input_as_handled()
-		elif event.keycode == KEY_DOWN and _visible:
+		elif event.keycode == KEY_DOWN:
 			_select_floor(_selected_floor + 1)
 			_draw_control.queue_redraw()
 			get_viewport().set_input_as_handled()
-		elif event.keycode == KEY_ENTER and _visible:
+		elif event.keycode == KEY_ENTER:
 			_confirm_travel()
+			get_viewport().set_input_as_handled()
+		elif event.keycode == KEY_ESCAPE:
+			_toggle_map()
 			get_viewport().set_input_as_handled()
 
 

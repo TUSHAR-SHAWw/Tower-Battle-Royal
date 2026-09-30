@@ -1,0 +1,34 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[Tests] engine 4.7-stable (official) | 11 suites
+[Tests] signal_hub_test: 34 assertions, 0 failures (4 ms)
+[Tests] game_state_test: 31 assertions, 0 failures (5 ms)
+[Tests] scene_router_test: 13 assertions, 0 failures (194 ms)
+[Tests] input_actions_test: 68 assertions, 0 failures (5 ms)
+[Tests] math_utils_test: 535 assertions, 0 failures (7 ms)
+[Tests] object_pool_test: 28 assertions, 0 failures (143 ms)
+[Tests] damage_info_test: 38 assertions, 0 failures (4 ms)
+[Tests] state_machine_test: 41 assertions, 0 failures (749 ms)
+[DEBUG] TowerController: Loading floor 1 (bounds: [P: (-1920.0, -1080.0), S: (3840.0, 1080.0)], target_floor: 6)
+[DEBUG] FloorController: Floor 1 spawned TravelPortal at position: (1536.0, -540.0) (target_floor: 6, bounds: [P: (-1920.0, -1080.0), S: (3840.0, 1080.0)])
+[StateMachine] <none> -> ACTIVE
+[DEBUG] FloorController: Floor 1 ready, bounds: [P: (-1920.0, -1080.0), S: (3840.0, 1080.0)], spawn points: 0
+[DEBUG] FloorController: Floor 1 starting enemy spawning (waves: 4, enemies/wave: 5, interval: 14.0)
+[DEBUG] EnemySpawner: Floor 1, Wave 1/4 starting (spawning 5 enemies)
+[Floor] Floor 1: Wave 1 started
+[DEBUG] TowerController: Floor 1 loaded, position: (0.0, 0.0)
+[StateMachine] <none> -> idle
+[Match] Tower match ready — player at floor 1
+[DEBUG] Match: Camera bounds set to: [P: (-1920.0, -1080.0), S: (3840.0, 1080.0)]
+[DEBUG] Match: Player spawn location: (-1153.242, -69.0) (floor bounds: [P: (-1920.0, -1080.0), S: (3840.0, 1080.0)])
+[DEBUG] Match: Camera component: CameraComponent:<Node#88264935072>, Camera2D: Camera2D:<Camera2D#88181048969>
+[Match] Player spawned at (-1153.242, -69.0), camera=Camera2D:<Camera2D#88181048969>
+[DEBUG] CameraComponent: pos=(-1153.242, -69.0) zoom=(1.5, 1.5) view=[P: (-2113.242, -609.0), S: (1920.0, 1080.0)]
+[StateMachine] idle -> dead
+[StateMachine] dead -> idle
+[StateMachine] idle -> dead
+[Tests] player_test: 33 assertions, 7 failures (2694 ms)
+[Tests] tower_test: 66 assertions, 0 failures (335 ms)
+[Tests] network_test: 37 assertions, 0 failures (6 ms)
+[Tests] report written to E:/Godot Main Projects/Tower Battle Royal/Tower-Battle-Royal/tests/results/last_run.md
+[Tests] RESULT: FAIL | 11 suites | 924 assertions | 7 failures | 5126 ms

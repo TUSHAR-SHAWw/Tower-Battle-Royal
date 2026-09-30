@@ -38,9 +38,19 @@ func get_floor_position(floor_id: int) -> Vector2i:
 
 
 func get_connected_floors(floor_id: int) -> Array[int]:
-	if floor_connections.has(floor_id):
-		return floor_connections[floor_id]
-	return []
+	# `floor_connections` is a plain Dictionary (so it can be authored in a .tres
+	# without a typed-array declaration), which means the value comes back as a
+	# Variant. Returning it directly from an `Array[int]` function raised
+	# "Trying to return a value of type Array" on every minimap redraw, so the
+	# elements are copied across into a properly typed array here.
+	var result: Array[int] = []
+	if not floor_connections.has(floor_id):
+		return result
+	var raw: Variant = floor_connections[floor_id]
+	if raw is Array or raw is PackedInt32Array:
+		for id: Variant in raw:
+			result.append(int(id))
+	return result
 
 
 func is_floor_connected(from_floor: int, to_floor: int) -> bool:

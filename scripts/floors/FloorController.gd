@@ -32,32 +32,47 @@ var _collapse_duration: float = 5.0   # seconds of collapse animation
 
 # Visual nodes
 @onready var _visual: Node2D = $Visual
+@onready var _decor_tiles: TileMapLayer = $Decor
+@onready var _ground_tiles: TileMapLayer = $Ground
 @onready var _collision: Node2D = $Collision
 @onready var _spawn_points: Node2D = $SpawnPoints
 @onready var _enemy_spawner: Node = $EnemySpawner
+
+## Shared TileSet built from the Kenney packs in assets/. Floors reference it so
+## the art can be re-pointed in one place.
+static var _shared_tile_set: TileSet = null
 
 var _current_floor: int = 1
 var _travel_portal: TravelPortal = null
 
 
 func _ready() -> void:
+	# Floor identity must be known before anything reads it. EnemySpawner's wave
+	# sizes and the deletion state machine both scale off `_current_floor`, and
+	# `_configure_from_data()` — which is what sets it — did not run until after
+	# the spawner was configured, so every floor spawned floor-1 sized waves.
+	_apply_floor_identity()
+
 	_setup_state_machine()
-	
+
 	# Set initial state
 	if floor_data != null:
 		_state = floor_data.initial_state
 		_configure_from_data()
 	else:
 		_state = FloorData.FloorState.ACTIVE
-	
+
 	_update_visual_state()
-	
+
 	print("[DEBUG] FloorController: Floor %d ready, bounds: %s, spawn points: %d" % [
 		floor_data.floor_id if floor_data else -1,
 		floor_data.bounds if floor_data else "null",
 		_spawn_points.get_child_count() if _spawn_points != null else 0
 	])
-	
+
+	_build_walls()
+	_build_loot_lip()
+
 	# Setup enemy spawner
 	var spawner := _enemy_spawner as EnemySpawner
 	if spawner != null:
@@ -66,13 +81,13 @@ func _ready() -> void:
 		spawner.base_wave_count = 3 + _current_floor
 		spawner.enemies_per_wave = 4 + _current_floor
 		spawner.wave_interval = max(5.0, 15.0 - _current_floor)
-		
+
 		# Connect signals
 		spawner.wave_started.connect(_on_wave_started)
 		spawner.wave_completed.connect(_on_wave_completed)
 		spawner.all_waves_completed.connect(_on_all_waves_completed)
 		spawner.enemy_spawned.connect(_on_enemy_spawned)
-		
+
 		if is_boss_floor and boss_data != null:
 			# Setup boss instead of waves
 			_setup_boss()
@@ -93,7 +108,9 @@ func _configure_from_data() -> void:
 	# Pass floor data to visual component
 	if _visual != null and _visual.get_script() != null and _visual.get_script().resource_path.ends_with("FloorVisual.gd"):
 		_visual.floor_data = floor_data
-	
+
+	_build_tile_layers()
+
 	# Update spawn points positions if defined in data
 	if floor_data.loot_spawn_points.size() > 0 and _spawn_points != null:
 		_clear_spawn_points()
@@ -106,9 +123,193 @@ func _configure_from_data() -> void:
 			marker.owner = _spawn_points
 	
 	# Set floor ID for spawner
+	_apply_floor_identity()
+
+
+## Copies the identity fields out of FloorData. Safe to call before or after the
+## visual/collision configure pass, so _ready() can call it early.
+func _apply_floor_identity() -> void:
 	if floor_data != null:
 		_current_floor = floor_data.floor_id
 
+
+## Builds (once) the placeholder tile layout for this floor.
+##
+## Existing cells are preserved so hand-painted tiles in the editor are never
+## wiped. Regenerating only happens when a floor has no ground at all.
+func _build_tile_layers() -> void:
+	if _ground_tiles == null or floor_data == null:
+		return
+	if _ground_tiles.get_used_cells().size() > 0:
+		return  # Already painted — leave the artist's work alone.
+
+	if _shared_tile_set == null:
+		_shared_tile_set = TowerTileSetBuilder.build()
+	if _shared_tile_set == null:
+		return
+
+	# Alternate themes so adjacent floors do not look identical.
+	var theme := TowerTileSetBuilder.SOURCE_BASE if floor_data.floor_id % 2 == 1 \
+		else TowerTileSetBuilder.SOURCE_INDUSTRIAL
+
+	FloorTileLayout.populate(
+		_ground_tiles,
+		_decor_tiles,
+		_shared_tile_set,
+		floor_data.bounds,
+		floor_data.floor_id * 7919,
+		theme,
+		floor_data.shaft_width
+	)
+
+	# Draw order: FloorVisual's opaque background rect is z 0, the player is z 10.
+	# Tiles must sit between them or the background hides them completely.
+	_ground_tiles.z_index = 2
+	_ground_tiles.z_as_relative = false
+	_decor_tiles.z_index = 1
+	_decor_tiles.z_as_relative = false
+
+
+## Y coordinate of the top surface of the floor's ground tiles, in world space.
+##
+## Used to spawn the player standing on the floor instead of dropping them from
+## the middle of the room. Returns null when the floor has no ground tiles.
+func get_ground_surface_y() -> Variant:
+	if _ground_tiles == null:
+		return null
+	var used := _ground_tiles.get_used_cells()
+	if used.is_empty():
+		return null
+	# The walkable surface is the top edge of the slab, i.e. the lowest row of
+	# solid cells. Using max() over every cell would land on the slab's underside.
+	var lowest_row := -2147483647
+	for cell: Vector2i in used:
+		lowest_row = maxi(lowest_row, cell.y)
+	# The slab is several rows thick, so measure from its top, not its bottom.
+	var surface_row := lowest_row - (_slab_rows() - 1) if _slab_rows() > 1 else lowest_row
+	return _ground_tiles.map_to_local(Vector2i(0, surface_row)).y
+
+
+## Number of solid rows making up the slab on this floor.
+func _slab_rows() -> int:
+	return FloorTileLayout.SLAB_ROWS
+
+
+## World position where a player should appear: standing on the slab, clear of the
+## shaft so they never spawn already falling down it.
+func get_player_spawn_position() -> Vector2:
+	return get_random_ground_position(true)
+
+
+## A random walkable point on the slab, avoiding the central shaft.
+##
+## `away_from_shaft` pushes the choice to either side of the hole, which is what
+## both player and enemy spawning want: nobody should start over the drop.
+func get_random_ground_position(away_from_shaft: bool = true) -> Vector2:
+	var bounds := floor_data.bounds if floor_data != null else FloorData.DEFAULT_BOUNDS
+	var surface: Variant = get_ground_surface_y()
+	var surface_y: float = float(surface) if surface != null else bounds.position.y + bounds.size.y - 60.0
+
+	var shaft_half := _shaft_half_width()
+	var margin := 160.0
+	var y := surface_y - 24.0  # lift by the actor radius so the body rests on top
+
+	if not away_from_shaft or shaft_half <= 0.0:
+		return Vector2(randf_range(bounds.position.x + margin, bounds.position.x + bounds.size.x - margin), y)
+
+	# Pick a side, then a free x on that side.
+	var left_min := bounds.position.x + margin
+	var left_max := bounds.position.x + bounds.size.x * 0.5 - shaft_half - margin
+	var right_min := bounds.position.x + bounds.size.x * 0.5 + shaft_half + margin
+	var right_max := bounds.position.x + bounds.size.x - margin
+
+	var chosen: float
+	if left_max > left_min and (right_max <= right_min or randf() < 0.5):
+		chosen = randf_range(left_min, left_max)
+	elif right_max > right_min:
+		chosen = randf_range(right_min, right_max)
+	else:
+		# Floor is narrower than the shaft plus margins; fall back to the edges.
+		chosen = bounds.position.x + margin if randf() < 0.5 else bounds.position.x + bounds.size.x - margin
+	return Vector2(chosen, y)
+
+
+## Half the width of the central shaft opening, in pixels (0 when disabled).
+func _shaft_half_width() -> float:
+	if floor_data == null:
+		return FloorData.DEFAULT_SHAFT_WIDTH * 0.5
+	return floor_data.shaft_width * 0.5
+
+
+## True when `position` is over the shaft opening rather than the slab.
+func is_over_shaft(position: Vector2) -> bool:
+	if floor_data == null:
+		return false
+	var bounds := floor_data.bounds
+	var shaft_half := _shaft_half_width()
+	if shaft_half <= 0.0:
+		return false
+	var center_x := bounds.position.x + bounds.size.x * 0.5
+	return absf(position.x - center_x) < shaft_half
+
+
+## World x of the shaft opening's centre.
+func shaft_center_x() -> float:
+	var bounds := floor_data.bounds if floor_data != null else FloorData.DEFAULT_BOUNDS
+	return bounds.position.x + bounds.size.x * 0.5
+
+
+## Builds the invisible side walls of the room.
+##
+## Floors are thousands of pixels wide and the view only shows ~853, so without
+## walls the player
+## simply walks off the floor data and keeps going forever — there is no geometry
+## out there to stop them. These StaticBody2D walls sit just inside the bounds and
+## are tall enough to cover the room plus the slab.
+func _build_walls() -> void:
+	if _collision == null or floor_data == null:
+		return
+	var bounds := floor_data.bounds
+	var thickness := 32.0
+	# Cover from a little above the ceiling line down past the slab.
+	var top := bounds.position.y - 200.0
+	var height := bounds.size.y + 200.0
+
+	_add_wall(Vector2(bounds.position.x + thickness * 0.5, top + height * 0.5), Vector2(thickness, height))
+	_add_wall(Vector2(bounds.position.x + bounds.size.x - thickness * 0.5, top + height * 0.5), Vector2(thickness, height))
+
+
+func _add_wall(center: Vector2, size: Vector2) -> void:
+	var body := StaticBody2D.new()
+	body.name = "Wall"
+	body.collision_layer = PhysicsLayers.WORLD
+	body.collision_mask = 0
+	var shape := CollisionShape2D.new()
+	var rect := RectangleShape2D.new()
+	rect.size = size
+	shape.shape = rect
+	body.add_child(shape)
+	_collision.add_child(body)
+	body.global_position = center
+
+
+## Places loot on the lip of the shaft, which is what makes the hole read as the
+## reward marker rather than just a hazard: you can see the loot below through it.
+func _build_loot_lip() -> void:
+	if _spawn_points == null or floor_data == null:
+		return
+	var surface: Variant = get_ground_surface_y()
+	if surface == null:
+		return
+	var bounds := floor_data.bounds
+	var y := float(surface) - 40.0
+	var lip := _shaft_half_width() + 90.0
+	var center_x := shaft_center_x()
+	for side in [-1.0, 1.0]:
+		var marker := Node2D.new()
+		marker.name = "LootLip%s" % ("L" if side < 0.0 else "R")
+		marker.position = Vector2(center_x + side * lip, y)
+		_spawn_points.add_child(marker)
 
 ## Call this after instancing if floor_data wasn't set in the inspector.
 func set_floor_data(data: FloorData) -> void:
@@ -128,6 +329,15 @@ func set_floor_data(data: FloorData) -> void:
 	_spawn_travel_portal()
 
 
+## Sets the destination floor for this floor's travel portal.
+## Spawns the portal if the floor already has data, so callers may set the
+## target either before or after set_floor_data().
+func set_target_floor(value: int) -> void:
+	target_floor = value
+	if floor_data != null and _travel_portal == null:
+		_spawn_travel_portal()
+
+
 func _spawn_travel_portal() -> void:
 	if target_floor <= 0:
 		print("[DEBUG] FloorController: Floor %d has no travel portal (target_floor: %d)" % [_current_floor, target_floor])
@@ -145,9 +355,11 @@ func _spawn_travel_portal() -> void:
 		portal_pos.y = clamp(portal_pos.y, bounds.position.y + 100, bounds.position.y + bounds.size.y - 100)
 
 	_travel_portal = portal_scene.instantiate() as TravelPortal
-	_travel_portal.global_position = portal_pos
 	_travel_portal.target_floor = target_floor
 	add_child(_travel_portal)
+	# Position after entering the tree so global_position resolves correctly.
+	# The floor sits at the origin, so floor-local and world coords match.
+	_travel_portal.global_position = portal_pos
 	
 	print("[DEBUG] FloorController: Floor %d spawned TravelPortal at position: %s (target_floor: %d, bounds: %s)" % [_current_floor, portal_pos, target_floor, bounds])
 
@@ -292,15 +504,9 @@ func start_deletion() -> void:
 		_state_machine.transition_to(&"WARNING")
 
 
-## Returns a random spawn point for loot/players.
+## Returns a random spawn point for loot/players (legacy alias).
 func get_random_spawn_point() -> Vector2:
-	if _spawn_points == null or _spawn_points.get_child_count() == 0:
-		# Default to center of bounds
-		return floor_data.bounds.position + floor_data.bounds.size * 0.5
-	
-	var children := _spawn_points.get_children()
-	var idx := randi() % children.size()
-	return (children[idx] as Node2D).global_position
+	return get_random_ground_position(false)
 
 
 ## Checks if a world position is inside this floor's bounds.

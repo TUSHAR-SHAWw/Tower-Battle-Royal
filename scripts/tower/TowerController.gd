@@ -48,17 +48,14 @@ func _load_floor(floor_id: int) -> void:
 	print("[DEBUG] TowerController: Loading floor %d (bounds: %s, target_floor: %d)" % [
 		floor_id,
 		data.floor_data.bounds if data.floor_data != null else "null",
-		int(data.travel_portal_position.x)
+		get_portal_target_for(data)
 	])
 
 	var floor := data.floor_scene.instantiate()
-	if floor.has_method("set_floor_data") and data.floor_data != null:
-		floor.set_floor_data(data.floor_data)
 
-	if floor.has_method("set_target_floor"):
-		floor.set_target_floor(int(data.travel_portal_position.x))
-	elif "target_floor" in floor:
-		floor.target_floor = int(data.travel_portal_position.x)
+	# Set the travel target BEFORE floor data, because set_floor_data() spawns the
+	# portal and it bails out early while target_floor is still 0.
+	_configure_floor_instance(floor, data)
 
 	add_child(floor)
 	_current_floor = floor
@@ -68,6 +65,20 @@ func _load_floor(floor_id: int) -> void:
 
 	floor_changed.emit(_current_floor_id)
 	SignalHub.tower_floor_changed.emit(_current_floor_id)
+
+
+## Wires a freshly instantiated floor with its TowerData.
+## Order matters: target floor first, then floor data (which spawns the portal).
+func _configure_floor_instance(floor: Node, data: TowerData) -> void:
+	var target := get_portal_target_for(data)
+
+	if floor.has_method("set_target_floor"):
+		floor.set_target_floor(target)
+	elif "target_floor" in floor:
+		floor.set_target_floor(target)
+
+	if floor.has_method("set_floor_data") and data.floor_data != null:
+		floor.set_floor_data(data.floor_data)
 
 
 func _unload_floor(floor_id: int) -> void:
@@ -88,14 +99,8 @@ func start_travel(target_floor: int) -> void:
 	# Load next floor
 	var data := tower_data[target_floor - 1]
 	var floor := data.floor_scene.instantiate()
-	if floor.has_method("set_floor_data") and data.floor_data != null:
-		floor.set_floor_data(data.floor_data)
+	_configure_floor_instance(floor, data)
 
-	if floor.has_method("set_target_floor"):
-		floor.set_target_floor(int(data.travel_portal_position.x))
-	elif "target_floor" in floor:
-		floor.target_floor = int(data.travel_portal_position.x)
-	
 	add_child(floor)
 	_next_floor = floor
 	
@@ -170,12 +175,29 @@ func get_current_floor() -> Node:
 	return _current_floor
 
 
+## Returns the floor ID that `data`'s travel portal should target.
+##
+## `TowerData.travel_portal_position.x` encodes the destination floor ID (the .y
+## component is unused). Returns 0 when the floor is a dead end — the bottom of
+## the tower — so no portal is spawned.
+func get_portal_target_for(data: TowerData) -> int:
+	if data == null:
+		return 0
+	var target := int(data.travel_portal_position.x)
+	if target <= 0:
+		return 0
+	# Guard against stale data pointing outside the tower.
+	if target < 1 or target > tower_data.size():
+		push_warning("TowerController: floor %d targets out-of-range floor %d" % [data.floor_id, target])
+		return 0
+	return target
+
+
 ## Returns the floor ID that the TravelPortal targets when on `current_floor_id`.
-## Each floor's TowerData.travel_portal_position.x encodes the target floor ID.
 func _resolve_next_floor(current_floor_id: int) -> int:
 	for data: TowerData in tower_data:
 		if data != null and data.floor_id == current_floor_id:
-			var target := int(data.travel_portal_position.x)
+			var target := get_portal_target_for(data)
 			if target > 0:
 				return target
 			return data.floor_id + 1

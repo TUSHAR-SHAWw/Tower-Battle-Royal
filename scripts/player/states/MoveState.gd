@@ -1,7 +1,8 @@
 class_name MoveState
 extends State
 
-## Walking. Transitions to Idle on no input, Sprint on sprint, Dead on death.
+## Walking horizontally. Transitions to Idle on no input, Sprint on sprint,
+## Dead on death. Gravity and jumping are handled by MovementComponent.
 
 
 var _movement: MovementComponent
@@ -14,29 +15,36 @@ func enter(_message: Dictionary = {}) -> void:
 	_movement = host.get_node_or_null("MovementComponent") as MovementComponent
 	_health = host.get_node_or_null("HealthComponent") as HealthComponent
 	_input = host.get_node_or_null("InputSource") as InputSource
-	var config_node := host.get_node_or_null("PlayerConfig")
-	_config = config_node.resource as PlayerConfig if config_node != null else null
+	_config = PlayerStateUtil.resolve_config(host)
 
 
 func physics_update(delta: float) -> void:
 	if _health != null and _health.is_dead():
 		transition_to(&"dead")
 		return
-	if _input == null or not _input.is_enabled() or _movement == null or _config == null:
+	if _input == null or not _input.is_enabled() or _movement == null:
 		transition_to(&"idle")
 		return
+	if _config == null:
+		_config = PlayerStateUtil.resolve_config(host)
+		if _config == null:
+			transition_to(&"idle")
+			return
 
 	var intent := _input.poll(host)
-	if not intent.is_moving():
+	# Keep air control: a jump in progress must not drop us back to Idle, or the
+	# player would freeze mid-jump every time they left the ground.
+	if not intent.is_moving() and _movement.is_on_floor():
 		transition_to(&"idle")
 		return
-	if intent.sprint_held:
+	if intent.is_moving() and intent.sprint_held:
 		transition_to(&"sprint")
 		return
 
 	_movement.set_facing(intent.move_dir)
 	_movement.accelerate_toward(intent.move_dir, _config.walk_speed, _config.acceleration, delta)
-	_movement.commit()
+	PlayerStateUtil.apply_vertical(_movement, intent)
+	_movement.apply_motion(delta)
 
 
 func debug_line() -> String:

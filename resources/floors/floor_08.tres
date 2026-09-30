@@ -6,7 +6,7 @@
 script = ExtResource("1_floor_data")
 floor_id = 8
 display_name = "Floor 8 - Dungeons"
-bounds = Rect2(-1280, -720, 2560, 1440)
+bounds = Rect2(-3200, -1080, 6400, 1080)
 height = 700.0
 theme_name = "dungeon"
 ambient_color = Color(0.08, 0.08, 0.15, 1)

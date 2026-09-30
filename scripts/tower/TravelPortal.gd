@@ -18,7 +18,9 @@ func _ready() -> void:
 	monitoring = _active
 	monitorable = false
 	collision_layer = 0
-	collision_mask = PhysicsLayers.PLAYER
+	# Must watch both the player body (PLAYER) and its hurtbox area
+	# (PLAYER_HURTBOX), otherwise the portal never detects anyone.
+	collision_mask = PhysicsLayers.PLAYER | PhysicsLayers.PLAYER_HURTBOX
 	
 	# Create collision shape
 	var shape := CollisionShape2D.new()
@@ -29,6 +31,7 @@ func _ready() -> void:
 	shape.owner = self
 	
 	area_entered.connect(_on_area_entered)
+	body_entered.connect(_on_body_entered)
 
 
 func _physics_process(delta: float) -> void:
@@ -43,16 +46,37 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	if not _active:
+	_try_activate(area)
+
+
+func _on_body_entered(body: Node2D) -> void:
+	_try_activate(body)
+
+
+## Walks up from a detected node to the owning player root, then fires once.
+func _try_activate(detected: Node) -> void:
+	if not _active or detected == null:
 		return
-	if area.get_instance_id() == get_parent().get_instance_id():
+	var player := _resolve_player(detected)
+	if player == null:
 		return
-	
-	if area.is_in_group("player") or area.has_method("take_damage"):
-		_active = false
-		monitoring = false
-		_cooldown_timer = cooldown
-		activated.emit(area)
+	_active = false
+	# Cannot toggle monitoring from inside a physics signal; defer it.
+	set_deferred(&"monitoring", false)
+	_cooldown_timer = cooldown
+	activated.emit(player)
+
+
+## The portal can detect either the player body or its Hurtbox child, so climb
+## to whichever ancestor is actually the player.
+func _resolve_player(detected: Node) -> Node:
+	var node: Node = detected
+	while node != null:
+		if node.is_in_group(&"player"):
+			return node
+		# The Hurtbox has no group, so climb until we hit something that does.
+		node = node.get_parent()
+	return null
 
 
 func _draw() -> void:

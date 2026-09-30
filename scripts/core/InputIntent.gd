@@ -15,6 +15,8 @@ extends RefCounted
 # ------------------------------------------------------------------- movement
 var move_dir: Vector2 = Vector2.ZERO          ## Normalised world-space direction.
 var sprint_held: bool = false
+var jump_pressed: bool = false                ## Edge-triggered jump request.
+var jump_held: bool = false                   ## Held for variable jump height.
 
 # ----------------------------------------------------------------------- aiming
 var aim_dir: Vector2 = Vector2.RIGHT          ## Normalised world-space aim.
@@ -38,6 +40,8 @@ var requested_slot: int = -1
 func reset() -> void:
 	move_dir = Vector2.ZERO
 	sprint_held = false
+	jump_pressed = false
+	jump_held = false
 	aim_dir = Vector2.RIGHT
 	aim_position = Vector2.ZERO
 	has_aim_position = false
@@ -55,6 +59,8 @@ func reset() -> void:
 func copy_from(other: InputIntent) -> void:
 	move_dir = other.move_dir
 	sprint_held = other.sprint_held
+	jump_pressed = other.jump_pressed
+	jump_held = other.jump_held
 	aim_dir = other.aim_dir
 	aim_position = other.aim_position
 	has_aim_position = other.has_aim_position

@@ -6,7 +6,7 @@
 script = ExtResource("1_floor_data")
 floor_id = 10
 display_name = "Floor 10 - Foundation"
-bounds = Rect2(-1280, -720, 2560, 1440)
+bounds = Rect2(-3200, -1080, 6400, 1080)
 height = 900.0
 theme_name = "foundation"
 ambient_color = Color(0.05, 0.05, 0.1, 1)

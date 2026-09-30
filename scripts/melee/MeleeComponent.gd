@@ -34,12 +34,26 @@ var _queued_next_attack: bool = false
 func _ready() -> void:
 	_owner = get_parent()
 	_validate_weapon()
-	
-	# Find or create hitbox
-	_hitbox = get_node_or_null("MeleeHitbox")
+
+	# The hitbox is a sibling of this component (Player/MeleeHitbox), not a child
+	# of it — looking it up on `self` always returned null, so melee attacks
+	# activated nothing and `_on_hitbox_hit` was never connected.
+	_hitbox = _resolve_hitbox()
 	if _hitbox == null:
-		# Hitbox will be created by the scene
-		pass
+		push_error("MeleeComponent: no MeleeHitbox found on %s — melee will do nothing." % _owner.name if _owner != null else "owner")
+		return
+	if _hitbox.has_signal(&"hit"):
+		_hitbox.hit.connect(_on_hitbox_hit)
+
+
+## Finds the hitbox: a child named MeleeHitbox, or a sibling on the owner.
+func _resolve_hitbox() -> Node:
+	var found := get_node_or_null("MeleeHitbox")
+	if found != null:
+		return found
+	if _owner == null:
+		return null
+	return _owner.get_node_or_null("MeleeHitbox")
 
 func _validate_weapon() -> void:
 	if weapon == null:
@@ -166,15 +180,19 @@ func _deactivate_hitbox() -> void:
 		_hitbox.deactivate()
 
 
-## Called by hitbox when it hits a target
+## Called by the hitbox when a swing connects. `target` is the actor that owns
+## the hurtbox (resolved by MeleeHitbox), not the Area2D itself.
 func _on_hitbox_hit(target: Node, hit_position: Vector2, hit_normal: Vector2) -> void:
+	if weapon == null or target == null:
+		return
+
 	var info := DamageInfo.create(weapon.damage, weapon.damage_type, _owner, _owner)
 	info.with_hit_position(hit_position)
 	info.with_knockback(hit_normal, weapon.knockback)
-	
-	if target.has_method("take_damage"):
+
+	if target.has_method(&"take_damage"):
 		target.take_damage(info)
-	
+
 	attack_hit.emit(target, info)
 	SignalHub.melee_attack_hit.emit(weapon.weapon_id, target, info)
 

@@ -29,21 +29,60 @@ func before_suite() -> void:
 	assert_not_null(_player)
 	assert_true(_player is CharacterBody2D, "PlayerInstance should be the Player CharacterBody2D")
 
-	# Get components via node paths.
-	_movement = _player.get_node("MovementComponent") as MovementComponent
-	_health = _player.get_node("HealthComponent") as HealthComponent
-	_state_machine = _player.get_node("StateMachine") as StateMachine
-	_camera_component = _player.get_node("CameraComponent") as CameraComponent
-	_config = _player.get_node("PlayerConfig").resource as PlayerConfig
-	_input_source = _player.get_node("InputSource") as InputSource
+	# Components are read by node name because before_suite() may inspect the tree
+	# while the Player is still coming up. Every failure below is turned into a
+	# recorded assertion failure instead of a SCRIPT ERROR, so a broken fixture can
+	# never again look like a passing suite.
+	_movement = _null_safe_node("MovementComponent") as MovementComponent
+	_health = _null_safe_node("HealthComponent") as HealthComponent
+	_state_machine = _null_safe_node("StateMachine") as StateMachine
+	_camera_component = _null_safe_node("CameraComponent") as CameraComponent
+	_input_source = _null_safe_node("InputSource") as InputSource
 
-	assert_not_null(_movement)
-	assert_not_null(_health)
-	assert_not_null(_state_machine)
-	assert_not_null(_config)
-	assert_not_null(_input_source)
+	assert_not_null(_movement, "MovementComponent")
+	assert_not_null(_health, "HealthComponent")
+	assert_not_null(_state_machine, "StateMachine")
+	assert_not_null(_input_source, "InputSource")
+
+	# The config is an @export Resource on Player.gd, NOT a child node. Reading it
+	# from a node called "PlayerConfig" (which does not exist) returned null, and
+	# every test that needed it died with "Nonexistent function ... in base 'Nil'"
+	# while the suite still reported PASS. PlayerStateUtil documents the same bug.
+	_config = _null_safe_get(&"config") as PlayerConfig
+	if _config == null:
+		# Fall back to the same resource Player.gd loads when the export is unset.
+		_config = load("res://resources/player/player_default.tres") as PlayerConfig
+	assert_not_null(_config, "PlayerConfig must resolve from Player.config")
+
+	var missing: Array[String] = []
+	if _movement == null:
+		missing.append("MovementComponent")
+	if _health == null:
+		missing.append("HealthComponent")
+	if _state_machine == null:
+		missing.append("StateMachine")
+	if _input_source == null:
+		missing.append("InputSource")
+	if _config == null:
+		missing.append("PlayerConfig")
+	if not missing.is_empty():
+		fail("player_test cannot run — missing %s" % ", ".join(PackedStringArray(missing)))
 
 	await get_tree().physics_frame
+
+
+## Reads a property without touching the base object when it is null.
+func _null_safe_get(property: StringName) -> Variant:
+	if _player == null:
+		return null
+	return _player.get(property)
+
+
+## Reads a child node without touching the base object when it is null.
+func _null_safe_node(node_name: String) -> Node:
+	if _player == null:
+		return null
+	return _player.get_node_or_null(NodePath(node_name))
 
 
 func after_suite() -> void:

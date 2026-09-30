@@ -10,7 +10,7 @@
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 5
 script = ExtResource("1_enemy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -30,8 +30,8 @@ script = ExtResource("4_health")
 script = ExtResource("5_visual")
 
 [node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 8
-collision_mask = 20
+collision_layer = 16
+collision_mask = 0
 
 [node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("2_shape")

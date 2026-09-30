@@ -4,15 +4,17 @@
 
 [resource]
 script = ExtResource("1_player_config")
-radius = 14.0
-walk_speed = 220.0
-sprint_speed = 320.0
-acceleration = 1800.0
-friction = 2200.0
+radius = 70.0
+walk_speed = 620.0
+sprint_speed = 900.0
+acceleration = 4200.0
+friction = 5200.0
+gravity = 2600.0
+jump_velocity = -1000.0
 max_health = 100.0
-camera_zoom = 1.0
-camera_lead_pixels = 48.0
-camera_smoothing_speed = 8.0
+camera_zoom = 1.5
+camera_lead_pixels = 150.0
+camera_smoothing_speed = 6.0
 body_color = Color(0.368627, 0.760784, 0.960784, 1)
 outline_color = Color(0.0627451, 0.192157, 0.290196, 1)
 visor_color = Color(0.917647, 0.964706, 1, 1)
