@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="NetworkConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/network/NetworkConfig.gd" id="1_net_config"]
+
+[resource]
+script = ExtResource("1_net_config")
+host = "127.0.0.1"
+port = 7777
+max_clients = 32
+tick_rate = 60
+snapshot_rate = 20
+interpolation_delay = 100.0
+prediction_enabled = true
+offline_enabled = true
+bot_fill_enabled = false
+max_bots = 0

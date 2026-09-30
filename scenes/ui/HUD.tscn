@@ -1,0 +1,202 @@
+[gd_scene format=3 uid="uid://hud_scene"]
+
+[ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_hud"]
+
+[node name="HUD" type="CanvasLayer" layer=10]
+script = ExtResource("1_hud")
+
+[node name="HealthBar" type="PanelContainer" parent="."]
+anchor_left = 0.0
+anchor_top = 0.0
+offset_left = 20
+offset_top = 20
+offset_right = 220
+offset_bottom = 60
+modulate = Color(0, 0, 0, 0.7)
+
+[node name="HealthBG" type="PanelContainer" parent="HealthBar"]
+anchors_preset = 15
+offset_left = 10
+offset_top = 10
+offset_right = -10
+offset_bottom = -10
+modulate = Color(0.3, 0.05, 0.05, 1)
+
+[node name="HealthFill" type="PanelContainer" parent="HealthBG"]
+anchors_preset = 9
+anchor_right = 0.5
+offset_left = 0
+offset_top = 0
+offset_right = 0
+offset_bottom = 0
+modulate = Color(0.8, 0.2, 0.2, 1)
+
+[node name="HealthText" type="Label" parent="HealthBar"]
+anchors_preset = 15
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 14
+text = "100 / 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HungerBar" type="PanelContainer" parent="."]
+anchor_left = 0.0
+anchor_top = 0.0
+offset_left = 20
+offset_top = 70
+offset_right = 220
+offset_bottom = 100
+modulate = Color(0, 0, 0, 0.7)
+
+[node name="HungerBG" type="PanelContainer" parent="HungerBar"]
+anchors_preset = 15
+offset_left = 10
+offset_top = 10
+offset_right = -10
+offset_bottom = -10
+modulate = Color(0.3, 0.2, 0.05, 1)
+
+[node name="HungerFill" type="PanelContainer" parent="HungerBG"]
+anchors_preset = 9
+anchor_right = 0.5
+offset_left = 0
+offset_top = 0
+offset_right = 0
+offset_bottom = 0
+modulate = Color(1, 0.6, 0.1, 1)
+
+[node name="HungerText" type="Label" parent="HungerBar"]
+anchors_preset = 15
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+text = "HUNGER: 100%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RageBar" type="PanelContainer" parent="."]
+anchor_left = 0.0
+anchor_top = 0.0
+offset_left = 20
+offset_top = 110
+offset_right = 220
+offset_bottom = 140
+modulate = Color(0, 0, 0, 0.7)
+
+[node name="RageBG" type="PanelContainer" parent="RageBar"]
+anchors_preset = 15
+offset_left = 10
+offset_top = 10
+offset_right = -10
+offset_bottom = -10
+modulate = Color(0.2, 0.05, 0.2, 1)
+
+[node name="RageFill" type="PanelContainer" parent="RageBG"]
+anchors_preset = 9
+anchor_right = 0.5
+offset_left = 0
+offset_top = 0
+offset_right = 0
+offset_bottom = 0
+modulate = Color(0.8, 0.2, 0.8, 1)
+
+[node name="RageText" type="Label" parent="RageBar"]
+anchors_preset = 15
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+text = "RAGE: 0%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AmmoContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300
+offset_top = -100
+offset_right = -20
+offset_bottom = -20
+
+[node name="AmmoText" type="Label" parent="AmmoContainer"]
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 2
+vertical_alignment = 2
+text = "30 / 90"
+
+[node name="WeaponName" type="Label" parent="AmmoContainer"]
+theme_override_font_sizes/font_size = 14
+text = "AR-BASE"
+modulate = Color(0.8, 0.8, 1, 1)
+
+[node name="GoldContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_top = 0.0
+offset_left = -200
+offset_top = 20
+offset_right = -20
+offset_bottom = 60
+
+[node name="GoldIcon" type="Label" parent="GoldContainer"]
+theme_override_font_sizes/font_size = 20
+text = "💰"
+modulate = Color(1, 0.8, 0.2, 1)
+
+[node name="GoldText" type="Label" parent="GoldContainer"]
+theme_override_font_sizes/font_size = 20
+text = "0"
+modulate = Color(1, 0.9, 0.5, 1)
+
+[node name="XPContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_top = 0.0
+offset_left = -200
+offset_top = 60
+offset_right = -20
+offset_bottom = 100
+
+[node name="XPIcon" type="Label" parent="XPContainer"]
+theme_override_font_sizes/font_size = 16
+text = "⭐"
+modulate = Color(0.5, 0.8, 1, 1)
+
+[node name="XPText" type="Label" parent="XPContainer"]
+theme_override_font_sizes/font_size = 16
+text = "Lv.1  0/100 XP"
+modulate = Color(0.7, 0.9, 1, 1)
+
+[node name="WaveText" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.0
+offset_left = -100
+offset_top = 20
+offset_right = 100
+offset_bottom = 60
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+modulate = Color(1, 1, 1, 0.9)
+text = "Wave: 1"
+
+[node name="FloorText" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.0
+offset_left = -100
+offset_top = 50
+offset_right = 100
+offset_bottom = 90
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+modulate = Color(0.8, 0.9, 1, 0.8)
+text = "Floor: 1"
+
+[node name="Notification" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.0
+offset_left = -300
+offset_top = 100
+offset_right = 300
+offset_bottom = 140
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+modulate = Color(1, 1, 1, 0)
+visible = false

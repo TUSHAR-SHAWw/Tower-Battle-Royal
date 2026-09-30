@@ -30,6 +30,8 @@ extends Resource
 
 @export_group("State")
 @export var initial_state: int = 0  # 0=ACTIVE, 1=WARNING, 2=COLLAPSING, 3=DELETED
+@export_group("Tower")
+@export var is_central_platform: bool = false
 
 
 ## Floor state enum (mirrored in FloorController).

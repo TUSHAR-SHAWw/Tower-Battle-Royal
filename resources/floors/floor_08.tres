@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FloorData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/floors/FloorData.gd" id="1_floor_data"]
+
+[resource]
+script = ExtResource("1_floor_data")
+floor_id = 8
+display_name = "Floor 8 - Dungeons"
+bounds = Rect2(-1280, -720, 2560, 1440)
+height = 700.0
+theme_name = "dungeon"
+ambient_color = Color(0.08, 0.08, 0.15, 1)
+danger_level = 4
+loot_table_path = ""
+loot_spawn_points = []
+initial_state = 0
+is_central_platform = false

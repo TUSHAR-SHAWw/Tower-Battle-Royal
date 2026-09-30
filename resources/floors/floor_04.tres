@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FloorData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/floors/FloorData.gd" id="1_floor_data"]
+
+[resource]
+script = ExtResource("1_floor_data")
+floor_id = 4
+display_name = "Floor 4 - Ballroom"
+bounds = Rect2(-1280, -720, 2560, 1440)
+height = 300.0
+theme_name = "ballroom"
+ambient_color = Color(0.25, 0.15, 0.2, 1)
+danger_level = 3
+loot_table_path = ""
+loot_spawn_points = []
+initial_state = 0
+is_central_platform = false

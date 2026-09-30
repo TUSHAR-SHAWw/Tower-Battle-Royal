@@ -1,0 +1,2805 @@
+﻿Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+Godot_v4.7-stable_win64.exe : SCRIPT ERROR: Parse Error: Identifier "_on_input_event" not declared in the current 
+scope.
+At line:4 char:1
++ & "E:\GAMES\Godot_v4.7-stable_win64.exe" --headless --path "E:\Godot  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (SCRIPT ERROR: P... current scope.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+   at: GDScript::reload (res://scripts/map/WorldMapUI.gd:49)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+   at: GDScript::reload (res://scripts/player/Player.gd:0)
+ERROR: Failed to load script "res://scripts/player/Player.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+[StateMachine] <none> -> idle
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+WARNING: The "width" argument has no effect when "filled" is "true".
+   at: draw_ellipse (scene/main/canvas_item.cpp:952)
+   GDScript backtrace (most recent call first):
+       [0] _draw (res://scripts/player/VisualComponent.gd:36)
+SCRIPT ERROR: Invalid assignment of property or key 'current' with value of type 'bool' on a base object of type 
+'Camera2D'.
+   at: CameraComponent._make_camera_current (res://scripts/player/CameraComponent.gd:37)
+   GDScript backtrace (most recent call first):
+       [0] _make_camera_current (res://scripts/player/CameraComponent.gd:37)
+SCRIPT ERROR: Trying to return a value of type "Array" from a function whose return type is "Array[int]".
+   at: MapResource.get_connected_floors (res://scripts/map/MapResource.gd:42)
+   GDScript backtrace (most recent call first):
+       [0] get_connected_floors (res://scripts/map/MapResource.gd:42)
+       [1] _draw_connections (res://scripts/map/MinimapUI.gd:121)
+       [2] _on_draw (res://scripts/map/MinimapUI.gd:77)
+SCRIPT ERROR: Trying to return a value of type "Array" from a function whose return type is "Array[int]".
+   at: MapResource.get_connected_floors (res://scripts/map/MapResource.gd:42)
+   GDScript backtrace (most recent call first):
+       [0] get_connected_floors (res://scripts/map/MapResource.gd:42)
+       [1] _draw_connections (res://scripts/map/MinimapUI.gd:121)
+       [2] _on_draw (res://scripts/map/MinimapUI.gd:77)
+SCRIPT ERROR: Trying to return a value of type "Array" from a function whose return type is "Array[int]".
+   at: MapResource.get_connected_floors (res://scripts/map/MapResource.gd:42)
+   GDScript backtrace (most recent call first):
+       [0] get_connected_floors (res://scripts/map/MapResource.gd:42)
+       [1] _draw_connections (res://scripts/map/MinimapUI.gd:121)
+       [2] _on_draw (res://scripts/map/MinimapUI.gd:77)
+SCRIPT ERROR: Trying to return a value of type "Array" from a function whose return type is "Array[int]".
+   at: MapResource.get_connected_floors (res://scripts/map/MapResource.gd:42)
+   GDScript backtrace (most recent call first):
+       [0] get_connected_floors (res://scripts/map/MapResource.gd:42)
+       [1] _draw_connections (res://scripts/map/MinimapUI.gd:121)
+       [2] _on_draw (res://scripts/map/MinimapUI.gd:77)
+SCRIPT ERROR: Trying to return a value of type "Array" from a function whose return type is "Array[int]".
+   at: MapResource.get_connected_floors (res://scripts/map/MapResource.gd:42)
+   GDScript backtrace (most recent call first):
+       [0] get_connected_floors (res://scripts/map/MapResource.gd:42)
+       [1] _draw_connections (res://scripts/map/MinimapUI.gd:121)
+       [2] _on_draw (res://scripts/map/MinimapUI.gd:77)
+SCRIPT ERROR: Trying to return a value of type "Array" from a function whose return type is "Array[int]".
+   at: MapResource.get_connected_floors (res://scripts/map/MapResource.gd:42)
+   GDScript backtrace (most recent call first):
+       [0] get_connected_floors (res://scripts/map/MapResource.gd:42)
+       [1] _draw_connections (res://scripts/map/MinimapUI.gd:121)
+       [2] _on_draw (res://scripts/map/MinimapUI.gd:77)
+SCRIPT ERROR: Trying to return a value of type "Array" from a function whose return type is "Array[int]".
+   at: MapResource.get_connected_floors (res://scripts/map/MapResource.gd:42)
+   GDScript backtrace (most recent call first):
+       [0] get_connected_floors (res://scripts/map/MapResource.gd:42)
+       [1] _draw_connections (res://scripts/map/MinimapUI.gd:121)
+       [2] _on_draw (res://scripts/map/MinimapUI.gd:77)
+SCRIPT ERROR: Trying to return a value of type "Array" from a function whose return type is "Array[int]".
+   at: MapResource.get_connected_floors (res://scripts/map/MapResource.gd:42)
+   GDScript backtrace (most recent call first):
+       [0] get_connected_floors (res://scripts/map/MapResource.gd:42)
+       [1] _draw_connections (res://scripts/map/MinimapUI.gd:121)
+       [2] _on_draw (res://scripts/map/MinimapUI.gd:77)
+SCRIPT ERROR: Trying to return a value of type "Array" from a function whose return type is "Array[int]".
+   at: MapResource.get_connected_floors (res://scripts/map/MapResource.gd:42)
+   GDScript backtrace (most recent call first):
+       [0] get_connected_floors (res://scripts/map/MapResource.gd:42)
+       [1] _draw_connections (res://scripts/map/MinimapUI.gd:121)
+       [2] _on_draw (res://scripts/map/MinimapUI.gd:77)
+SCRIPT ERROR: Trying to return a value of type "Array" from a function whose return type is "Array[int]".
+   at: MapResource.get_connected_floors (res://scripts/map/MapResource.gd:42)
+   GDScript backtrace (most recent call first):
+       [0] get_connected_floors (res://scripts/map/MapResource.gd:42)
+       [1] _draw_connections (res://scripts/map/MinimapUI.gd:121)
+       [2] _on_draw (res://scripts/map/MinimapUI.gd:77)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)
+SCRIPT ERROR: Invalid access to property or key 'current' on a base object of type 'Camera2D'.
+   at: CameraComponent.update (res://scripts/player/CameraComponent.gd:49)
+   GDScript backtrace (most recent call first):
+       [0] update (res://scripts/player/CameraComponent.gd:49)
+       [1] _physics_process (res://scripts/player/Player.gd:298)

@@ -1,25 +1,27 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene format=3 uid="uid://ct2tk3022a30r"]
 
-[ext_resource type="Script" path="res://scripts/main/Match.gd" id="1_match"]
-[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2_player"]
-[ext_resource type="PackedScene" path="res://scenes/floors/FloorController.tscn" id="3_floor"]
-[ext_resource type="Resource" path="res://resources/floors/floor_01.tres" id="4_floor_data"]
-[ext_resource type="Script" path="res://scripts/tower/TowerController.gd" id="5_tower"]
-[ext_resource type="PackedScene" path="res://scenes/tower/TravelPortal.tscn" id="6_portal"]
-[ext_resource type="Resource" path="res://resources/tower/floor_01_data.tres" id="7_tower_data1"]
-[ext_resource type="Resource" path="res://resources/tower/floor_02_data.tres" id="8_tower_data2"]
-[ext_resource type="PackedScene" path="res://scenes/hub/CentralHub.tscn" id="9_hub"]
+[ext_resource type="Script" uid="uid://dhgyr50pn74qs" path="res://scripts/main/Match.gd" id="1_match"]
+[ext_resource type="Resource" path="res://resources/tower/tower_definition.tres" id="3_tower_def"]
+[ext_resource type="Script" uid="uid://vettwv2e1xbi" path="res://scripts/tower/TowerController.gd" id="4_tower"]
+[ext_resource type="Script" uid="uid://bm4iqstian43k" path="res://scripts/tower/CentralPlatformController.gd" id="5_platform"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="6_player"]
 
-[node name="Match" type="Node2D"]
+[node name="Match" type="Node2D" unique_id=1694009777]
 script = ExtResource("1_match")
 
-[node name="TowerController" type="Node" parent="."]
-script = ExtResource("5_tower")
-tower_data = [ExtResource("7_tower_data1"), ExtResource("8_tower_data2")]
-initial_floor = 1
+[node name="TowerController" type="Node" parent="." unique_id=1146331449]
+script = ExtResource("4_tower")
+tower_resource = ExtResource("3_tower_def")
 
-[node name="CentralHub" type="Node2D" parent="."]
-instance = ExtResource("9_hub")
+[node name="CentralPlatform" type="Node2D" parent="." unique_id=1820745024]
+script = ExtResource("5_platform")
+descent_speed = 24.0
+pause_duration = 10.0
+floor_stops = Array[int]([5, 6, 7, 8, 9, 10])
+starting_floor = 5
+platform_radius = 128.0
 
-[node name="PlayerInstance" type="Node2D" parent="."]
-instance = ExtResource("2_player")
+[node name="HUD" type="CanvasLayer" parent="." unique_id=311423730]
+
+[node name="PlayerInstance" type="Node2D" parent="." unique_id=418987525]
+instance = "res://scenes/player/Player.tscn"

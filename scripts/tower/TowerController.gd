@@ -13,8 +13,11 @@ signal travel_started(target_floor: int)
 signal travel_completed(target_floor: int)
 
 @export var tower_data: Array[TowerData] = []
+@export var tower_resource: TowerResource
 @export var initial_floor: int = 1
 @export var deletion_delay: float = 5.0  # seconds after leaving before warning starts
+
+var _floor_data_list: Array[TowerData] = []
 
 var _current_floor_id: int = 1
 var _current_floor: Node = null
@@ -22,6 +25,12 @@ var _next_floor: Node = null
 var _state: StringName = &"idle"  # idle, traveling, deleting
 
 func _ready() -> void:
+	if tower_resource != null and not tower_resource.floors.is_empty():
+		_floor_data_list = tower_resource.floors
+		tower_data = tower_resource.floors
+	elif tower_data.is_empty():
+		return
+
 	_load_floor(initial_floor)
 	SignalHub.tower_floor_changed.emit(_current_floor_id)
 
@@ -30,20 +39,33 @@ func _load_floor(floor_id: int) -> void:
 	if floor_id < 1 or floor_id > tower_data.size():
 		push_error("TowerController: invalid floor_id %d" % floor_id)
 		return
-	
+
 	var data := tower_data[floor_id - 1]
 	if data.floor_scene == null:
 		push_error("TowerController: floor %d has no scene" % floor_id)
 		return
-	
+
+	print("[DEBUG] TowerController: Loading floor %d (bounds: %s, target_floor: %d)" % [
+		floor_id,
+		data.floor_data.bounds if data.floor_data != null else "null",
+		int(data.travel_portal_position.x)
+	])
+
 	var floor := data.floor_scene.instantiate()
 	if floor.has_method("set_floor_data") and data.floor_data != null:
 		floor.set_floor_data(data.floor_data)
-	
+
+	if floor.has_method("set_target_floor"):
+		floor.set_target_floor(int(data.travel_portal_position.x))
+	elif "target_floor" in floor:
+		floor.target_floor = int(data.travel_portal_position.x)
+
 	add_child(floor)
 	_current_floor = floor
 	_current_floor_id = floor_id
-	
+
+	print("[DEBUG] TowerController: Floor %d loaded, position: %s" % [floor_id, floor.global_position])
+
 	floor_changed.emit(_current_floor_id)
 	SignalHub.tower_floor_changed.emit(_current_floor_id)
 
@@ -68,6 +90,11 @@ func start_travel(target_floor: int) -> void:
 	var floor := data.floor_scene.instantiate()
 	if floor.has_method("set_floor_data") and data.floor_data != null:
 		floor.set_floor_data(data.floor_data)
+
+	if floor.has_method("set_target_floor"):
+		floor.set_target_floor(int(data.travel_portal_position.x))
+	elif "target_floor" in floor:
+		floor.target_floor = int(data.travel_portal_position.x)
 	
 	add_child(floor)
 	_next_floor = floor
@@ -77,6 +104,7 @@ func start_travel(target_floor: int) -> void:
 
 
 func _schedule_deletion(current_floor_id: int) -> void:
+	print("[DEBUG] TowerController: Scheduling deletion for floor %d (delay: %.1f seconds)" % [current_floor_id, deletion_delay])
 	# Wait for deletion delay, then start warning
 	var timer := Timer.new()
 	timer.one_shot = true
@@ -106,16 +134,29 @@ func _start_deletion(floor_id: int) -> void:
 
 
 func _finish_deletion(floor_id: int) -> void:
+	print("[DEBUG] TowerController: Finishing deletion for floor %d, resolving next floor (%d -> ?)" % [floor_id, _current_floor_id])
 	_unload_floor(floor_id)
 	floor_deleted.emit(floor_id)
 	SignalHub.floor_deleted.emit(floor_id)
-	
-	# Complete travel
-	_current_floor = _next_floor
-	_current_floor_id = floor_id + 1  # assuming sequential
-	_next_floor = null
+
+	# Find the next floor to move to (the target floor from start_travel)
+	var next_floor_id := _resolve_next_floor(floor_id)
+	print("[DEBUG] TowerController: Next floor resolved to: %d" % next_floor_id)
+	if _next_floor != null:
+		_current_floor = _next_floor
+		_current_floor_id = next_floor_id
+		_next_floor = null
+		print("[DEBUG] TowerController: Switched to preloaded next floor (id: %d)" % next_floor_id)
+	else:
+		# Fallback: find the next loaded floor in the list
+		for data in tower_data:
+			if data.floor_id > floor_id:
+				_current_floor = null
+				_current_floor_id = data.floor_id
+				_load_floor(data.floor_id)
+				break
 	_state = &"idle"
-	
+
 	floor_changed.emit(_current_floor_id)
 	travel_completed.emit(_current_floor_id)
 	SignalHub.tower_floor_changed.emit(_current_floor_id)
@@ -127,6 +168,18 @@ func get_current_floor_id() -> int:
 
 func get_current_floor() -> Node:
 	return _current_floor
+
+
+## Returns the floor ID that the TravelPortal targets when on `current_floor_id`.
+## Each floor's TowerData.travel_portal_position.x encodes the target floor ID.
+func _resolve_next_floor(current_floor_id: int) -> int:
+	for data: TowerData in tower_data:
+		if data != null and data.floor_id == current_floor_id:
+			var target := int(data.travel_portal_position.x)
+			if target > 0:
+				return target
+			return data.floor_id + 1
+	return current_floor_id + 1
 
 
 func debug_line() -> String:

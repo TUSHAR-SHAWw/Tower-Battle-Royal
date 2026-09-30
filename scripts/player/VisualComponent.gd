@@ -20,7 +20,7 @@ func _draw() -> void:
 	var visor_color: Color = config.visor_color
 	var outline_color: Color = config.outline_color
 	var outline_width: float = config.outline_width
-	var r = config.radius
+	var r = config.radius * 1.5  # Make player larger
 
 	if skin != null:
 		body_color = skin.body_color
@@ -30,24 +30,35 @@ func _draw() -> void:
 			outline_color = skin.glow_color
 			outline_width = config.outline_width * 2.0
 
-	# Body circle.
+	# Body circle - bright and visible
 	draw_circle(Vector2.ZERO, r, body_color)
-	# Outline.
-	draw_circle(Vector2.ZERO, r, outline_color, outline_width, true)
+	# Thick white outline
+	draw_circle(Vector2.ZERO, r, Color(1, 1, 1, 1), outline_width * 2.0, true)
+	# Inner accent ring
+	draw_circle(Vector2.ZERO, r * 0.7, accent_color)
 
-	# Visor (facing indicator) — a small line in the facing direction.
-	# We need the player's facing; ask the parent Player for its MovementComponent.
+	# Visor (facing indicator) — a clear triangle in the facing direction.
 	var player := get_parent()
 	if player != null and player.has_node("MovementComponent"):
 		var movement := player.get_node("MovementComponent") as MovementComponent
 		if movement != null:
 			var facing: Vector2 = movement.facing
-			var visor_end_pos: Vector2 = facing * (r * 0.8)
-			draw_line(Vector2.ZERO, visor_end_pos, visor_color, outline_width)
+			if not facing.is_zero_approx():
+				var visor_end_pos: Vector2 = facing * (r * 1.2)
+				# Draw triangle for facing direction
+				var perp: Vector2 = Vector2(-facing.y, facing.x) * (r * 0.5)
+				draw_polygon([
+					Vector2.ZERO,
+					visor_end_pos + perp,
+					visor_end_pos - perp
+				], [visor_color])
 
 	# Glow effect
 	if skin != null and skin.has_glow:
-		draw_circle(Vector2.ZERO, r + 4.0, skin.glow_color, 2.0, true)
+		draw_circle(Vector2.ZERO, r + 8.0, skin.glow_color, 3.0, true)
+
+	# Debug: draw small center dot
+	draw_circle(Vector2.ZERO, 3.0, Color(1, 1, 1, 1))
 
 
 func apply_skin(skin_resource: SkinResource) -> void:

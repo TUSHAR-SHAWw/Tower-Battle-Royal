@@ -28,6 +28,7 @@ extends Resource
 
 @export_group("Visual")
 @export var body_color: Color = Color("#5ec2f5")
+@export var accent_color: Color = Color("#eaf6ff")
 @export var outline_color: Color = Color("#10314a")
 @export var visor_color: Color = Color("#eaf6ff")
 @export var outline_width: float = 2.5

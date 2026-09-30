@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://cheatpanel_ui_scene"]
+
+[ext_resource type="Script" uid="uid://m1n3b5v7c9x2z" path="res://scripts/ui/CheatPanel.gd" id="1_cheat"]
+
+[node name="CheatPanel" type="Control" visible=false]
+script = ExtResource("1_cheat")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+color = Color(0, 0, 0, 0.85)
+
+[node name="Panel" type="PanelContainer" parent="."]
+anchors_preset = 15
+offset_left = 40
+offset_top = 40
+offset_right = -40
+offset_bottom = -40
+modulate = Color(0.1, 0.1, 0.15, 1)
+
+[node name="Title" type="Label" parent="Panel"]
+anchors_preset = 2
+grow_horizontal = 2
+offset_top = 10
+theme_override_font_sizes/font_size = 18
+text = "CHEAT CONSOLE (F10)"
+horizontal_alignment = 1
+modulate = Color(0.8, 1, 0.8, 1)
+
+[node name="Output" type="RichTextLabel" parent="Panel"]
+anchors_preset = 15
+offset_left = 10
+offset_top = 50
+offset_right = -10
+offset_bottom = -100
+theme_override_font_sizes/font_size = 12
+modulate = Color(0.7, 1, 0.7, 1)
+bbcode_enabled = true
+selection_enabled = true
+
+[node name="InputContainer" type="HBoxContainer" parent="Panel"]
+anchors_preset = 14
+grow_horizontal = 2
+offset_left = 10
+offset_top = -70
+offset_right = -10
+offset_bottom = -20
+
+[node name="Prompt" type="Label" parent="InputContainer"]
+theme_override_font_sizes/font_size = 14
+text = "> "
+modulate = Color(0.8, 1, 0.8, 1)
+
+[node name="Input" type="LineEdit" parent="InputContainer"]
+anchors_preset = 15
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 14
+placeholder_text = "Type command (help for list)..."

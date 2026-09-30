@@ -14,10 +14,27 @@ var _floor_bounds: Rect2 = Rect2(-1e6, -1e6, 2e6, 2e6)
 
 
 func _ready() -> void:
+	# Resolve camera if the export wasn't set directly (NodePath may not auto-resolve)
 	if camera == null:
-		push_error("CameraComponent: no Camera2D assigned.")
+		var parent := get_parent()
+		if parent != null:
+			camera = parent.get_node_or_null("Camera2D") as Camera2D
+	if config == null:
+		# Try to load default config if not assigned
+		config = load("res://resources/player/player_default.tres") as PlayerConfig
+	if camera == null:
+		push_error("CameraComponent: no Camera2D assigned or found.")
+		return
 	if config == null:
 		push_error("CameraComponent: no PlayerConfig assigned.")
+		return
+	# Force camera to be current (deferred so parent Player.gd has run _wire_components)
+	call_deferred("_make_camera_current")
+
+
+func _make_camera_current() -> void:
+	if camera != null and camera.is_inside_tree():
+	 camera.make_current()
 
 
 func set_floor_bounds(bounds: Rect2) -> void:
@@ -28,6 +45,9 @@ func set_floor_bounds(bounds: Rect2) -> void:
 func update(delta: float) -> void:
 	if camera == null or config == null:
 		return
+	# Ensure camera stays current
+	if not camera.is_current:
+	 camera.make_current()
 
 	# Base position is the player's global position.
 	var player_body := camera.get_parent()
@@ -59,6 +79,19 @@ func update(delta: float) -> void:
 
 	# Apply zoom.
 	camera.zoom = Vector2.ONE * config.camera_zoom
+
+	# Debug: print current camera state
+	if Engine.get_frames_drawn() % 300 == 0:  # Print every 300 frames (~5 seconds at 60fps)
+		var view_size := camera.get_viewport_rect().size
+		var top_left := camera.global_position - view_size * 0.5 * config.camera_zoom
+		var camera_area := Rect2(top_left, view_size * config.camera_zoom)
+		print("[DEBUG] CameraComponent: global_position=%s, zoom=%s, view_size=%s, show_area=%s, floor_bounds=%s" % [
+			camera.global_position,
+			camera.zoom,
+			view_size,
+			camera_area,
+			_floor_bounds
+		])
 
 
 func debug_line() -> String:

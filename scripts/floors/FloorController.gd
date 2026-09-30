@@ -18,9 +18,10 @@ signal player_entered(player: Node)
 signal player_exited(player: Node)
 
 @export var floor_data: FloorData
-@export var enemy_types: Array[EnemyResource] = []  # enemy types for this floor
+@export var enemy_types: Array[EnemyResource] = []
 @export var is_boss_floor: bool = false
 @export var boss_data: BossData = null
+@export var target_floor: int = 0  # 0 = no portal, >0 = target floor for travel
 
 var _state: int = FloorData.FloorState.ACTIVE
 var _state_machine: StateMachine = null
@@ -36,6 +37,7 @@ var _collapse_duration: float = 5.0   # seconds of collapse animation
 @onready var _enemy_spawner: Node = $EnemySpawner
 
 var _current_floor: int = 1
+var _travel_portal: TravelPortal = null
 
 
 func _ready() -> void:
@@ -49,6 +51,12 @@ func _ready() -> void:
 		_state = FloorData.FloorState.ACTIVE
 	
 	_update_visual_state()
+	
+	print("[DEBUG] FloorController: Floor %d ready, bounds: %s, spawn points: %d" % [
+		floor_data.floor_id if floor_data else -1,
+		floor_data.bounds if floor_data else "null",
+		_spawn_points.get_child_count() if _spawn_points != null else 0
+	])
 	
 	# Setup enemy spawner
 	var spawner := _enemy_spawner as EnemySpawner
@@ -69,6 +77,7 @@ func _ready() -> void:
 			# Setup boss instead of waves
 			_setup_boss()
 		else:
+			print("[DEBUG] FloorController: Floor %d starting enemy spawning (waves: %d, enemies/wave: %d, interval: %.1f)" % [_current_floor, spawner.base_wave_count, spawner.enemies_per_wave, spawner.wave_interval])
 			spawner.start_spawning(_current_floor)
 
 
@@ -115,6 +124,32 @@ func set_floor_data(data: FloorData) -> void:
 			var spawner := _enemy_spawner as EnemySpawner
 			if spawner != null:
 				spawner.start_spawning(_current_floor)
+
+	_spawn_travel_portal()
+
+
+func _spawn_travel_portal() -> void:
+	if target_floor <= 0:
+		print("[DEBUG] FloorController: Floor %d has no travel portal (target_floor: %d)" % [_current_floor, target_floor])
+		return
+
+	var portal_scene := preload("res://scenes/tower/TravelPortal.tscn")
+	if portal_scene == null:
+		push_error("FloorController: TravelPortal.tscn not found")
+		return
+
+	var bounds := floor_data.bounds if floor_data != null else Rect2(-1000, -1000, 2000, 2000)
+	var portal_pos := bounds.position + bounds.size * 0.5 + Vector2(bounds.size.x * 0.4, 0)
+	if not bounds.has_point(portal_pos):
+		portal_pos.x = clamp(portal_pos.x, bounds.position.x + 100, bounds.position.x + bounds.size.x - 100)
+		portal_pos.y = clamp(portal_pos.y, bounds.position.y + 100, bounds.position.y + bounds.size.y - 100)
+
+	_travel_portal = portal_scene.instantiate() as TravelPortal
+	_travel_portal.global_position = portal_pos
+	_travel_portal.target_floor = target_floor
+	add_child(_travel_portal)
+	
+	print("[DEBUG] FloorController: Floor %d spawned TravelPortal at position: %s (target_floor: %d, bounds: %s)" % [_current_floor, portal_pos, target_floor, bounds])
 
 
 func _setup_boss() -> void:

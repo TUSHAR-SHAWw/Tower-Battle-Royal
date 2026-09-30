@@ -55,6 +55,21 @@ signal died
 
 var _aim_direction: Vector2 = Vector2.RIGHT
 
+## Network identity (M20). 0 in offline mode.
+var net_id: int = 0
+var is_local: bool = false
+var player_name: String = "Player"
+
+
+## Applies a network state snapshot (for remote players only).
+func _apply_network_state(state: Dictionary) -> void:
+	if state.is_empty():
+		return
+	if state.has("position"):
+		global_position = state.position as Vector2
+	if state.has("velocity"):
+		velocity = state.velocity as Vector2
+
 
 func _ready() -> void:
 	_configure_from_config()
@@ -84,12 +99,16 @@ func _configure_from_config() -> void:
 		push_error("Player: failed to load PlayerConfig.")
 		return
 
-	# Collision shape radius.
-	var shape := CollisionShape2D.new()
-	shape.shape = CircleShape2D.new()
+	# Collision shape radius — use existing node if present, else create one.
+	var shape := get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if shape == null:
+		shape = CollisionShape2D.new()
+		shape.name = "CollisionShape2D"
+		add_child(shape)
+		shape.owner = self
+	if shape.shape == null:
+		shape.shape = CircleShape2D.new()
 	(shape.shape as CircleShape2D).radius = config.radius
-	add_child(shape)
-	shape.owner = self
 
 	# Physics layers.
 	collision_layer = PhysicsLayers.PLAYER
@@ -97,6 +116,50 @@ func _configure_from_config() -> void:
 
 
 func _wire_components() -> void:
+	# Auto-resolve exports from child nodes if not already assigned.
+	if config == null:
+		config = load("res://resources/player/player_default.tres") as PlayerConfig
+	if movement == null:
+		movement = get_node_or_null("MovementComponent") as MovementComponent
+	if health == null:
+		health = get_node_or_null("HealthComponent") as HealthComponent
+	if camera_component == null:
+		camera_component = get_node_or_null("CameraComponent") as CameraComponent
+	if visual == null:
+		visual = get_node_or_null("Visual") as Node2D
+	if hurtbox == null:
+		hurtbox = get_node_or_null("Hurtbox") as Area2D
+	if gun == null:
+		gun = get_node_or_null("GunComponent") as GunComponent
+	if melee == null:
+		melee = get_node_or_null("MeleeComponent") as MeleeComponent
+	if inventory == null:
+		inventory = get_node_or_null("InventoryComponent") as InventoryComponent
+	if hunger == null:
+		hunger = get_node_or_null("HungerComponent") as HungerComponent
+	if rage == null:
+		rage = get_node_or_null("RageComponent") as RageComponent
+	if elemental == null:
+		elemental = get_node_or_null("ElementalComponent") as ElementalComponent
+	if merge == null:
+		merge = get_node_or_null("MergeComponent") as MergeComponent
+	if minimap == null:
+		minimap = get_node_or_null("MinimapUI") as MinimapUI
+	if world_map == null:
+		world_map = get_node_or_null("WorldMapUI") as WorldMapUI
+	if locker == null:
+		locker = get_node_or_null("LockerComponent") as LockerComponent
+	if currency == null:
+		currency = get_node_or_null("CurrencyComponent") as CurrencyComponent
+	if daily_rewards == null:
+		daily_rewards = get_node_or_null("DailyRewardComponent") as DailyRewardComponent
+	if battle_pass == null:
+		battle_pass = get_node_or_null("BattlePassComponent") as BattlePassComponent
+	if state_machine == null:
+		state_machine = get_node_or_null("StateMachine") as StateMachine
+	if input_source == null:
+		input_source = get_node_or_null("InputSource") as InputSource
+
 	# MovementComponent needs the body reference.
 	if movement != null:
 		movement.body = self

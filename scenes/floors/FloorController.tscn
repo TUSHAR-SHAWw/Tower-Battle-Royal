@@ -1,20 +1,18 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene format=3 uid="uid://hlsee4xuwytp"]
 
-[ext_resource type="Script" path="res://scripts/floors/FloorController.gd" id="1_floor"]
-[ext_resource type="Script" path="res://scripts/core/StateMachine.gd" id="2_statemachine"]
-[ext_resource type="Script" path="res://scripts/core/State.gd" id="3_state"]
-[ext_resource type="Script" path="res://scripts/floors/FloorVisual.gd" id="4_visual"]
-[ext_resource type="Script" path="res://scripts/enemies/EnemySpawner.gd" id="5_spawner"]
+[ext_resource type="Script" uid="uid://s46r4t5ld8mn" path="res://scripts/floors/FloorController.gd" id="1_floor"]
+[ext_resource type="Script" uid="uid://buvgt6yo0rbns" path="res://scripts/floors/FloorVisual.gd" id="4_visual"]
+[ext_resource type="Script" uid="uid://bnvpv5a1imab2" path="res://scripts/enemies/EnemySpawner.gd" id="5_spawner"]
 
-[node name="FloorController" type="Node2D"]
+[node name="FloorController" type="Node2D" unique_id=2093653195]
 script = ExtResource("1_floor")
 
-[node name="Visual" type="Node2D" parent="."]
+[node name="Visual" type="Node2D" parent="." unique_id=627403123]
 script = ExtResource("4_visual")
 
-[node name="Collision" type="Node2D" parent="."]
+[node name="Collision" type="Node2D" parent="." unique_id=572744072]
 
-[node name="SpawnPoints" type="Node2D" parent="."]
+[node name="SpawnPoints" type="Node2D" parent="." unique_id=1070627186]
 
-[node name="EnemySpawner" type="Node" parent="."]
+[node name="EnemySpawner" type="Node" parent="." unique_id=1708285550]
 script = ExtResource("5_spawner")

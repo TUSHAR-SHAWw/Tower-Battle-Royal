@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/tower/CentralPlatformController.gd" id="1_platform"]
+[ext_resource type="Script" path="res://scripts/tower/CentralPlatformVisual.gd" id="2_visual"]
+
+[node name="CentralPlatform" type="Node2D"]
+script = ExtResource("1_platform")
+
+[node name="Visual" type="Node2D" parent="."
+]
+script = ExtResource("2_visual")
+
+[node name="Area" type="Area2D" parent="."
+]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]

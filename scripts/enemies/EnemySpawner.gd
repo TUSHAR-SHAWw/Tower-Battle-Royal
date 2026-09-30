@@ -54,13 +54,16 @@ func _start_next_wave() -> void:
 	
 	if _current_wave > base_wave_count:
 		_spawning = false
+		print("[DEBUG] EnemySpawner: All waves completed on floor %d" % _floor)
 		all_waves_completed.emit()
 		return
 	
+	var count := enemies_per_wave + _current_wave - 1
+	
+	print("[DEBUG] EnemySpawner: Floor %d, Wave %d/%d starting (spawning %d enemies)" % [_floor, _current_wave, base_wave_count, count])
+	
 	wave_started.emit(_current_wave)
 	SignalHub.wave_started.emit(_current_wave)
-	
-	var count := enemies_per_wave + _current_wave - 1
 	
 	for i in range(count):
 		call_deferred("_spawn_enemy", i * 0.5)
@@ -69,18 +72,29 @@ func _start_next_wave() -> void:
 func _spawn_enemy(delay: float) -> void:
 	if not _spawning:
 		return
-	
+
 	var enemy_type := _pick_enemy_type()
 	if enemy_type == null:
 		return
-	
+
 	var enemy_scene := load("res://scenes/enemies/Enemy.tscn")
 	var enemy := enemy_scene.instantiate() as Enemy
-	
+
+	var spawn_pos: Vector2 = Vector2.ZERO
 	if floor_controller != null and floor_controller.has_method("get_current_floor"):
 		var floor: Node = floor_controller.get_current_floor()
 		if floor != null:
-			enemy.global_position = _get_spawn_position(floor)
+			spawn_pos = _get_spawn_position(floor)
+	
+	enemy.global_position = spawn_pos
+	
+	print("[DEBUG] EnemySpawner: Spawning enemy type '%s' at position: %s (floor: %d, wave: %d, alive: %d)" % [
+		enemy_type.enemy_id,
+		spawn_pos,
+		_floor,
+		_current_wave,
+		_enemies_alive + 1
+	])
 	
 	# Apply floor scaling
 	var scaled := enemy_type.get_scaled_stats(_floor)

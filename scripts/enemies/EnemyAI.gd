@@ -65,7 +65,10 @@ func _update_target() -> void:
 func _find_player() -> Node:
 	var tree := get_tree()
 	if tree != null and tree.current_scene != null:
-		return tree.current_scene.get_node_or_null("PlayerInstance") or tree.current_scene.get_node_or_null("Player")
+		var p := tree.current_scene.get_node_or_null("PlayerInstance")
+		if p != null:
+			return p
+		return tree.current_scene.get_node_or_null("Player")
 	return null
 
 
@@ -91,7 +94,7 @@ func _handle_patrol(delta: float) -> void:
 		_set_state(&"idle")
 		return
 	
-	var dir := (_patrol_target - _owner.global_position).normalized()
+	var dir: Vector2 = (_patrol_target - _owner.global_position).normalized()
 	_movement.move(dir)
 	
 	# Random chance to switch to idle
@@ -115,7 +118,7 @@ func _handle_chase(delta: float) -> void:
 		_set_state(&"patrol")
 		return
 	
-	var dir := (_target.global_position - _owner.global_position).normalized()
+	var dir: Vector2 = (_target.global_position - _owner.global_position).normalized()
 	_movement.move(dir)
 	
 	# Check if stuck
@@ -151,10 +154,9 @@ func _perform_attack() -> void:
 		return
 	
 	if _target.has_method("take_damage"):
-		var info := DamageInfo.create(enemy_data.damage, &enemy_data.damage_type, _owner, _owner)
-		info.knockback = enemy_data.knockback
-		info.position = _owner.global_position
-		info.direction = (_target.global_position - _owner.global_position).normalized()
+		var info := DamageInfo.create(enemy_data.damage, enemy_data.damage_type, _owner, _owner)
+		info.with_knockback((_target.global_position - _owner.global_position).normalized(), enemy_data.knockback)
+		info.hit_position = _owner.global_position
 		_target.take_damage(info)
 	
 	attacked.emit(_target)
@@ -167,7 +169,7 @@ func _handle_flee(delta: float) -> void:
 		return
 	
 	# Move away from target
-	var dir := (_owner.global_position - _target.global_position).normalized()
+	var dir: Vector2 = (_owner.global_position - _target.global_position).normalized()
 	_movement.move(dir)
 	
 	var dist := _owner.global_position.distance_to(_target.global_position)
@@ -176,8 +178,9 @@ func _handle_flee(delta: float) -> void:
 		_set_state(&"patrol")
 
 
-func _check_stuck(delta: float) -> void:
+func _check_stuck(_delta: float) -> void:
 	# Already handled in chase
+	pass
 
 
 func _pick_patrol_target() -> void:

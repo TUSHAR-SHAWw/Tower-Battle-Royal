@@ -24,11 +24,11 @@ func _draw() -> void:
 	var bounds := floor_data.bounds
 	var color := floor_data.ambient_color
 	
-	# Floor background
+	# Floor background - make it clearly visible
 	draw_rect(bounds, color)
 	
-	# Grid lines (subtle)
-	var grid_color := Color(1.0, 1.0, 1.0, 0.03)
+	# Grid lines (clearly visible)
+	var grid_color := Color(1.0, 1.0, 1.0, 0.2)
 	var grid_size := 128.0
 	
 	var start_x := int(floor(bounds.position.x / grid_size)) * int(grid_size)
@@ -41,11 +41,11 @@ func _draw() -> void:
 	for y in range(start_y, end_y, int(grid_size)):
 		draw_line(Vector2(bounds.position.x, y), Vector2(end_x, y), grid_color)
 	
-	# Boundary outline
-	var outline_color := Color(1.0, 1.0, 1.0, 0.3)
-	draw_rect(bounds, outline_color, false, 3.0)
+	# Boundary outline (thick and bright)
+	var outline_color := Color(1.0, 1.0, 1.0, 0.8)
+	draw_rect(bounds, outline_color, false, 6.0)
 	
-	# Floor label (disabled due to draw_string API issues in headless)
-	# if _label_font != null:
-	# 	var label_pos := bounds.position + Vector2(20, 30)
-	# 	draw_string(_label_font, label_pos, "FLOOR %d" % floor_data.floor_id, Color(1.0, 1.0, 1.0, 0.5))
+	# Corner markers for orientation
+	var corner_size := 40.0
+	draw_line(Vector2(bounds.position.x, bounds.position.y), Vector2(bounds.position.x + corner_size, bounds.position.y), Color(1, 1, 0, 1), 4.0)
+	draw_line(Vector2(bounds.position.x, bounds.position.y), Vector2(bounds.position.x, bounds.position.y + corner_size), Color(1, 1, 0, 1), 4.0)

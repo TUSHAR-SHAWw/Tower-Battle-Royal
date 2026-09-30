@@ -1,7 +1,9 @@
 class_name WorldMapUI
-extends Control
+extends CanvasLayer
 
 ## Full-screen world map with floor navigation, fog of war, and teleport.
+##
+## CanvasLayer can't draw directly, so a child Control does the drawing.
 
 signal floor_selected(floor_id: int)
 signal map_closed()
@@ -16,29 +18,38 @@ var _current_floor: int = 1
 var _selected_floor: int = 1
 var _visible: bool = false
 
+var _draw_control: Control = null
+
+
 func _ready() -> void:
 	visible = false
 	_visible = false
-	
+
+	# Create a child Control that does the drawing (CanvasLayer can't draw)
+	_draw_control = Control.new()
+	_draw_control.name = "DrawControl"
 	# Full screen layout
-	anchor_left = 0.0
-	anchor_top = 0.0
-	anchor_right = 1.0
-	anchor_bottom = 1.0
-	offset_left = 0
-	offset_top = 0
-	offset_right = 0
-	offset_bottom = 0
-	
+	_draw_control.anchor_left = 0.0
+	_draw_control.anchor_top = 0.0
+	_draw_control.anchor_right = 1.0
+	_draw_control.anchor_bottom = 1.0
+	_draw_control.offset_left = 0
+	_draw_control.offset_top = 0
+	_draw_control.offset_right = 0
+	_draw_control.offset_bottom = 0
+	_draw_control.draw.connect(_on_draw)
+	add_child(_draw_control)
+
 	# Find player
 	var tree := get_tree()
 	if tree != null and tree.current_scene != null:
 		var player_instance := tree.current_scene.get_node_or_null("PlayerInstance")
 		var player := tree.current_scene.get_node_or_null("Player")
 		_player = player_instance if player_instance != null else player
+		_draw_control.input.connect(_on_input)
 
 
-func _input(event: InputEvent) -> void:
+func _on_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_TAB or event.keycode == KEY_M:
 			_toggle_map()
@@ -48,9 +59,11 @@ func _input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_UP and _visible:
 			_select_floor(_selected_floor - 1)
+			_draw_control.queue_redraw()
 			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_DOWN and _visible:
 			_select_floor(_selected_floor + 1)
+			_draw_control.queue_redraw()
 			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_ENTER and _visible:
 			_confirm_travel()
@@ -66,7 +79,8 @@ func _toggle_map() -> void:
 			var tower := _player.get_node_or_null("TowerController")
 			if tower != null and tower.has_method("get_explored_floors"):
 				_explored_floors = tower.get_explored_floors()
-		grab_focus()
+		_draw_control.grab_focus()
+		_draw_control.queue_redraw()
 	else:
 		map_closed.emit()
 
@@ -75,6 +89,8 @@ func _select_floor(delta: int) -> void:
 	if map_resource == null:
 		return
 	_selected_floor = clamp(_selected_floor + delta, 1, map_resource.total_floors)
+	if _draw_control != null:
+		_draw_control.queue_redraw()
 
 
 func _confirm_travel() -> void:
@@ -88,34 +104,38 @@ func _confirm_travel() -> void:
 func set_current_floor(floor_id: int) -> void:
 	_current_floor = floor_id
 	_selected_floor = floor_id
+	if _draw_control != null:
+		_draw_control.queue_redraw()
 
 
 func mark_floor_explored(floor_id: int) -> void:
 	if not _explored_floors.has(floor_id):
 		_explored_floors.append(floor_id)
+	if _draw_control != null:
+		_draw_control.queue_redraw()
 
 
-func _draw() -> void:
+func _on_draw() -> void:
 	if not _visible or map_resource == null:
 		return
-	
-	var rect := get_rect()
+
+	var rect := _draw_control.get_rect()
 	var center := rect.size * 0.5
-	
+
 	# Background
-	draw_rect(Rect2(Vector2.ZERO, rect.size), background_color)
-	draw_rect(Rect2(Vector2.ZERO, rect.size), border_color, false, 3.0)
-	
+	_draw_control.draw_rect(Rect2(Vector2.ZERO, rect.size), background_color)
+	_draw_control.draw_rect(Rect2(Vector2.ZERO, rect.size), border_color, false, 3.0)
+
 	# Title
 	var font := ThemeDB.get_default_theme().get_font("font", "Label")
-	draw_string(font, Vector2(20, 40), "%s - World Map" % map_resource.map_name, 0, 0, 28, Color(1, 0.9, 0.2, 1))
-	
+	_draw_control.draw_string(font, Vector2(20, 40), "%s - World Map" % map_resource.map_name, 0, 0, 28, Color(1, 0.9, 0.2, 1))
+
 	# Draw tower
 	var tower_width := rect.size.x * 0.3
 	var tower_height := rect.size.y * 0.8
 	var tower_rect := Rect2(center.x - tower_width * 0.5, center.y - tower_height * 0.5, tower_width, tower_height)
-	draw_rect(tower_rect, Color(0.08, 0.08, 0.12, 1.0))
-	draw_rect(tower_rect, Color(0.2, 0.4, 0.6, 1.0), false, 2.0)
+	_draw_control.draw_rect(tower_rect, Color(0.08, 0.08, 0.12, 1.0))
+	_draw_control.draw_rect(tower_rect, Color(0.2, 0.4, 0.6, 1.0), false, 2.0)
 	
 	# Floor cells
 	var cell_height := tower_height / map_resource.total_floors
@@ -144,16 +164,16 @@ func _draw() -> void:
 			border_col = Color(1.0, 1.0, 0.2, 1.0)
 			color = Color(0.2, 0.4, 0.6, 1.0)
 		
-		draw_rect(floor_rect, color)
+		_draw_control.draw_rect(floor_rect, color)
 		var border_width: float = 3.0 if floor_id == _selected_floor else 1.0
-		draw_rect(floor_rect, border_col, false, border_width)
+		_draw_control.draw_rect(floor_rect, border_col, false, border_width)
 		
 		# Floor label
 		var label := "FLOOR %d" % floor_id
 		if map_resource.central_platform_floor == floor_id:
 			label = "CENTRAL PLATFORM"
-		draw_string(font, floor_rect.position + Vector2(10, floor_rect.size.y * 0.5 + 8), label, 0, 0, 16, Color(1, 1, 1, 0.9))
-		
+		_draw_control.draw_string(font, floor_rect.position + Vector2(10, floor_rect.size.y * 0.5 + 8), label, 0, 0, 16, Color(1, 1, 1, 0.9))
+
 		# Status
 		var status := ""
 		if floor_id == _current_floor:
@@ -164,17 +184,17 @@ func _draw() -> void:
 			status = "HUB"
 		else:
 			status = "UNEXPLORED"
-		draw_string(font, floor_rect.position + Vector2(floor_rect.size.x - 120, floor_rect.size.y * 0.5 + 8), status, 2, 0, 12, Color(1, 1, 1, 0.6))
-	
+		_draw_control.draw_string(font, floor_rect.position + Vector2(floor_rect.size.x - 120, floor_rect.size.y * 0.5 + 8), status, 2, 0, 12, Color(1, 1, 1, 0.6))
+
 	# Legend
 	var legend_y := tower_rect.position.y + tower_height + 20
-	draw_string(font, Vector2(tower_rect.position.x, legend_y), 
-		"[UP/DOWN] Select Floor   [ENTER] Travel   [TAB/M] Close   [ESC] Cancel", 
+	_draw_control.draw_string(font, Vector2(tower_rect.position.x, legend_y),
+		"[UP/DOWN] Select Floor   [ENTER] Travel   [TAB/M] Close   [ESC] Cancel",
 		0, 0, 14, Color(0.8, 0.8, 0.8, 1))
-	
+
 	# Current floor info
-	draw_string(font, Vector2(20, rect.size.y - 40), 
-		"Current: Floor %d (%s)" % [_current_floor, _get_floor_status(_current_floor)], 
+	_draw_control.draw_string(font, Vector2(20, rect.size.y - 40),
+		"Current: Floor %d (%s)" % [_current_floor, _get_floor_status(_current_floor)],
 		0, 0, 16, Color(0.2, 1, 0.4, 1))
 
 

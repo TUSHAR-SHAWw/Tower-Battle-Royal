@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://minimap_ui_scene"]
+
+[ext_resource type="Script" uid="uid://q4w6e8r0t2y5u" path="res://scripts/map/MinimapUI.gd" id="1_minimap"]
+
+[node name="MinimapUI" type="CanvasLayer" layer=5]
+script = ExtResource("1_minimap")
+
+[node name="Panel" type="PanelContainer" parent="."]
+anchor_right = 1.0
+offset_left = -220
+offset_top = 10
+offset_right = -10
+offset_bottom = -10
+modulate = Color(0, 0, 0, 0.7)
+
+[node name="Title" type="Label" parent="Panel"]
+anchors_preset = 2
+grow_horizontal = 2
+offset_top = 5
+theme_override_font_sizes/font_size = 14
+text = "MINIMAP"
+horizontal_alignment = 1
+
+[node name="MapContainer" type="PanelContainer" parent="Panel"]
+anchors_preset = 15
+offset_left = 10
+offset_top = 30
+offset_right = -10
+offset_bottom = -10
+modulate = Color(0.1, 0.1, 0.15, 1)
+
+[node name="FloorLabel" type="Label" parent="MapContainer"]
+anchors_preset = 15
+grow_horizontal = 2
+offset_top = 5
+theme_override_font_sizes/font_size = 16
+text = "FLOOR 1"
+horizontal_alignment = 1
+vertical_alignment = 0
+
+[node name="PlayerDot" type="PanelContainer" parent="MapContainer"]
+anchors_preset = 15
+grow_horizontal = 2
+grow_vertical = 2
+offset_left = 50
+offset_top = 50
+offset_right = -50
+offset_bottom = -50
+modulate = Color(0.2, 0.8, 1.0, 1)
+visible = false
+
+[node name="FloorDots" type="VBoxContainer" parent="MapContainer"]
+anchors_preset = 15
+offset_left = 5
+offset_top = 35
+offset_right = -5
+offset_bottom = -5

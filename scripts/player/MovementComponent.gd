@@ -23,6 +23,13 @@ var speed_multiplier: float = 1.0
 
 func _ready() -> void:
 	if body == null:
+		# Try to resolve from parent if NodePath wasn't auto-resolved
+		var parent := get_parent()
+		if parent is CharacterBody2D:
+			body = parent as CharacterBody2D
+		elif parent != null:
+			body = parent.get_parent() as CharacterBody2D
+	if body == null:
 		push_error("MovementComponent: no body assigned — this component will be inert.")
 
 

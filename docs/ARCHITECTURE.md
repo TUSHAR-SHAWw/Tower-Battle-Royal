@@ -22,8 +22,8 @@ the risk/reward decisions.
 | Units | Pixels (Godot's 2D default) | Player radius ≈ 14 px, floor ≈ 2560×1440 px |
 | Combat model | Twin-stick aim (`move_dir` + `aim_dir`) | Works for mouse, gamepad, touch and bots through one interface |
 | Tower model | Floors are **separate scenes loaded on demand**, not physically stacked | 12+ floors cost no memory; the map and tower logic never need a floor scene loaded |
-| Main scene (now) | `scenes/main/Main.tscn` (boot self-check) | Replaced by the menu (M17) / match (M2) |
-| Networking | Designed for, **not built** | Architecture keeps state server-migratable; implementation is M20 |
+| Main scene (now) | `scenes/main/Match.tscn` (tower match with 10 floors + central platform) | Replaced by the menu (M17) |
+| Networking | **Built (server-authoritative)** | Architecture was designed for migration; M16 implemented GameServer/GameClient with snapshot interpolation and input prediction |
 
 ## 3. Folder map
 
@@ -223,26 +223,11 @@ confirmation pending):
 | Milestone | Contents | State |
 | --- | --- | --- |
 | **M0** | Foundation: project config, autoloads, test harness, debug tools, docs | **done** |
-| M1 | Player: movement, camera, FSM, health, death | next |
-| M2 | One floor → reusable `FloorData`/`FloorController`, match scene | |
-| M3 | One gun (data-driven, pooled projectiles) | |
-| M4 | One melee weapon + gun-damage reduction | |
-| M5 | Inventory + six-slot hotbar | |
-| M6 | Hunger, Rage, Super Hunger skeleton, food | |
-| M7 | Multiple floors, transitions, detection | |
-| M8 | Floor deletion (warning → collapse → deleted) | |
-| M9 | Floor travel item (select, long travel, warning, centre arrival) | |
-| M10 | Live tower map | |
-| M11 | Loot tables | |
-| M12 | Elements + status effects | |
-| M13 | Weapon merging (recipes, tiers) | |
-| M14 | Central descending platform | |
-| M15 | Weapon roster expansion (data only) | |
-| M16 | Player skins | |
-| M17 | Main menu | |
+| **M1–M15** | Player, floors, combat, inventory, metabolism, tower, enemies, merging, central platform, economy | **done** |
+| **M16** | Networking: server-authoritative architecture, GameServer, GameClient, snapshots, input prediction | **done** |
+| **M17** | Main menu scene + SceneRouter integration | next |
 | M18 | Economy, shop, packs, save | |
 | M19 | Polish: VFX/SFX/animation | |
-| M20 | Multiplayer (server-authoritative) | |
 
 ## 15. Testing & debug tooling
 

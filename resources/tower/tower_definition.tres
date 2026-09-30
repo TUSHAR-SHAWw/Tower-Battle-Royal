@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="TowerResource" load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://scripts/tower/TowerResource.gd" id="1_tower"]
+[ext_resource type="Resource" path="res://resources/tower/floor_01_data.tres" id="2_floor_1"]
+[ext_resource type="Resource" path="res://resources/tower/floor_02_data.tres" id="3_floor_2"]
+[ext_resource type="Resource" path="res://resources/tower/floor_03_data.tres" id="4_floor_3"]
+[ext_resource type="Resource" path="res://resources/tower/floor_04_data.tres" id="5_floor_4"]
+[ext_resource type="Resource" path="res://resources/tower/floor_05_data.tres" id="6_floor_5"]
+[ext_resource type="Resource" path="res://resources/tower/floor_06_data.tres" id="7_floor_6"]
+[ext_resource type="Resource" path="res://resources/tower/floor_07_data.tres" id="8_floor_7"]
+[ext_resource type="Resource" path="res://resources/tower/floor_08_data.tres" id="9_floor_8"]
+[ext_resource type="Resource" path="res://resources/tower/floor_09_data.tres" id="10_floor_9"]
+[ext_resource type="Resource" path="res://resources/tower/floor_10_data.tres" id="11_floor_10"]
+
+[resource]
+script = ExtResource("1_tower")
+floors = [ExtResource("2_floor_1"), ExtResource("3_floor_2"), ExtResource("4_floor_3"), ExtResource("5_floor_4"), ExtResource("6_floor_5"), ExtResource("7_floor_6"), ExtResource("8_floor_7"), ExtResource("9_floor_8"), ExtResource("10_floor_9"), ExtResource("11_floor_10")]
+central_platform_floor_index = 4
+central_platform_floor_id = 5
+total_floors = 10
+starting_floor_range = 3
+soft_start_floors = 2
+difficulty_per_floor = 0.15

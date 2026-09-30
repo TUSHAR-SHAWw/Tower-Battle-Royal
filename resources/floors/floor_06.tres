@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FloorData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/floors/FloorData.gd" id="1_floor_data"]
+
+[resource]
+script = ExtResource("1_floor_data")
+floor_id = 6
+display_name = "Floor 6 - Kitchens"
+bounds = Rect2(-1280, -720, 2560, 1440)
+height = 500.0
+theme_name = "kitchen"
+ambient_color = Color(0.15, 0.1, 0.1, 1)
+danger_level = 3
+loot_table_path = ""
+loot_spawn_points = []
+initial_state = 0
+is_central_platform = false

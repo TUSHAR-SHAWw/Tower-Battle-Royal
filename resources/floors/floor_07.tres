@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="FloorData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/floors/FloorData.gd" id="1_floor_data"]
+
+[resource]
+script = ExtResource("1_floor_data")
+floor_id = 7
+display_name = "Floor 7 - Armory"
+bounds = Rect2(-1280, -720, 2560, 1440)
+height = 600.0
+theme_name = "armory"
+ambient_color = Color(0.1, 0.15, 0.2, 1)
+danger_level = 4
+loot_table_path = ""
+loot_spawn_points = []
+initial_state = 0
+is_central_platform = false

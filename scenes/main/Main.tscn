@@ -1,11 +1,11 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://bjroeoj63176k"]
 
-[ext_resource type="Script" path="res://scripts/main/Main.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://c3gbpn4lf2se" path="res://scripts/main/Main.gd" id="1_main"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=793007326]
 script = ExtResource("1_main")
 
-[node name="StatusLabel" type="Label" parent="."]
+[node name="StatusLabel" type="Label" parent="." unique_id=1249094546]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
