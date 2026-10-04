@@ -58,6 +58,7 @@ func _load_floor(floor_id: int) -> void:
 	_configure_floor_instance(floor, data)
 
 	add_child(floor)
+	_place_in_tower(floor, floor_id)
 	_current_floor = floor
 	_current_floor_id = floor_id
 
@@ -65,6 +66,27 @@ func _load_floor(floor_id: int) -> void:
 
 	floor_changed.emit(_current_floor_id)
 	SignalHub.tower_floor_changed.emit(_current_floor_id)
+
+
+## Stacks a floor vertically inside the tower.
+##
+## FloorData.bounds is canonical and identical for every storey (validate()
+## enforces it) so the camera framing is uniform. The storey's place in the
+## tower therefore comes from its NODE position, not its bounds: floor 1 sits at
+## the origin and each floor above is one storey-height further up the shaft.
+func _place_in_tower(floor: Node2D, floor_id: int) -> void:
+	var storey_height := FloorData.DEFAULT_BOUNDS.size.y
+	floor.position = Vector2(0.0, -storey_height * float(floor_id - 1))
+	print("[DEBUG] TowerController: Floor %d stacked at y=%.1f" % [floor_id, floor.position.y])
+
+
+## Returns the floor's world-space rect, which is its canonical bounds shifted by
+## where the storey sits in the tower. Camera limits and spawn points must use
+## this, not the raw bounds.
+func get_floor_world_rect(floor: Node2D, floor_id: int) -> Rect2:
+	if floor == null:
+		return FloorData.DEFAULT_BOUNDS
+	return Rect2(floor.global_position, FloorData.DEFAULT_BOUNDS.size)
 
 
 ## Wires a freshly instantiated floor with its TowerData.

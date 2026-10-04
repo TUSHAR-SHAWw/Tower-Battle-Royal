@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="FloorTheme" format=3 uid="uid://theme-ice-01"]
+
+[ext_resource type="Script" path="res://scripts/floors/FloorTheme.gd" id="1_floor_theme"]
+
+[resource]
+script = ExtResource("1_floor_theme")
+theme_name = "ice"
+display_name = "Ice Floor"
+wall_color = Color(0.65, 0.82, 0.88, 1.0)
+slab_top_color = Color(0.88, 0.94, 0.98, 1.0)
+slab_core_color = Color(0.55, 0.72, 0.82, 1.0)
+slab_rim_color = Color(0.42, 0.70, 0.95, 1.0)
+wall_pattern = "ice"
+slab_thickness_tiles = 3
+wall_thickness = 48.0
+light_color = Color(0.72, 0.88, 1.0, 1.0)
+light_pool_radius = 280.0
+ambient_color = Color(0.08, 0.18, 0.22, 1.0)
+prop_types = ["lamp", "clock", "plant", "desk"]
+prop_count = 6
+loot_items_on_lip = ["coin_10", "health_pack"]
+loot_marker_size = 24.0

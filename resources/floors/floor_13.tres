@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="FloorData" format=3]
+
+[ext_resource type="Script" path="res://scripts/floors/FloorData.gd" id="1_floor_data"]
+[ext_resource type="Resource" path="res://resources/floors/theme_ice.tres" id="9_theme"]
+
+[resource]
+script = ExtResource("1_floor_data")
+floor_id = 13
+display_name = "Floor 13 - Ice"
+theme_name = "ice"
+theme = ExtResource("9_theme")
+ambient_color = Color(0.08, 0.18, 0.22, 1.0)
+danger_level = 2
+initial_state = 0

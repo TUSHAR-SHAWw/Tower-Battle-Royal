@@ -1,17 +1,14 @@
-[gd_resource type="Resource" script_class="FloorData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="FloorData" format=3]
 
 [ext_resource type="Script" path="res://scripts/floors/FloorData.gd" id="1_floor_data"]
+[ext_resource type="Resource" path="res://resources/floors/theme_ice.tres" id="9_theme"]
 
 [resource]
 script = ExtResource("1_floor_data")
 floor_id = 7
-display_name = "Floor 7 - Armory"
-bounds = Rect2(-3200, -1080, 6400, 1080)
-height = 600.0
-theme_name = "armory"
-ambient_color = Color(0.1, 0.15, 0.2, 1)
-danger_level = 4
-loot_table_path = ""
-loot_spawn_points = []
+display_name = "Floor 7 - Ice"
+theme_name = "ice"
+theme = ExtResource("9_theme")
+ambient_color = Color(0.08, 0.18, 0.22, 1.0)
+danger_level = 1
 initial_state = 0
-is_central_platform = false

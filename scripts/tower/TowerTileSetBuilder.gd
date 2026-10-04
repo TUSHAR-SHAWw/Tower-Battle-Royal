@@ -19,11 +19,36 @@ const TILE_SIZE := Vector2i(18, 18)
 
 ## Atlas source ids. Keep these stable — floors and saved TileMapLayer data
 ## reference cells as (source_id, atlas_coords).
+## Atlas source ids. Keep these stable — floors and saved TileMapLayer data
+## reference cells as (source_id, atlas_coords).
 const SOURCE_BASE := 0
 const SOURCE_INDUSTRIAL := 1
+
 ## Background decoration. Uses the base art but has NO collision, so scenery
 ## never becomes an invisible platform.
 const SOURCE_DECOR := 2
+
+## One solid source per tower theme, so each storey's TileMapLayer is painted
+## from art that matches its palette. Ids are stable: floors and saved
+## TileMapLayer cell data reference cells as (source_id, atlas_coords).
+const SOURCE_THEME_BASE := 3
+
+## Maps a FloorTheme.theme_name to its solid atlas source id.
+const THEME_SOURCES := {
+	"mountain": SOURCE_THEME_BASE + 0,
+	"desert": SOURCE_THEME_BASE + 1,
+	"volcano": SOURCE_THEME_BASE + 1,
+	"ice": SOURCE_THEME_BASE + 2,
+	"water": SOURCE_THEME_BASE + 2,
+}
+
+## Source id used when a theme is unknown.
+const SOURCE_FALLBACK := SOURCE_THEME_BASE + 0
+
+
+## Returns the solid atlas source id for a theme name.
+static func source_for_theme(theme_name: String) -> int:
+	return THEME_SOURCES.get(theme_name, SOURCE_FALLBACK)
 
 const BASE_SHEET := "res://assets/kenney_pixel-platformer/Tilemap/tilemap.png"
 const INDUSTRIAL_SHEET := "res://assets/kenney_pixel-platformer-industrial-expansion/Tilemap/tilemap.png"
@@ -44,6 +69,12 @@ static func build() -> TileSet:
 	_add_source(tile_set, SOURCE_INDUSTRIAL, INDUSTRIAL_SHEET)
 	# Decor reuses the base art with collision disabled.
 	_add_source(tile_set, SOURCE_DECOR, BASE_SHEET, false)
+	# Per-theme solids. Natural themes read better on the grass/stone sheet,
+	# industrial and volcanic ones on the metal/brick sheet; ice and water share
+	# the cold-looking stone row.
+	for offset in 5:
+		var sheet := INDUSTRIAL_SHEET if offset == 1 else BASE_SHEET
+		_add_source(tile_set, SOURCE_THEME_BASE + offset, sheet)
 	return tile_set
 
 

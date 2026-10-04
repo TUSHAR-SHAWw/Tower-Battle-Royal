@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Tower Battle Royal"
 config/description="Multiplayer vertical tower survival battle royale."
-run/main_scene="uid://ct2tk3022a30r"
+run/main_scene="uid://bjroeoj63176k"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [autoload]
@@ -203,13 +203,9 @@ jump={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
-; Pixel art: nearest-neighbour by default (0 = Nearest in the enum). Without this
-; every sprite and tile blurs into mush when the camera zooms.
-textures/canvas_textures/default_texture_filter=0
-; Snap 2D transforms/vertices to whole pixels so the camera rig's sub-pixel
-; positions do not make tiles shimmer while scrolling.
 2d/snap/snap_2d_transforms_to_pixel=true
 2d/snap/snap_2d_vertices_to_pixel=true

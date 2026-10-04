@@ -1,23 +1,10 @@
-[gd_resource type="Resource" script_class="BossData" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="BossData" load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/enemies/BossData.gd" id="1_boss"]
 [ext_resource type="Script" path="res://scripts/enemies/BossPhaseData.gd" id="2_phase"]
-[ext_resource type="Script" path="res://scripts/enemies/BossPhaseData.gd" id="3_phase2"]
-[ext_resource type="Script" path="res://scripts/enemies/BossPhaseData.gd" id="4_phase3"]
 
-[resource]
-script = ExtResource("1_boss")
-boss_name = "Floor Warden"
-boss_id = &"floor_warden"
-max_health = 800.0
-base_speed = 100.0
-base_damage = 35.0
-phases = [ExtResource("2_phase"), ExtResource("3_phase2"), ExtResource("4_phase3")]
-reward_xp = 1000
-reward_gold = 500
-reward_items = [{"type": "gold", "amount": 1000}, {"type": "item", "item_id": "health_pack", "count": 3}]
-
-[sub_resource type="BossPhaseData" id="2_phase"]
+[sub_resource type="Resource" id="Phase1"]
+script = ExtResource("2_phase")
 name = "Phase 1: Guardian"
 health_multiplier = 1.0
 speed_multiplier = 1.0
@@ -26,7 +13,8 @@ new_abilities = ["charge", "slam"]
 visual_overlay_color = Color(0, 0, 0, 0)
 arena_modifier = &""
 
-[sub_resource type="BossPhaseData" id="3_phase2"]
+[sub_resource type="Resource" id="Phase2"]
+script = ExtResource("2_phase")
 name = "Phase 2: Enraged"
 health_multiplier = 1.0
 speed_multiplier = 1.3
@@ -35,7 +23,8 @@ new_abilities = ["charge", "slam", "shockwave"]
 visual_overlay_color = Color(1, 0.2, 0.1, 0.2)
 arena_modifier = &"add_fire_patches"
 
-[sub_resource type="BossPhaseData" id="4_phase3"]
+[sub_resource type="Resource" id="Phase3"]
+script = ExtResource("2_phase")
 name = "Phase 3: Unleashed"
 health_multiplier = 1.0
 speed_multiplier = 1.6
@@ -43,3 +32,15 @@ damage_multiplier = 1.5
 new_abilities = ["charge", "slam", "shockwave", "missile_barrage"]
 visual_overlay_color = Color(1, 0.1, 0.1, 0.4)
 arena_modifier = &"add_fire_patches add_meteors"
+
+[resource]
+script = ExtResource("1_boss")
+boss_name = "Floor Warden"
+boss_id = &"floor_warden"
+max_health = 800.0
+base_speed = 100.0
+base_damage = 35.0
+phases = Array[BossPhaseData]([SubResource("Phase1"), SubResource("Phase2"), SubResource("Phase3")])
+reward_xp = 1000
+reward_gold = 500
+reward_items = [{"type": "gold", "amount": 1000}, {"type": "item", "item_id": "health_pack", "count": 3}]

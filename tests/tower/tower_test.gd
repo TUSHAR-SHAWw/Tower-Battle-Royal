@@ -9,7 +9,8 @@ func test_tower_definition_exists() -> void:
 
 func test_tower_has_ten_floors() -> void:
 	var tower := load("res://resources/tower/tower_definition.tres") as TowerResource
-	assert_eq(tower.floors.size(), 10, "tower should have 10 floors")
+	assert_eq(tower.floors.size(), 50, "tower should have 50 floors")
+	assert_eq(tower.total_floors, 50, "total_floors should match the floor list")
 
 func test_tower_floors_are_valid() -> void:
 	var tower := load("res://resources/tower/tower_definition.tres") as TowerResource
@@ -61,11 +62,17 @@ func test_floors_have_travel_targets() -> void:
 		assert_true(target > 0, "floor %d should have a travel target" % fd.floor_id)
 
 func test_central_platform_has_central_data() -> void:
-	var floor_data := load("res://resources/floors/floor_05.tres") as FloorData
-	assert_not_null(floor_data, "floor_05.tres must exist")
-	if floor_data != null:
-		assert_true(floor_data.is_central_platform, "floor_05 should be central platform")
-		assert_eq(floor_data.danger_level, 5, "central platform should be highest danger")
+	var tower := load("res://resources/tower/tower_definition.tres") as TowerResource
+	var central_id: int = tower.central_platform_floor_id
+	assert_true(central_id >= 1 and central_id <= tower.floors.size(),
+		"central platform id %d must be inside the tower" % central_id)
+	# is_central_platform lives on the TowerData entry, not on FloorData.
+	var central: TowerData = tower.floors[central_id - 1]
+	assert_not_null(central, "floor %d must exist" % central_id)
+	if central != null:
+		assert_true(central.is_central_platform,
+			"floor %d should be flagged as the central platform" % central_id)
+		assert_eq(central.floor_id, central_id, "central floor id must line up")
 
 func test_floors_have_unique_ids() -> void:
 	var tower := load("res://resources/tower/tower_definition.tres") as TowerResource

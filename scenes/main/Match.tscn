@@ -4,7 +4,8 @@
 [ext_resource type="Resource" path="res://resources/tower/tower_definition.tres" id="3_tower_def"]
 [ext_resource type="Script" uid="uid://vettwv2e1xbi" path="res://scripts/tower/TowerController.gd" id="4_tower"]
 [ext_resource type="Script" uid="uid://bm4iqstian43k" path="res://scripts/tower/CentralPlatformController.gd" id="5_platform"]
-[ext_resource type="PackedScene" uid="uid://dxycl5tre6cht" path="res://scenes/floors/Player.tscn" id="6_player"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="6_player"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="7_hud"]
 
 [node name="Match" type="Node2D" unique_id=1694009777]
 script = ExtResource("1_match")
@@ -21,6 +22,6 @@ floor_stops = Array[int]([5, 6, 7, 8, 9, 10])
 starting_floor = 5
 platform_radius = 128.0
 
-[node name="HUD" type="CanvasLayer" parent="." unique_id=311423730]
+[node name="HUD" parent="." instance=ExtResource("7_hud")]
 
 [node name="PlayerInstance" parent="." instance=ExtResource("6_player")]

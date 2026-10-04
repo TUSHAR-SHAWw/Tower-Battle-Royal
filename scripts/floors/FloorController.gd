@@ -109,6 +109,11 @@ func _configure_from_data() -> void:
 	if _visual != null and _visual.get_script() != null and _visual.get_script().resource_path.ends_with("FloorVisual.gd"):
 		_visual.floor_data = floor_data
 
+	# Art direction for this storey. The theme's ambient colour wins so each
+	# floor reads distinctly as the player climbs the tower.
+	if floor_data.theme != null and _visual != null and "theme" in _visual:
+		_visual.set("theme", floor_data.theme)
+
 	_build_tile_layers()
 
 	# Update spawn points positions if defined in data
@@ -149,8 +154,9 @@ func _build_tile_layers() -> void:
 		return
 
 	# Alternate themes so adjacent floors do not look identical.
-	var theme := TowerTileSetBuilder.SOURCE_BASE if floor_data.floor_id % 2 == 1 \
-		else TowerTileSetBuilder.SOURCE_INDUSTRIAL
+	# Paint the tiles from the art that matches this storey's theme, so a volcano
+	# floor and an ice floor are visibly different.
+	var theme := TowerTileSetBuilder.source_for_theme(floor_data.theme_name)
 
 	FloorTileLayout.populate(
 		_ground_tiles,

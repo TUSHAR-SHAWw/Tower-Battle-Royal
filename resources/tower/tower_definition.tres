@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="TowerResource" load_steps=13 format=3]
+[gd_resource type="Resource" script_class="TowerResource" load_steps=52 format=3]
 
 [ext_resource type="Script" path="res://scripts/tower/TowerResource.gd" id="1_tower"]
 [ext_resource type="Resource" path="res://resources/tower/floor_01_data.tres" id="2_floor_1"]
@@ -11,13 +11,53 @@
 [ext_resource type="Resource" path="res://resources/tower/floor_08_data.tres" id="9_floor_8"]
 [ext_resource type="Resource" path="res://resources/tower/floor_09_data.tres" id="10_floor_9"]
 [ext_resource type="Resource" path="res://resources/tower/floor_10_data.tres" id="11_floor_10"]
+[ext_resource type="Resource" path="res://resources/tower/floor_11_data.tres" id="12_floor_11"]
+[ext_resource type="Resource" path="res://resources/tower/floor_12_data.tres" id="13_floor_12"]
+[ext_resource type="Resource" path="res://resources/tower/floor_13_data.tres" id="14_floor_13"]
+[ext_resource type="Resource" path="res://resources/tower/floor_14_data.tres" id="15_floor_14"]
+[ext_resource type="Resource" path="res://resources/tower/floor_15_data.tres" id="16_floor_15"]
+[ext_resource type="Resource" path="res://resources/tower/floor_16_data.tres" id="17_floor_16"]
+[ext_resource type="Resource" path="res://resources/tower/floor_17_data.tres" id="18_floor_17"]
+[ext_resource type="Resource" path="res://resources/tower/floor_18_data.tres" id="19_floor_18"]
+[ext_resource type="Resource" path="res://resources/tower/floor_19_data.tres" id="20_floor_19"]
+[ext_resource type="Resource" path="res://resources/tower/floor_20_data.tres" id="21_floor_20"]
+[ext_resource type="Resource" path="res://resources/tower/floor_21_data.tres" id="22_floor_21"]
+[ext_resource type="Resource" path="res://resources/tower/floor_22_data.tres" id="23_floor_22"]
+[ext_resource type="Resource" path="res://resources/tower/floor_23_data.tres" id="24_floor_23"]
+[ext_resource type="Resource" path="res://resources/tower/floor_24_data.tres" id="25_floor_24"]
+[ext_resource type="Resource" path="res://resources/tower/floor_25_data.tres" id="26_floor_25"]
+[ext_resource type="Resource" path="res://resources/tower/floor_26_data.tres" id="27_floor_26"]
+[ext_resource type="Resource" path="res://resources/tower/floor_27_data.tres" id="28_floor_27"]
+[ext_resource type="Resource" path="res://resources/tower/floor_28_data.tres" id="29_floor_28"]
+[ext_resource type="Resource" path="res://resources/tower/floor_29_data.tres" id="30_floor_29"]
+[ext_resource type="Resource" path="res://resources/tower/floor_30_data.tres" id="31_floor_30"]
+[ext_resource type="Resource" path="res://resources/tower/floor_31_data.tres" id="32_floor_31"]
+[ext_resource type="Resource" path="res://resources/tower/floor_32_data.tres" id="33_floor_32"]
+[ext_resource type="Resource" path="res://resources/tower/floor_33_data.tres" id="34_floor_33"]
+[ext_resource type="Resource" path="res://resources/tower/floor_34_data.tres" id="35_floor_34"]
+[ext_resource type="Resource" path="res://resources/tower/floor_35_data.tres" id="36_floor_35"]
+[ext_resource type="Resource" path="res://resources/tower/floor_36_data.tres" id="37_floor_36"]
+[ext_resource type="Resource" path="res://resources/tower/floor_37_data.tres" id="38_floor_37"]
+[ext_resource type="Resource" path="res://resources/tower/floor_38_data.tres" id="39_floor_38"]
+[ext_resource type="Resource" path="res://resources/tower/floor_39_data.tres" id="40_floor_39"]
+[ext_resource type="Resource" path="res://resources/tower/floor_40_data.tres" id="41_floor_40"]
+[ext_resource type="Resource" path="res://resources/tower/floor_41_data.tres" id="42_floor_41"]
+[ext_resource type="Resource" path="res://resources/tower/floor_42_data.tres" id="43_floor_42"]
+[ext_resource type="Resource" path="res://resources/tower/floor_43_data.tres" id="44_floor_43"]
+[ext_resource type="Resource" path="res://resources/tower/floor_44_data.tres" id="45_floor_44"]
+[ext_resource type="Resource" path="res://resources/tower/floor_45_data.tres" id="46_floor_45"]
+[ext_resource type="Resource" path="res://resources/tower/floor_46_data.tres" id="47_floor_46"]
+[ext_resource type="Resource" path="res://resources/tower/floor_47_data.tres" id="48_floor_47"]
+[ext_resource type="Resource" path="res://resources/tower/floor_48_data.tres" id="49_floor_48"]
+[ext_resource type="Resource" path="res://resources/tower/floor_49_data.tres" id="50_floor_49"]
+[ext_resource type="Resource" path="res://resources/tower/floor_50_data.tres" id="51_floor_50"]
 
 [resource]
 script = ExtResource("1_tower")
-floors = [ExtResource("2_floor_1"), ExtResource("3_floor_2"), ExtResource("4_floor_3"), ExtResource("5_floor_4"), ExtResource("6_floor_5"), ExtResource("7_floor_6"), ExtResource("8_floor_7"), ExtResource("9_floor_8"), ExtResource("10_floor_9"), ExtResource("11_floor_10")]
-central_platform_floor_index = 4
-central_platform_floor_id = 5
-total_floors = 10
-starting_floor_range = 3
-soft_start_floors = 2
-difficulty_per_floor = 0.15
+floors = [ExtResource("2_floor_1"), ExtResource("3_floor_2"), ExtResource("4_floor_3"), ExtResource("5_floor_4"), ExtResource("6_floor_5"), ExtResource("7_floor_6"), ExtResource("8_floor_7"), ExtResource("9_floor_8"), ExtResource("10_floor_9"), ExtResource("11_floor_10"), ExtResource("12_floor_11"), ExtResource("13_floor_12"), ExtResource("14_floor_13"), ExtResource("15_floor_14"), ExtResource("16_floor_15"), ExtResource("17_floor_16"), ExtResource("18_floor_17"), ExtResource("19_floor_18"), ExtResource("20_floor_19"), ExtResource("21_floor_20"), ExtResource("22_floor_21"), ExtResource("23_floor_22"), ExtResource("24_floor_23"), ExtResource("25_floor_24"), ExtResource("26_floor_25"), ExtResource("27_floor_26"), ExtResource("28_floor_27"), ExtResource("29_floor_28"), ExtResource("30_floor_29"), ExtResource("31_floor_30"), ExtResource("32_floor_31"), ExtResource("33_floor_32"), ExtResource("34_floor_33"), ExtResource("35_floor_34"), ExtResource("36_floor_35"), ExtResource("37_floor_36"), ExtResource("38_floor_37"), ExtResource("39_floor_38"), ExtResource("40_floor_39"), ExtResource("41_floor_40"), ExtResource("42_floor_41"), ExtResource("43_floor_42"), ExtResource("44_floor_43"), ExtResource("45_floor_44"), ExtResource("46_floor_45"), ExtResource("47_floor_46"), ExtResource("48_floor_47"), ExtResource("49_floor_48"), ExtResource("50_floor_49"), ExtResource("51_floor_50")]
+central_platform_floor_index = 24
+central_platform_floor_id = 25
+total_floors = 50
+starting_floor_range = 5
+soft_start_floors = 3
+difficulty_per_floor = 0.08

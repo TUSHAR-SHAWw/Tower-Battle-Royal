@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="FloorTheme" format=3 uid="uid://theme-volcano-01"]
+
+[ext_resource type="Script" path="res://scripts/floors/FloorTheme.gd" id="1_floor_theme"]
+
+[resource]
+script = ExtResource("1_floor_theme")
+theme_name = "volcano"
+display_name = "Volcano Floor"
+wall_color = Color(0.35, 0.08, 0.05, 1.0)
+slab_top_color = Color(0.55, 0.18, 0.08, 1.0)
+slab_core_color = Color(0.22, 0.06, 0.04, 1.0)
+slab_rim_color = Color(0.95, 0.42, 0.15, 1.0)
+wall_pattern = "stone"
+slab_thickness_tiles = 3
+wall_thickness = 48.0
+light_color = Color(0.88, 0.35, 0.12, 1.0)
+light_pool_radius = 280.0
+ambient_color = Color(0.10, 0.05, 0.05, 1.0)
+prop_types = ["crate", "lamp", "barrel"]
+prop_count = 5
+loot_items_on_lip = ["gem_5", "adrenaline"]
+loot_marker_size = 24.0

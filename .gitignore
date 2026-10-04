@@ -8,3 +8,18 @@ tests/results/
 build/
 export_credentials.cfg
 *.tmp
+# Engine and test runtime output (headless runs, import passes, diagnostics)
+match_err.txt
+match_out.txt
+player_out.txt
+*.log
+test_out.txt
+test_err.txt
+# Scratch artifacts — nothing in diag files should be committed
+Diag*.tscn
+diag*.txt
+diag*.gd
+diag*.uid
+# Ignore the workspace's loose result files but keep docs and README
+!docs/*.txt
+!README.md

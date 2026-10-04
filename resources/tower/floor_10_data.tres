@@ -7,9 +7,9 @@
 [resource]
 script = ExtResource("1_tower")
 floor_id = 10
-display_name = "Floor 10 - Foundation"
+display_name = "Floor 10 - Ice"
 floor_scene = ExtResource("2_floor_scene")
 floor_data = ExtResource("3_floor_data")
-travel_portal_position = Vector2(0, 0)
+travel_portal_position = Vector2(40, 0)
 is_central_platform = false
-difficulty_modifier = 3.0
+difficulty_modifier = 1.72

@@ -1,0 +1,213 @@
+[gd_scene format=3 uid="uid://menu-v3-arcade"]
+
+[ext_resource type="Script" path="res://scripts/ui/MenuController.gd" id="1_menu"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2_player"]
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_menu")
+
+# Theme-coloured deep background — reads the room as a tower floor storey
+[node name="MenuBG" type="ColorRect" parent="."]
+layout_mode = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+color = Color(0.15, 0.10, 0.08, 1.0)
+
+# Title banner — top, full-width, dark navy backing with gold text
+[node name="TopBanner" type="PanelContainer" parent="."]
+layout_mode = 2
+anchors_preset = 3
+anchor_left = 0.05
+anchor_right = 0.95
+anchor_top = 0.02
+anchor_bottom = 0.14
+theme_override_colors/background_color = Color(0.11, 0.30, 0.65, 1.0)
+
+[node name="TitleLabel" type="Label" parent="TopBanner"]
+layout_mode = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 4.0
+offset_right = 12.0
+offset_bottom = 4.0
+text = "TOWER BATTLE ROYAL"
+theme_override_colors/font_color = Color(0.95, 0.78, 0.35, 1.0)
+
+# Player avatar preview (zone for character art — shows 216 px figure at 1/5 scale)
+[node name="AvatarPanel" type="PanelContainer" parent="."]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.02
+anchor_top = 0.18
+anchor_right = 0.18
+anchor_bottom = 0.42
+theme_override_colors/background_color = Color(0.08, 0.05, 0.15, 1.0)
+
+[node name="AvatarSprite" type="Sprite2D" parent="AvatarPanel"]
+layout_mode = 2
+anchors_preset = 15
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+texture = ExtResource("2_player")
+
+# Side buttons (shop / upgrade / settings) — flat-vector pill buttons
+[node name="SideNav" type="Control" parent="."]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.02
+anchor_top = 0.46
+anchor_right = 0.18
+anchor_bottom = 0.82
+
+[node name="SideButtonShop" type="Button" parent="SideNav"]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 80.0
+offset_bottom = 28.0
+text = "SHOP"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_size = 14
+
+[node name="SideButtonUpgrade" type="Button" parent="SideNav"]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 35.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 80.0
+offset_bottom = 28.0
+text = "UPGRADE"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="SideButtonSkin" type="Button" parent="SideNav"]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 70.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 80.0
+offset_bottom = 28.0
+text = "SKINS"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+# Bottom centre buttons — Events / Ranked / Tournaments (from reference)
+[node name="BottomNav" type="Control" parent="."]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.20
+anchor_top = 0.88
+anchor_right = 0.80
+anchor_bottom = 0.98
+
+[node name="EventsButton" type="Button" parent="BottomNav"]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 100.0
+offset_bottom = 28.0
+text = "EVENTS"
+
+[node name="RankedButton" type="Button" parent="BottomNav"]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 105.0
+anchor_top = 0.0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 100.0
+offset_bottom = 28.0
+text = "RANKED"
+
+[node name="TournamentsButton" type="Button" parent="BottomNav"]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 210.0
+anchor_top = 0.0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 100.0
+offset_bottom = 28.0
+text = "TOURNAMENTS"
+
+# Big PLAY CTA — bottom-right, slanted banner style
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.82
+anchor_top = 0.84
+anchor_right = 0.98
+anchor_bottom = 0.96
+text = "PLAY!"
+theme_override_colors/font_color = Color(0.10, 0.05, 0.15, 1.0)
+theme_override_colors/font_size = 36
+theme_override_colors/font_decorations = 1  # Bold / heavy
+
+# Top-right counters — gems, gold, level badge (hex shape drawn by label style)
+[node name="TopCounters" type="Control" parent="."]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 0.72
+anchor_top = 0.02
+anchor_right = 0.98
+anchor_bottom = 0.13
+
+[node name="GemPanel" type="PanelContainer" parent="TopCounters"]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 4.0
+anchor_top = 4.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 50.0
+offset_bottom = 28.0
+theme_override_colors/background_color = Color(0.55, 0.15, 0.85, 1.0)
+
+[node name="GemText" type="Label" parent="TopCounters/GemPanel"]
+layout_mode = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 2.0
+text = "0"
+
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_size = 14
+
+[node name="LevelBadge" type="PanelContainer" parent="TopCounters"]
+layout_mode = 2
+anchors_preset = 0
+anchor_left = 58.0
+anchor_top = 4.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 36.0
+offset_bottom = 28.0
+theme_override_colors/background_color = Color(0.11, 0.30, 0.65, 1.0)
+
+[node name="LevelText" type="Label" parent="TopCounters/LevelBadge"]
+layout_mode = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "1"

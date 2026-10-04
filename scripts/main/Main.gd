@@ -10,10 +10,13 @@ extends Node2D
 
 
 func _ready() -> void:
+	# After boot self-check: open match so full HUD is shown
 	GameLog.info("Boot", "engine %s | autoloads: SignalHub, GameState, AudioManager, SceneRouter, DevTools" % Engine.get_version_info().get("string", "?"))
 	_report_input_map()
 	_register_debug_lines()
 	_update_status_label()
+	await get_tree().process_frame
+	SceneRouter.goto(&"match")
 
 
 func _report_input_map() -> void:

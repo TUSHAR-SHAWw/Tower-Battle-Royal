@@ -1,17 +1,14 @@
-[gd_resource type="Resource" script_class="FloorData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="FloorData" format=3]
 
 [ext_resource type="Script" path="res://scripts/floors/FloorData.gd" id="1_floor_data"]
+[ext_resource type="Resource" path="res://resources/floors/theme_desert.tres" id="9_theme"]
 
 [resource]
 script = ExtResource("1_floor_data")
 floor_id = 5
-display_name = "Floor 5 - Central Platform"
-bounds = Rect2(-3200, -1080, 6400, 1080)
-height = 400.0
-theme_name = "central"
-ambient_color = Color(0.3, 0.25, 0.15, 1)
-danger_level = 5
-loot_table_path = ""
-loot_spawn_points = []
+display_name = "Floor 5 - Desert"
+theme_name = "desert"
+theme = ExtResource("9_theme")
+ambient_color = Color(0.20, 0.15, 0.08, 1.0)
+danger_level = 1
 initial_state = 0
-is_central_platform = true

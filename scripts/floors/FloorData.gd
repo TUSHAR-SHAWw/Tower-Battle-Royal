@@ -43,6 +43,9 @@ extends Resource
 
 @export_group("Theme / Atmosphere")
 @export var theme_name: String = "concrete"
+## Art direction for this storey: palette, slab/wall styling, prop set and
+## lighting. Assigned per floor so the tower reads differently as you climb.
+@export var theme: FloorTheme = null
 @export var ambient_color: Color = Color(0.15, 0.15, 0.18, 1.0)
 @export var danger_level: int = 1  # 1 = low, 5 = extreme
 
