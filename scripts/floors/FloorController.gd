@@ -158,6 +158,11 @@ func _build_tile_layers() -> void:
 	# floor and an ice floor are visibly different.
 	var theme := TowerTileSetBuilder.source_for_theme(floor_data.theme_name)
 
+	# The bottom storey must be sealed: an open shaft there would drop the player
+	# out of the world, since there is nothing below floor 1 to catch them.
+	var is_lowest := floor_data.floor_id <= 1
+	var shaft := 0.0 if is_lowest else floor_data.shaft_width
+
 	FloorTileLayout.populate(
 		_ground_tiles,
 		_decor_tiles,
@@ -165,7 +170,7 @@ func _build_tile_layers() -> void:
 		floor_data.bounds,
 		floor_data.floor_id * 7919,
 		theme,
-		floor_data.shaft_width
+		shaft
 	)
 
 	# Draw order: FloorVisual's opaque background rect is z 0, the player is z 10.

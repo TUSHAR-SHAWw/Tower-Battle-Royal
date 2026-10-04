@@ -77,7 +77,10 @@ static func populate(ground: TileMapLayer, decor: TileMapLayer, tile_set: TileSe
 	var right := origin_cell.x + size_cell.x - 1
 
 	# Shaft column, in whole tiles, centred on the floor.
+	# A width of 0 means "sealed" — used for the bottom storey, where an open
+	# shaft would drop the player out of the world.
 	var shaft_cells := int(round(shaft_width / float(TILE)))
+	var sealed := shaft_cells <= 0
 	var center_cell := origin_cell.x + size_cell.x / 2
 	var shaft_left := center_cell - shaft_cells / 2
 	var shaft_right := shaft_left + shaft_cells - 1
@@ -98,10 +101,11 @@ static func populate(ground: TileMapLayer, decor: TileMapLayer, tile_set: TileSe
 	# --- Shaft lip ----------------------------------------------------------
 	# A single row of solid tiles along each wall of the shaft, so a player
 	# standing at the edge has something to stand on and cannot clip into the
-	# gap at the exact corner.
-	for x in [shaft_left - 1, shaft_right + 1]:
-		if x >= left and x <= right:
-			ground.set_cell(Vector2i(x, slab_top), theme_source, ground_coords)
+	# gap at the exact corner. Skipped when sealed: there is no gap to edge.
+	if not sealed:
+		for x in [shaft_left - 1, shaft_right + 1]:
+			if x >= left and x <= right:
+				ground.set_cell(Vector2i(x, slab_top), theme_source, ground_coords)
 
 	# --- Interior ledges ----------------------------------------------------
 	# Staggered platforms either side of the shaft. They give the room vertical

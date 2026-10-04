@@ -16,7 +16,7 @@ extends CanvasLayer
 
 func _ready() -> void:
 	if theme == null:
-		theme = load("res://resources/floors/theme_base.tres") as FloorTheme
+		theme = load("res://resources/floors/theme_mountain.tres") as FloorTheme
 
 	# Style all cards with the flat-vector 2.5D look using the theme.
 	_apply_theme()

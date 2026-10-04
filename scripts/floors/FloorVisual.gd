@@ -16,7 +16,7 @@ class_name FloorVisual
 
 func _ready() -> void:
 	if theme == null:
-		theme = load("res://resources/floors/theme_base.tres") as FloorTheme
+		theme = load("res://resources/floors/theme_mountain.tres") as FloorTheme
 	if floor_data == null:
 		return
 	# Create child ColorRects at the correct positions instead of drawing

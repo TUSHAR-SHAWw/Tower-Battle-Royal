@@ -475,7 +475,9 @@ func _on_item_used(item_id: StringName) -> void:
 # ------------------------------------------------------------------------ hunger signals
 
 func _on_hunger_changed(current: float, max: float) -> void:
-	SignalHub.hunger_changed.emit(current, max)
+	# The signal declares (owner, current, maximum); omitting the owner made every
+	# receiver fail with a signature mismatch.
+	SignalHub.hunger_changed.emit(self, current, max)
 
 
 func _on_hunger_threshold(level: int) -> void:
@@ -490,7 +492,7 @@ func _on_starving_damage(amount: float) -> void:
 # ------------------------------------------------------------------------ rage signals
 
 func _on_rage_changed(current: float, max: float) -> void:
-	SignalHub.rage_changed.emit(current, max)
+	SignalHub.rage_changed.emit(self, current, max)
 
 
 func _on_rage_mode_activated() -> void:
