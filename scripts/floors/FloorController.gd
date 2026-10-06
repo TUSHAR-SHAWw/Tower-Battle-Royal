@@ -18,7 +18,10 @@ signal player_entered(player: Node)
 signal player_exited(player: Node)
 
 @export var floor_data: FloorData
-@export var enemy_types: Array[EnemyResource] = []
+@export var enemy_types: Array[EnemyResource] = [
+	preload("res://resources/enemies/grunt.tres"),
+	preload("res://resources/enemies/sniper.tres"),
+]
 @export var is_boss_floor: bool = false
 @export var boss_data: BossData = null
 @export var target_floor: int = 0  # 0 = no portal, >0 = target floor for travel
@@ -88,12 +91,13 @@ func _ready() -> void:
 		spawner.all_waves_completed.connect(_on_all_waves_completed)
 		spawner.enemy_spawned.connect(_on_enemy_spawned)
 
-		if is_boss_floor and boss_data != null:
-			# Setup boss instead of waves
-			_setup_boss()
-		else:
-			print("[DEBUG] FloorController: Floor %d starting enemy spawning (waves: %d, enemies/wave: %d, interval: %.1f)" % [_current_floor, spawner.base_wave_count, spawner.enemies_per_wave, spawner.wave_interval])
-			spawner.start_spawning(_current_floor)
+		if floor_data != null:
+			if is_boss_floor and boss_data != null:
+				# Setup boss instead of waves
+				_setup_boss()
+			else:
+				print("[DEBUG] FloorController: Floor %d starting enemy spawning (waves: %d, enemies/wave: %d, interval: %.1f)" % [_current_floor, spawner.base_wave_count, spawner.enemies_per_wave, spawner.wave_interval])
+				spawner.start_spawning(_current_floor)
 
 
 func _configure_from_data() -> void:
@@ -181,7 +185,7 @@ func _build_tile_layers() -> void:
 	_decor_tiles.z_as_relative = false
 
 
-## Y coordinate of the top surface of the floor's ground tiles, in world space.
+## Y coordinate of the top surface of the floor's ground tiles, in floor-local space.
 ##
 ## Used to spawn the player standing on the floor instead of dropping them from
 ## the middle of the room. Returns null when the floor has no ground tiles.
@@ -226,7 +230,10 @@ func get_random_ground_position(away_from_shaft: bool = true) -> Vector2:
 	var y := surface_y - 24.0  # lift by the actor radius so the body rests on top
 
 	if not away_from_shaft or shaft_half <= 0.0:
-		return Vector2(randf_range(bounds.position.x + margin, bounds.position.x + bounds.size.x - margin), y)
+		return to_global(Vector2(
+			randf_range(bounds.position.x + margin, bounds.position.x + bounds.size.x - margin),
+			y
+		))
 
 	# Pick a side, then a free x on that side.
 	var left_min := bounds.position.x + margin
@@ -242,7 +249,7 @@ func get_random_ground_position(away_from_shaft: bool = true) -> Vector2:
 	else:
 		# Floor is narrower than the shaft plus margins; fall back to the edges.
 		chosen = bounds.position.x + margin if randf() < 0.5 else bounds.position.x + bounds.size.x - margin
-	return Vector2(chosen, y)
+	return to_global(Vector2(chosen, y))
 
 
 ## Half the width of the central shaft opening, in pixels (0 when disabled).
@@ -392,10 +399,8 @@ func _spawn_travel_portal() -> void:
 
 	_travel_portal = portal_scene.instantiate() as TravelPortal
 	_travel_portal.target_floor = target_floor
+	_travel_portal.position = portal_pos
 	add_child(_travel_portal)
-	# Position after entering the tree so global_position resolves correctly.
-	# The floor sits at the origin, so floor-local and world coords match.
-	_travel_portal.global_position = portal_pos
 	
 	print("[DEBUG] FloorController: Floor %d spawned TravelPortal at position: %s (target_floor: %d, bounds: %s)" % [_current_floor, portal_pos, target_floor, bounds])
 
@@ -412,7 +417,7 @@ func _setup_boss() -> void:
 	
 	var boss := boss_scene.instantiate() as BossEnemy
 	boss.boss_data = boss_data
-	boss.global_position = floor_data.bounds.position + floor_data.bounds.size * 0.5
+	boss.position = floor_data.bounds.position + floor_data.bounds.size * 0.5
 	
 	var ai := boss.get_node_or_null("BossAI")
 	if ai != null:
@@ -560,7 +565,7 @@ func get_random_spawn_point() -> Vector2:
 
 ## Checks if a world position is inside this floor's bounds.
 func is_position_inside(position: Vector2) -> bool:
-	return floor_data.bounds.has_point(position)
+	return floor_data.bounds.has_point(to_local(position))
 
 
 func get_state() -> int:

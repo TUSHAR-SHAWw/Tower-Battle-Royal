@@ -12,7 +12,7 @@ descending platform drive the risk/reward decisions.
 ## Shipping status
 
 **Pre-alpha prototype; not ready to ship.** The automated Godot 4.7 import and
-headless test gate currently passes (13 suites, 1,215 assertions). That does not
+headless test gate currently passes (15 suites, 1,271 assertions). That does not
 yet prove the full match loop, exported builds, or target-device behavior. See
 [`docs/SHIPPING_READINESS_PLAN.md`](docs/SHIPPING_READINESS_PLAN.md) for the
 release gates and [`docs/DEVELOPMENT_LOG.md`](docs/DEVELOPMENT_LOG.md) for

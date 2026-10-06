@@ -105,8 +105,6 @@ func add_item(item: ItemResource, count: int = 1) -> int:
 			var added := _slots[existing_slot].add(item, count)
 			if added > 0:
 				item_added.emit(item.item_id, existing_slot)
-				if _is_hotbar_slot(existing_slot):
-					item_added.emit(item.item_id, existing_slot)
 				return added
 	
 	# Find empty slot
@@ -187,10 +185,6 @@ func get_item_count(item_id: StringName) -> int:
 		if slot.item != null and slot.item.item_id == item_id:
 			total += slot.quantity
 	return total
-
-
-func _is_hotbar_slot(index: int) -> bool:
-	return index >= 0 and index < HOTBAR_SIZE
 
 
 func get_hotbar_items() -> Array[ItemResource]:

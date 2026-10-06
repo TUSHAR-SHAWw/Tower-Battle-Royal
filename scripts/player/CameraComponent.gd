@@ -24,7 +24,7 @@ extends Node
 ##   back to theirs, so a staircase of jumps does not leave the anchor behind.
 ## * **Fall look-ahead** — a long drop slides the frame down in proportion to fall
 ##   speed, so the landing is on screen before you get there.
-## * **Scrolling framing** — floors are 6400x1080 and the default zoom of 1.5 shows
+## * **Scrolling framing** — floors are 6400x1080 and 1.5x zoom shows
 ##   853x480, so the room scrolls horizontally across several screens while the
 ##   horizon stays still. That is the framing the developer asked for; the trade is
 ##   that one floor is no longer visible at once (the live map is, per design).
@@ -141,8 +141,8 @@ func set_floor_bounds(bounds: Rect2) -> void:
 		return
 	# Godot clamps the camera CENTRE to [limit + half_viewport, limit - half_viewport],
 	# so the limits are expanded by half a viewport to reach the floor edges.
-	# The visible size is already zoom-scaled, so it is not divided by the zoom
-	# again — doing that framed the floor at a quarter of its intended size.
+	# Camera zoom scales screen pixels per world unit; divide the viewport size by
+	# zoom to get the actual world-space view.
 	var half := visible_world_size() * 0.5
 	var pad := bounds_overshoot
 	camera.limit_left = int(bounds.position.x - half.x - pad)
@@ -252,11 +252,26 @@ func _apply_target(delta: float) -> void:
 	target.x += _look_ahead
 	target.y += vertical_offset + _fall_percentage * fall_look_distance
 
-	# Clamp to the floor bounds so the frame never shows the void past a wall.
-	target.x = clampf(target.x, _floor_bounds.position.x, _floor_bounds.position.x + _floor_bounds.size.x)
-	target.y = clampf(target.y, _floor_bounds.position.y, _floor_bounds.position.y + _floor_bounds.size.y)
+	camera.global_position = camera.global_position.lerp(_clamp_target_to_floor(target), _ease_weight(follow_speed, delta))
 
-	camera.global_position = camera.global_position.lerp(target, _ease_weight(follow_speed, delta))
+
+func _clamp_target_to_floor(target: Vector2) -> Vector2:
+	# Clamp the visible frame, not just its centre, or the camera reveals void
+	# beyond the floor edges when the player walks against a wall.
+	var half_view := visible_world_size() * 0.5
+	var min_x := _floor_bounds.position.x - bounds_overshoot + half_view.x
+	var max_x := _floor_bounds.end.x + bounds_overshoot - half_view.x
+	var min_y := _floor_bounds.position.y - bounds_overshoot + half_view.y
+	var max_y := _floor_bounds.end.y + bounds_overshoot - half_view.y
+	if min_x > max_x:
+		min_x = _floor_bounds.get_center().x
+		max_x = min_x
+	if min_y > max_y:
+		min_y = _floor_bounds.get_center().y
+		max_y = min_y
+	target.x = clampf(target.x, min_x, max_x)
+	target.y = clampf(target.y, min_y, max_y)
+	return target
 
 
 # --------------------------------------------------------------------- effects
@@ -359,22 +374,21 @@ func snap_to_target() -> void:
 	_look_ahead = 0.0
 	_fall_percentage = 0.0
 	_needs_initial_snap = false
-	_apply_target(1.0)
+	camera.global_position = _clamp_target_to_floor(_anchor)
 
 
 ## The world-space rectangle the camera currently shows, in pixels.
 ## `get_viewport_rect()` is the wrong source in a headless run and during the
 ## first frames: it can report a 1x1 or stale size, which framed the floor with a
 ## 640x640 view. The project's configured viewport size is authoritative for a
-## fixed-resolution 2D game, so it is used directly and the live viewport size is
-## only a fallback.
+## fixed-resolution 2D game; convert it to world units by dividing by zoom.
 func visible_world_size() -> Vector2:
 	if camera == null or config == null:
 		return Vector2.ZERO
 	var base := _configured_viewport_size()
 	if base == Vector2.ZERO:
 		base = camera.get_viewport_rect().size
-	return base * config.camera_zoom
+	return base / config.camera_zoom
 
 
 func _configured_viewport_size() -> Vector2:

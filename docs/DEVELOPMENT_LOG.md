@@ -5,7 +5,7 @@ tested, what is known-broken, and what happens next.
 
 ---
 
-## Shipping-readiness baseline, HUD and combat fixes — 2026-10-06
+## Shipping-readiness baseline and match-loop reliability — 2026-10-06
 
 ### Scope confirmed
 * Initial release target: **single-player on Windows and Android**.
@@ -43,14 +43,53 @@ tested, what is known-broken, and what happens next.
   up children.
 * Added regressions for floor collision shutdown, portal physics flags and
   ObjectPool prewarming during parent initialization.
-* Godot 4.7 import and headless gate: **13 suites, 1,215 assertions, 0 failures**.
+* Added enemy wave scheduling and lifecycle behavior: staggered spawns,
+  pending-spawn accounting, wave/final-wave completion signals and cancellation
+  of delayed work when spawning stops.
+* Added resource-scaled XP/gold rewards and corrected kill attribution to use
+  `DamageInfo.instigator`. Spawner tests cover stagger timing, wave progression,
+  credited killer and reward values.
+* Configured production floors with Grunt/Sniper enemy resources, while floors
+  without data no longer launch invalid waves.
+* Fixed stacked-floor placement and coordinate handling across player/enemy
+  spawns, portal/boss locations and camera bounds. Regression coverage verifies
+  an enemy spawn retains its world position on an offset floor and the next
+  floor is placed at its tower height.
+* Changed tower travel completion to follow the floor's actual `DELETED` state,
+  retaining a 20-second safety timeout for floors without state-change signals.
+  An integration test activates a floor portal and verifies delayed warning/
+  collapse/deletion, one-time notification and destination handoff.
+* Fixed enemy loot to spawn as a physical `ItemPickup` at the enemy's world
+  position, independent of whether the killer has an inventory. Pickups now
+  detect both player bodies and hurtbox areas, resolve the owning player's
+  inventory, preserve uncollected stack remainders, and prevent duplicate
+  collection when body and hurtbox overlap. Added enemy-death-to-pickup-to-
+  inventory integration coverage and corrected a `draw_string()` signature
+  parse error exposed when importing the previously unreferenced pickup scene.
+* Fixed duplicate `item_added` emission when adding to an existing hotbar stack.
+* Fixed the remaining TravelPortal physics-flush runtime error: its collision
+  shape is now created deferred, and portal monitoring is enabled only after
+  the shape is attached. Added coverage for deferred shape creation and the
+  configured activation radius.
+* Fixed initial camera framing: `get_floor_world_rect()` omitted the canonical
+  floor bounds origin, so the camera clamped to `(0, 0)` while the player spawned
+  at a negative world X. The world rectangle now transforms the floor's local
+  bounds, with regression coverage for stacked floors. Launched the game and
+  captured a screenshot confirming the player and floor are visible together.
+  Camera target clamping now accounts for visible viewport size to keep void
+  beyond floor edges out of frame, and camera snaps are exact. Corrected the
+  zoom conversion to compute world viewport size as screen size divided by
+  Camera2D zoom; the previous multiplication understated the view at zoom < 1.
+* Godot 4.7 import and headless gate: **15 suites, 1,271 assertions, 0 failures**.
 
 ### Remaining release blockers
 * No Windows or Android export templates or checked-in export presets.
 * Android touch controls and target-device UI/performance have not been verified.
-* Enemy kill-credit/reward/loot handling, wave progression, floor deletion,
-  match result/restart flow, and asset provenance audit still need release
-  validation.
+* Controlled tests now cover portal activation through delayed floor deletion
+  and enemy-death-to-pickup-to-inventory. Full-match loot balance, match result/
+  restart flow, and asset provenance audit still need release validation.
+  Portal-triggered floor deletion and wave progression also need human match
+  playtesting.
 * The installed Godot 4.7 template directory contains Web templates only.
 
 ### Next

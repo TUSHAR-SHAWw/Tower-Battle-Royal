@@ -16,24 +16,31 @@ var _pulse_phase: float = 0.0
 
 func _ready() -> void:
 	# A portal can be instantiated from another area's physics callback during
-	# floor travel; defer physics-server changes until query flushing completes.
-	set_deferred(&"monitoring", _active)
+	# floor travel. Keep it inactive until its shape is attached outside query flush.
+	set_deferred(&"monitoring", false)
 	set_deferred(&"monitorable", false)
 	collision_layer = 0
 	# Must watch both the player body (PLAYER) and its hurtbox area
 	# (PLAYER_HURTBOX), otherwise the portal never detects anyone.
 	collision_mask = PhysicsLayers.PLAYER | PhysicsLayers.PLAYER_HURTBOX
-	
-	# Create collision shape
+
+	area_entered.connect(_on_area_entered)
+	body_entered.connect(_on_body_entered)
+	call_deferred(&"_create_collision_shape")
+
+
+func _create_collision_shape() -> void:
+	if not is_inside_tree() or is_queued_for_deletion():
+		return
+
 	var shape := CollisionShape2D.new()
+	shape.name = "CollisionShape2D"
 	var circle := CircleShape2D.new()
 	circle.radius = activation_radius
 	shape.shape = circle
 	add_child(shape)
 	shape.owner = self
-	
-	area_entered.connect(_on_area_entered)
-	body_entered.connect(_on_body_entered)
+	set_deferred(&"monitoring", _active)
 
 
 func _physics_process(delta: float) -> void:

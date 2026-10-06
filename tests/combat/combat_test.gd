@@ -111,7 +111,8 @@ func test_melee_attack_activates_hitbox_and_damages_target() -> void:
 
 	for _i: int in range(12):
 		await get_tree().physics_frame
-		target_overlapped = target_overlapped or hitbox.get_overlapping_areas().has(target_hurtbox)
+		if hitbox.monitoring:
+			target_overlapped = target_overlapped or hitbox.get_overlapping_areas().has(target_hurtbox)
 		if _target.health.current_health < health_before:
 			break
 

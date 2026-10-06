@@ -23,6 +23,7 @@ var _current_floor_id: int = 1
 var _current_floor: Node = null
 var _next_floor: Node = null
 var _state: StringName = &"idle"  # idle, traveling, deleting
+var _deletion_timeout_timer: Timer = null
 
 func _ready() -> void:
 	if tower_resource != null and not tower_resource.floors.is_empty():
@@ -86,7 +87,12 @@ func _place_in_tower(floor: Node2D, floor_id: int) -> void:
 func get_floor_world_rect(floor: Node2D, floor_id: int) -> Rect2:
 	if floor == null:
 		return FloorData.DEFAULT_BOUNDS
-	return Rect2(floor.global_position, FloorData.DEFAULT_BOUNDS.size)
+	var local_bounds := FloorData.DEFAULT_BOUNDS
+	if "floor_data" in floor and floor.floor_data != null:
+		local_bounds = floor.floor_data.bounds
+	var world_position := floor.to_global(local_bounds.position)
+	var world_size := local_bounds.size * floor.global_transform.get_scale()
+	return Rect2(world_position, world_size)
 
 
 ## Wires a freshly instantiated floor with its TowerData.
@@ -123,6 +129,7 @@ func start_travel(target_floor: int) -> void:
 	var floor := data.floor_scene.instantiate()
 	_configure_floor_instance(floor, data)
 
+	_place_in_tower(floor, target_floor)
 	add_child(floor)
 	_next_floor = floor
 	
@@ -145,22 +152,43 @@ func _start_deletion(floor_id: int) -> void:
 	if _current_floor == null or _current_floor_id != floor_id:
 		return
 	
+	if _current_floor.has_signal(&"state_changed"):
+		var completed := _on_floor_state_changed.bind(floor_id)
+		if not _current_floor.is_connected(&"state_changed", completed):
+			_current_floor.connect(&"state_changed", completed)
+
 	if _current_floor.has_method("start_deletion"):
 		_current_floor.start_deletion()
 	
+	_state = &"deleting"
 	floor_deletion_started.emit(floor_id)
 	SignalHub.floor_deletion_started.emit(floor_id)
 	
-	# Wait for floor to fully delete
-	var timer := Timer.new()
-	timer.one_shot = true
-	timer.wait_time = 20.0  # max time for warning + collapse
-	timer.timeout.connect(_finish_deletion.bind(floor_id))
-	add_child(timer)
-	timer.start()
+	# Keep a safety timeout for floors that do not implement the deletion-state
+	# signal. Normal FloorController instances complete travel as soon as they
+	# actually reach DELETED.
+	_deletion_timeout_timer = Timer.new()
+	_deletion_timeout_timer.one_shot = true
+	_deletion_timeout_timer.wait_time = 20.0
+	_deletion_timeout_timer.timeout.connect(_finish_deletion.bind(floor_id))
+	add_child(_deletion_timeout_timer)
+	_deletion_timeout_timer.start()
+
+
+func _on_floor_state_changed(new_state: int, floor_id: int) -> void:
+	if new_state == FloorData.FloorState.DELETED:
+		call_deferred("_finish_deletion", floor_id)
 
 
 func _finish_deletion(floor_id: int) -> void:
+	if _current_floor == null or _current_floor_id != floor_id:
+		return
+
+	if _deletion_timeout_timer != null:
+		_deletion_timeout_timer.stop()
+		_deletion_timeout_timer.queue_free()
+		_deletion_timeout_timer = null
+
 	print("[DEBUG] TowerController: Finishing deletion for floor %d, resolving next floor (%d -> ?)" % [floor_id, _current_floor_id])
 	_unload_floor(floor_id)
 	floor_deleted.emit(floor_id)

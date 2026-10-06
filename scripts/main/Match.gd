@@ -56,8 +56,9 @@ func _setup_player() -> void:
 	# character against the floor it is about to stand on.
 	var camera_component := body.get_node_or_null("CameraComponent") as CameraComponent
 	if camera_component != null and current_floor.floor_data != null:
-		camera_component.set_floor_bounds(current_floor.floor_data.bounds)
-		print("[DEBUG] Match: Camera bounds set to: %s" % current_floor.floor_data.bounds)
+		var bounds := tower.get_floor_world_rect(current_floor, tower.get_current_floor_id())
+		camera_component.set_floor_bounds(bounds)
+		print("[DEBUG] Match: Camera bounds set to: %s" % bounds)
 	_apply_floor_scale(body, current_floor)
 
 	# Spawn the player on the floor's ground surface, not floating mid-room.
@@ -141,7 +142,7 @@ func _on_floor_changed(_new_floor_id: int) -> void:
 
 	var camera_component := body.get_node_or_null("CameraComponent")
 	if camera_component != null:
-		camera_component.set_floor_bounds(current_floor.floor_data.bounds)
+		camera_component.set_floor_bounds(tower.get_floor_world_rect(current_floor, _new_floor_id))
 	_apply_floor_scale(body, current_floor)
 
 	# Update platform stops to only include unvisited floors

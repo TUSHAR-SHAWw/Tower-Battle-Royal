@@ -44,6 +44,7 @@ func before_suite() -> void:
 	get_tree().root.add_child.call_deferred(_match)
 	await get_tree().physics_frame
 	await get_tree().physics_frame
+	await _disable_match_enemies()
 
 	_player = _match.get_node_or_null("PlayerInstance")
 	assert_not_null(_player, "PlayerInstance must exist under Match")
@@ -88,6 +89,23 @@ func before_suite() -> void:
 		return
 
 	_spawn_position = _player.global_position
+
+
+## Player movement assertions must not be perturbed by match enemy AI/knockback.
+func _disable_match_enemies() -> void:
+	var tower := _match.get_node_or_null("TowerController") as TowerController
+	if tower == null:
+		return
+	var floor := tower.get_current_floor() as FloorController
+	if floor == null:
+		return
+	var spawner := floor.get_node_or_null("EnemySpawner") as EnemySpawner
+	if spawner != null:
+		spawner.stop_spawning()
+	for child: Node in floor.get_children():
+		if child is Enemy:
+			child.queue_free()
+	await get_tree().physics_frame
 
 
 func after_suite() -> void:
@@ -168,6 +186,12 @@ func _reset_intent() -> void:
 	intent.aim_dir = Vector2.RIGHT
 
 
+func _place_player_at_x(x: float) -> void:
+	_player.global_position = Vector2(x, _spawn_position.y)
+	_player.velocity = Vector2.ZERO
+	await _settle()
+
+
 ## Swaps the player's InputSource for a scripted one.
 ##
 ## The replacement MUST keep the node name "InputSource": the states resolve their
@@ -241,6 +265,7 @@ func test_player_stands_on_the_floor() -> void:
 
 
 func test_player_walks_when_input_is_held() -> void:
+	await _place_player_at_x(1000.0)
 	var start_x: float = _player.global_position.x
 	await _drive(Vector2.RIGHT, 30)
 
@@ -264,6 +289,7 @@ func test_player_stops_when_input_is_released() -> void:
 
 
 func test_player_sprints_faster_than_walking() -> void:
+	await _place_player_at_x(1000.0)
 	await _drive(Vector2.RIGHT, 30)
 	var walk_speed: float = _peak_speed
 	assert_eq(_state_machine.current_state_name(), &"move")
@@ -280,6 +306,7 @@ func test_player_is_clamped_by_the_floor_walls() -> void:
 	#
 	# 220 frames at sprint speed is enough to cross from the middle to the wall and
 	# press against it; 900 frames only proved the player eventually left the floor.
+	await _place_player_at_x(1500.0)
 	await _drive(Vector2.RIGHT, 220, true)
 	await get_tree().physics_frame
 
@@ -350,7 +377,7 @@ func test_camera_is_current_and_shows_the_configured_view() -> void:
 
 	var expected := _camera_component.visible_world_size()
 	var width := int(ProjectSettings.get_setting("display/window/size/viewport_width", 0))
-	assert_almost_eq(expected.x, float(width) * _config.camera_zoom, "view width", 1.0)
+	assert_almost_eq(expected.x, float(width) / _config.camera_zoom, "view width", 1.0)
 
 
 func test_camera_follows_the_player() -> void:
@@ -362,6 +389,27 @@ func test_camera_follows_the_player() -> void:
 	await get_tree().physics_frame
 
 	assert_greater((cam.global_position - before).length(), 1.0, "camera follows the player (rolling framing, 1.5x zoom)")
+
+
+func test_camera_keeps_floor_edges_inside_the_visible_frame() -> void:
+	var cam := _camera_component.camera
+	if cam == null:
+		return
+
+	var tower := _match.get_node("TowerController") as TowerController
+	var floor := tower.get_current_floor() as Node2D
+	var bounds := tower.get_floor_world_rect(floor, tower.get_current_floor_id())
+	var view_size := _camera_component.visible_world_size()
+
+	_player.global_position = Vector2(bounds.position.x, _spawn_position.y)
+	_camera_component.snap_to_target()
+	assert_almost_eq(cam.global_position.x - view_size.x * 0.5, bounds.position.x,
+		"left-edge view should end at the floor wall")
+
+	_player.global_position = Vector2(bounds.end.x, _spawn_position.y)
+	_camera_component.snap_to_target()
+	assert_almost_eq(cam.global_position.x + view_size.x * 0.5, bounds.end.x,
+		"right-edge view should end at the floor wall")
 
 
 func test_jumping_does_not_move_the_camera() -> void:

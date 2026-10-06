@@ -19,7 +19,7 @@ Written by an agent that ran out of context. Read this before changing anything.
 
 ## Current test state
 
-**Latest gate: 13 suites, 1,215 assertions, 0 failures** using
+**Latest gate: 15 suites, 1,271 assertions, 0 failures** using
 `powershell -ExecutionPolicy Bypass -File tests\run_tests.ps1`.
 
 The previous 9 player-suite failures were caused by tests calling the asynchronous
@@ -51,17 +51,49 @@ not installed in the current development environment. See
   actor-hurtbox detector and world collision; the player scene's `MeleeHitbox`
   is now an `Area2D` running `MeleeHitbox.gd`. `tests/combat/combat_test.gd`
   verifies enemy AI movement, projectile and melee damage against the production
-  `Enemy.tscn`, and exactly one global enemy-death event. Reward/loot handling
-  and full-match play remain to be verified.
+  `Enemy.tscn`, and exactly one global enemy-death event.
+- **Wave/reward integration**: `EnemySpawner` staggers wave spawns, waits for
+  pending and living enemies before completing a wave, and reports final-wave
+  completion. Tests verify killer attribution and resource-scaled XP/gold.
+  Enemy deaths now create physical world pickups independently of the killer's
+  inventory; an integration test verifies world placement, player collection
+  through body/hurtbox overlap, and inventory update. Drop probability remains
+  tunable; balance and repeated loot behavior still need playtesting.
+- **Stacked-floor coordinates**: enemy spawn positions preserve world coordinates
+  on offset floors; floor portals/bosses use floor-local positions, and match
+  camera limits use the tower-shifted floor rectangle. Tests cover these
+  transforms and destination-floor placement. Actual portal activation through
+  the warning/collapse/deletion transition now has an automated integration test.
+  Match completion/restart still needs end-to-end validation.
+- **Camera floor framing**: fixed the floor world rectangle to include both its
+  canonical local origin and tower offset. Previously limits began at world
+  `(0, 0)` instead of `(-3200, -1080)`, clamping the initial camera at the origin
+  and leaving the spawned player off-screen. Relaunched and visually verified:
+  player and floor now appear together in the initial view.
+- Camera clamping now accounts for half the visible world size, preventing
+  out-of-bounds void from appearing beyond the floor edges; floor-travel camera
+  snaps now land exactly on the clamped target. Corrected the view-size
+  calculation for Godot zoom semantics as well: world-space view size is
+  viewport size divided by zoom, not multiplied by it.
+- **Travel completion**: `TowerController` now completes the floor switch when
+  the departing `FloorController` reaches `DELETED`, retaining a 20-second
+  fallback for floor implementations without a deletion-state signal. The
+  integration test verifies portal activation, delayed deletion, one-time
+  deletion notification and destination-floor handoff.
+- **Physics-flush-safe portal creation**: portal collision shape attachment is
+  deferred until after tree initialization. Deferring monitoring flags alone
+  was insufficient when a portal is created inside `area_entered`; the shape
+  now exists before monitoring is enabled.
 - Camera follows player, clamped to floor bounds with overshoot.
 
 ## Open bugs, in priority order
 
-### 1. Combat needs full-match verification
-The automated smoke tests prove a projectile and melee swing damage the
-production `Enemy.tscn` and that its death is published once. Still verify
-kill-credit/reward/loot handling, range/aim behavior, and repeated combat in a
-running match.
+### 1. Match loop needs end-to-end verification
+Automated tests cover projectile/melee combat, wave scheduling/completion,
+killer attribution and XP/gold reward scaling, enemy death through physical
+loot pickup/inventory, plus portal activation through delayed floor deletion
+and floor handoff. Still verify loot balance, range/aim behavior, repeated
+combat, and victory/defeat/restart in a running match.
 
 ### 2. Debug overlay still covers top-left HUD
 HP bar and `WAVE 1` are hidden under it. Raising the HUD layer to 120 did **not** fix it, so the overlay is drawing via some path other than its `CanvasLayer.layer` (probably a root-level `Control` with its own `z_index`). `scripts/ui/DebugOverlay.gd` extends `CanvasLayer`, `layer = 100`. Either find the real draw path or gate the overlay behind its F3 toggle.

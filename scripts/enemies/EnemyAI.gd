@@ -228,7 +228,7 @@ func _set_state(new_state: StringName) -> void:
 
 func _on_died(info: DamageInfo) -> void:
 	_set_state(&"dead")
-	died.emit(info.source)
+	died.emit(info.instigator)
 
 
 func get_state() -> StringName:
