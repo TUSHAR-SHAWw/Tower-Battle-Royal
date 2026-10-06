@@ -19,8 +19,19 @@ Written by an agent that ran out of context. Read this before changing anything.
 
 ## Current test state
 
-**Latest gate: 15 suites, 1,271 assertions, 0 failures** using
+**Latest gate: 15 suites, 1,281 assertions, 0 failures** using
 `powershell -ExecutionPolicy Bypass -File tests\run_tests.ps1`.
+
+## Pixel-art scale
+
+The logical viewport is 426×240, shown at 3× integer scale in a 1278×720
+window. Use 8×8 atlas tiles for new floors: `FloorController` scales those
+TileMapLayers to 24 screen pixels per tile and converts ground-surface
+coordinates through the layer transform. Camera zoom is 13/60 to preserve the
+previous camera framing; gameplay physics/world coordinates are not rescaled.
+The HUD and map overlay controls use a 1280×720 design-space wrapper. Verify
+Android and other desktop resolutions separately; their exact scaling has not
+yet been device-tested.
 
 The previous 9 player-suite failures were caused by tests calling the asynchronous
 `_drive()` helper without `await`; assertions ran before their simulated physics
@@ -98,8 +109,15 @@ combat, and victory/defeat/restart in a running match.
 ### 2. Debug overlay still covers top-left HUD
 HP bar and `WAVE 1` are hidden under it. Raising the HUD layer to 120 did **not** fix it, so the overlay is drawing via some path other than its `CanvasLayer.layer` (probably a root-level `Control` with its own `z_index`). `scripts/ui/DebugOverlay.gd` extends `CanvasLayer`, `layer = 100`. Either find the real draw path or gate the overlay behind its F3 toggle.
 
-### 3. Decor tiles read as noise
-Densest visual complaint. Small orange icons scattered thickly, and identical on every theme (decor always uses the base sheet). Thin the density in `FloorTileLayout` and/or give decor a per-theme source.
+### 3. Floor art pipeline is still placeholder quality
+`FloorTileLayout` now limits background accents to 0.2% of room cells; the
+regression gate confirms the full floor remains walkable and has at most 100
+accents. A live-game screenshot confirms the room is much less noisy, but the
+slab still repeats small atlas tiles and the room has little authored detail.
+`PropSpawner.gd` is not instantiated or called by production floor scenes.
+Before treating floor art as shippable, establish a theme-aware workflow for
+larger asset props and floor surfaces; do not mistake sparse procedural accents
+for finished environment art.
 
 ## Queued: adopt reference project node combos
 

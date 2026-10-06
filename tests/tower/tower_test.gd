@@ -202,6 +202,67 @@ func test_floor_world_rect_includes_canonical_bounds_and_tower_offset() -> void:
 	await get_tree().process_frame
 
 
+func test_floor_background_decor_stays_sparse() -> void:
+	var tile_set := TowerTileSetBuilder.build()
+	assert_not_null(tile_set, "production floor tileset should build")
+	if tile_set == null:
+		return
+
+	var ground := TileMapLayer.new()
+	var decor := TileMapLayer.new()
+	add_child(ground)
+	add_child(decor)
+	FloorTileLayout.populate(
+		ground,
+		decor,
+		tile_set,
+		FloorData.DEFAULT_BOUNDS,
+		7919,
+		TowerTileSetBuilder.source_for_theme("mountain"),
+		0.0
+	)
+
+	assert_greater(ground.get_used_cells().size(), 1000,
+		"the sparse visual pass must preserve the solid floor layout")
+	assert_in_range(decor.get_used_cells().size(), 1.0, 100.0,
+		"background decor should be a few accents, not hundreds of repeated pixels")
+
+	ground.queue_free()
+	decor.queue_free()
+	await get_tree().process_frame
+
+
+func test_authored_8px_floor_tiles_render_at_three_times() -> void:
+	var floor := FloorController.new()
+	var layer := TileMapLayer.new()
+	var tile_set := TileSet.new()
+	tile_set.tile_size = Vector2i(PixelArtScale.TILE_SOURCE_SIZE, PixelArtScale.TILE_SOURCE_SIZE)
+	layer.tile_set = tile_set
+	floor._apply_authored_tile_scale(layer)
+
+	assert_eq(layer.scale, PixelArtScale.tilemap_scale(),
+		"8x8 authored tile layers should be scaled for the 3x output")
+	assert_almost_eq(
+		float(tile_set.tile_size.x) * layer.scale.x
+			* PixelArtScale.CAMERA_ZOOM * PixelArtScale.DISPLAY_SCALE,
+		PixelArtScale.TILE_SCREEN_SIZE,
+		"an 8px cell should occupy 24 screen pixels"
+	)
+
+	var legacy_layer := TileMapLayer.new()
+	var legacy_tile_set := TileSet.new()
+	legacy_tile_set.tile_size = Vector2i(18, 18)
+	legacy_layer.tile_set = legacy_tile_set
+	legacy_layer.scale = Vector2(2.0, 2.0)
+	floor._apply_authored_tile_scale(legacy_layer)
+	assert_eq(legacy_layer.scale, Vector2(2.0, 2.0),
+		"non-8px atlas layers should retain their authored scale")
+
+	floor.free()
+	layer.free()
+	legacy_layer.free()
+
+
 func test_travel_places_next_floor_at_its_tower_height() -> void:
 	var floor_root := Node2D.new()
 	var floor_scene := PackedScene.new()

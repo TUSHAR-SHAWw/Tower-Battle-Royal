@@ -24,6 +24,7 @@ var _draw_control: Control = null
 func _ready() -> void:
 	visible = false
 	_visible = false
+	var canvas := PixelArtScale.ensure_ui_root(self)
 
 	# Create a child Control that does the drawing (CanvasLayer can't draw)
 	_draw_control = Control.new()
@@ -42,7 +43,7 @@ func _ready() -> void:
 	# without this the keyboard navigation silently does nothing.
 	_draw_control.focus_mode = Control.FOCUS_ALL
 	_draw_control.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(_draw_control)
+	canvas.add_child(_draw_control)
 
 	# Find player
 	var tree := get_tree()

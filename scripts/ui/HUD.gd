@@ -19,6 +19,10 @@ class_name HUD
 @onready var notification: Label = $BackgroundCard/NotificationLabel
 
 func _ready() -> void:
+	var background := get_node_or_null("BackgroundCard") as Control
+	if background != null:
+		PixelArtScale.fit_ui_root(background)
+
 	# Make visible immediately — no hidden wait for signals.
 	if health_fill != null:
 		health_fill.value = 100

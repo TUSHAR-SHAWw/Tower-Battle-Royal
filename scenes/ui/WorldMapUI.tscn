@@ -5,11 +5,14 @@
 [node name="WorldMapUI" type="CanvasLayer" layer=20 visible=false]
 script = ExtResource("1_worldmap")
 
-[node name="Overlay" type="ColorRect" parent="."]
+[node name="PixelArtCanvas" type="Control" parent="."]
+anchors_preset = 0
+
+[node name="Overlay" type="ColorRect" parent="PixelArtCanvas"]
 anchors_preset = 15
 color = Color(0, 0, 0, 0.85)
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="PixelArtCanvas"]
 anchors_preset = 15
 offset_left = 50
 offset_top = 50
@@ -17,7 +20,7 @@ offset_right = -50
 offset_bottom = -50
 modulate = Color(0.05, 0.05, 0.1, 1)
 
-[node name="Title" type="Label" parent="Panel"]
+[node name="Title" type="Label" parent="PixelArtCanvas/Panel"]
 anchors_preset = 2
 grow_horizontal = 2
 offset_top = 10
@@ -25,7 +28,7 @@ theme_override_font_sizes/font_size = 20
 text = "TOWER MAP"
 horizontal_alignment = 1
 
-[node name="MapViewport" type="PanelContainer" parent="Panel"]
+[node name="MapViewport" type="PanelContainer" parent="PixelArtCanvas/Panel"]
 anchors_preset = 15
 offset_left = 20
 offset_top = 50
@@ -33,10 +36,10 @@ offset_right = -20
 offset_bottom = -60
 modulate = Color(0, 0, 0, 0.5)
 
-[node name="FloorGrid" type="GridContainer" parent="MapViewport"]
+[node name="FloorGrid" type="GridContainer" parent="PixelArtCanvas/Panel/MapViewport"]
 columns = 1
 
-[node name="CloseHint" type="Label" parent="Panel"]
+[node name="CloseHint" type="Label" parent="PixelArtCanvas/Panel"]
 anchors_preset = 14
 grow_horizontal = 2
 offset_bottom = -10

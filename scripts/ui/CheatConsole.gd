@@ -25,6 +25,7 @@ func _ready() -> void:
 	layer = 101
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_build_ui()
+	_panel.scale = Vector2.ONE * PixelArtScale.UI_SCALE
 	_panel.visible = false
 
 

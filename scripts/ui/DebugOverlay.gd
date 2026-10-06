@@ -68,6 +68,7 @@ func _build_ui() -> void:
 	_panel.set_anchors_preset(Control.PRESET_TOP_LEFT)
 	_panel.offset_left = 8.0
 	_panel.offset_top = 8.0
+	_panel.scale = Vector2.ONE * PixelArtScale.UI_SCALE
 	_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	var style := StyleBoxFlat.new()

@@ -5,6 +5,61 @@ tested, what is known-broken, and what happens next.
 
 ---
 
+## Adopting 8px floor-art scale — 2026-10-06
+
+### Built
+* Set the logical canvas to 426×240 with viewport/integer stretching and a
+  1278×720 window for exact 3× output. Nearest-neighbor texture filtering stays
+  enabled.
+* Added `PixelArtScale` as the shared contract: 8×8 source tiles target 24×24
+  screen pixels; camera zoom preserves the approved gameplay framing without
+  changing physics or world coordinates.
+* Floor controllers now compensate 8×8 authored TileMapLayer atlases for the
+  world transform and calculate the ground surface through the layer transform.
+  Existing 18×18 placeholder tiles and hand-authored layer scales are untouched.
+* Scaled gameplay HUD/debug controls back to the existing 1280×720 design size
+  inside the low-resolution logical canvas.
+* Added player integration assertions for the canvas dimensions, world scale,
+  camera zoom and 8px-tile display scale.
+
+### Verified
+* Godot 4.7 import/headless gate: **15 suites, 1,281 assertions, 0 failures**.
+* Launched and captured the game. The first capture exposed oversized map
+  overlays; both now use the shared 1280×720 design-space wrapper, and the
+  follow-up capture confirms the overlay is back in the corner without
+  obstructing the player or floor.
+* Physics and world coordinates remain unchanged; camera tests verify the
+  approved view and the 8px tile-scale contract.
+
+### Remaining
+Manual authored floors and Android/other-resolution scaling still need
+validation; the developer will create the environment art.
+
+---
+
+## Reducing floor visual noise — 2026-10-06
+
+### Built and verified
+* Reduced procedural background accent probability in
+  `FloorTileLayout` from 10% to 0.2% of room cells. Solid geometry and collision
+  are unchanged; floor accents remain non-colliding.
+* Added `test_floor_background_decor_stays_sparse()` to verify production
+  floor geometry is retained and the complete floor has at most 100 accents.
+* Captured and reviewed a live-game screenshot at the approved 0.65 camera zoom.
+  The scattered marks are sparse, but the slab still repeats a small atlas tile
+  and the room lacks authored environmental art.
+* Latest Godot 4.7 import/headless gate: **15 suites, 1,274 assertions,
+  0 failures** (`tests/results/last_run.md`). Existing teardown leak warnings
+  remain outside the passing assertion count.
+
+### Remaining art blocker
+`PropSpawner.gd` exists but is not connected to production floors. Do not enable
+its current flat-vector placeholder output as a substitute for an art direction.
+Next, define the gameplay pixel scale and a theme-aware floor-surface/large-prop
+authoring path, then validate licensed assets at the actual camera scale.
+
+---
+
 ## Shipping-readiness baseline and match-loop reliability — 2026-10-06
 
 ### Scope confirmed
@@ -80,7 +135,8 @@ tested, what is known-broken, and what happens next.
   beyond floor edges out of frame, and camera snaps are exact. Corrected the
   zoom conversion to compute world viewport size as screen size divided by
   Camera2D zoom; the previous multiplication understated the view at zoom < 1.
-* Godot 4.7 import and headless gate: **15 suites, 1,271 assertions, 0 failures**.
+* Godot 4.7 import and headless gate at that milestone: **15 suites, 1,271
+  assertions, 0 failures**.
 
 ### Remaining release blockers
 * No Windows or Android export templates or checked-in export presets.

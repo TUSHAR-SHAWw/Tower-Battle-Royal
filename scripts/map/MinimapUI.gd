@@ -17,13 +17,15 @@ var _draw_control: Control = null
 
 
 func _ready() -> void:
+	var canvas := PixelArtScale.ensure_ui_root(self)
+
 	# Create a child Control that does the drawing (CanvasLayer can't draw)
 	_draw_control = Control.new()
 	_draw_control.name = "DrawControl"
 	_draw_control.custom_minimum_size = minimap_size
 	_draw_control.size = minimap_size
 	_draw_control.draw.connect(_on_draw)
-	add_child(_draw_control)
+	canvas.add_child(_draw_control)
 
 	# Apply anchors to the child Control (CanvasLayer has no anchors)
 	_setup_anchors()

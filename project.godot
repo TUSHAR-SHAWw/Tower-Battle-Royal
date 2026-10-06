@@ -34,10 +34,13 @@ gdscript/warnings/treat_warnings_as_errors=false
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
-window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
+window/size/viewport_width=426
+window/size/viewport_height=240
+window/size/window_width_override=1278
+window/size/window_height_override=720
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+window/stretch/scale_mode="integer"
 window/handheld/orientation="landscape"
 
 [input]

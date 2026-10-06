@@ -7,7 +7,7 @@ extends Resource
 ## floors, configured by this resource. This keeps memory low (only the current
 ## floor scene is loaded) and makes the tower easily extensible.
 ##
-## Values are PROTOTYPE DEFAULTS — not final balance. Pixel units.
+## Values are PROTOTYPE DEFAULTS — not final balance. Gameplay world units.
 
 @export_group("Identity")
 @export var floor_id: int = 1
@@ -27,18 +27,19 @@ extends Resource
 ## character-to-room proportions as the reference (a person is roughly 1/6 of the
 ## room they stand in).
 ##
-## 6400 x 1080 at 1.5x zoom shows 853x480, so the room scrolls horizontally across
-## roughly 7.5 screens — the Silksong framing — while four players get ~1600 px of
-## personal space each, enough to spread, flank, and miss shots.
+## The 426x240 logical viewport at camera zoom 13/60 shows about 1966x1108 world
+## units, preserving the previous gameplay framing. A floor therefore spans
+## about 3.25 view widths, while four players get ~1600 world units of personal
+## space each, enough to spread, flank, and miss shots.
 @export var bounds: Rect2 = Rect2(-3200, -1080, 6400, 1080)
 
-## Width of the central shaft cut through the slab, in pixels.
+## Width of the central shaft cut through the slab, in gameplay world units.
 ##
 ## The shaft is the only vertical opening in a floor. The descending platform
 ## rides down it, loot spawns on its lip, and falling in drops you a floor.
 ## Sized to 2.5x the platform diameter so the platform never clips the slab.
 @export var shaft_width: float = 640.0
-## Vertical position in the tower (pixels from ground). Used for ordering.
+## Vertical position in the tower (world units from ground). Used for ordering.
 @export var height: float = 0.0
 
 @export_group("Theme / Atmosphere")

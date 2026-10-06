@@ -32,6 +32,10 @@ extends RefCounted
 
 const TILE := 18
 
+## Background accents only; a dense cell-by-cell scatter competes with authored
+## props and reads as pixel noise at the player's camera zoom.
+const DECOR_CHANCE := 0.002
+
 ## Thickness of the slab between two floors, in tiles. Three tiles = 54 px: thick
 ## enough to read as a storey divider and to make the shaft look like a shaft.
 const SLAB_ROWS := 3
@@ -114,12 +118,13 @@ static func populate(ground: TileMapLayer, decor: TileMapLayer, tile_set: TileSe
 		theme_source, ground_coords)
 
 	# --- Decoration ---------------------------------------------------------
-	# Sparse background scenery on the decor source, which has no collision, so
-	# scenery never becomes an invisible platform.
+	# Very sparse background accents on the decor source, which has no collision,
+	# so scenery never becomes an invisible platform. Most visual detail should
+	# come from larger floor props and authored assets, not repeated tiny tiles.
 	var room_top := origin_cell.y + 1
 	for x in range(left + 1, right):
 		for y in range(room_top, slab_top):
-			if rng.randf() > 0.10:
+			if rng.randf() > DECOR_CHANCE:
 				continue
 			decor.set_cell(Vector2i(x, y), TowerTileSetBuilder.SOURCE_DECOR, decor_coords)
 

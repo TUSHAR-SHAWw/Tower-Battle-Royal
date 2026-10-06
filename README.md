@@ -12,7 +12,7 @@ descending platform drive the risk/reward decisions.
 ## Shipping status
 
 **Pre-alpha prototype; not ready to ship.** The automated Godot 4.7 import and
-headless test gate currently passes (15 suites, 1,271 assertions). That does not
+headless test gate currently passes (15 suites, 1,281 assertions). That does not
 yet prove the full match loop, exported builds, or target-device behavior. See
 [`docs/SHIPPING_READINESS_PLAN.md`](docs/SHIPPING_READINESS_PLAN.md) for the
 release gates and [`docs/DEVELOPMENT_LOG.md`](docs/DEVELOPMENT_LOG.md) for
@@ -26,6 +26,22 @@ implementation history.
 | Online multiplayer | Prototype code is not integrated or end-to-end tested; deferred until after single-player launch |
 | Windows release build | No Windows export template or preset is currently available in the checked environment; package still to be verified |
 | Android release build | No Android export template is currently installed; touch controls, export setup and device testing remain |
+
+Floor background accents are now sparse (0.2% of room cells) so they do not
+compete with authored art. The live floor still uses repeated small atlas tiles,
+and the existing prop-spawning script is not wired into production floors; a
+theme-aware, asset-friendly floor authoring pipeline remains unfinished.
+
+## Pixel-art scale
+
+The game canvas is **426×240**, presented at **3× integer scale** (1278×720).
+Gameplay retains the established framing through a matching camera zoom;
+physics and gameplay world coordinates are not rescaled.
+Author floor atlases with **8×8 source-pixel tiles**; `FloorController` scales
+8×8 `TileMapLayer` atlases so each source pixel is 3 screen pixels (24×24 screen
+pixels per tile). Keep textures on nearest-neighbor filtering. Larger atlas tile
+sizes retain their authored node scale. HUD and map overlays retain their
+1280×720 design coordinates within the 3× output.
 
 ## Getting started
 

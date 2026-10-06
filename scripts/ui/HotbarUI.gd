@@ -14,6 +14,8 @@ var _selected_border_color: Color = Color(1.0, 0.8, 0.2, 1.0)
 var _quantity_font: Font = null
 
 func _ready() -> void:
+	scale = Vector2.ONE * PixelArtScale.UI_SCALE
+
 	# Try to get default font
 	_quantity_font = ThemeDB.get_default_theme().get_font("font", "Label")
 	if _quantity_font == null:

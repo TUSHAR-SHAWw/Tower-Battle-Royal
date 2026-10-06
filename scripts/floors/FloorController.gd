@@ -149,6 +149,8 @@ func _apply_floor_identity() -> void:
 func _build_tile_layers() -> void:
 	if _ground_tiles == null or floor_data == null:
 		return
+	_apply_authored_tile_scale(_ground_tiles)
+	_apply_authored_tile_scale(_decor_tiles)
 	if _ground_tiles.get_used_cells().size() > 0:
 		return  # Already painted — leave the artist's work alone.
 
@@ -185,6 +187,17 @@ func _build_tile_layers() -> void:
 	_decor_tiles.z_as_relative = false
 
 
+## Authored 8px tiles compensate for the match's world scale so each source
+## pixel renders at the configured 3x screen scale.
+func _apply_authored_tile_scale(layer: TileMapLayer) -> void:
+	if layer == null or layer.tile_set == null:
+		return
+	if layer.tile_set.tile_size == Vector2i(
+		PixelArtScale.TILE_SOURCE_SIZE, PixelArtScale.TILE_SOURCE_SIZE
+	):
+		layer.scale = PixelArtScale.tilemap_scale()
+
+
 ## Y coordinate of the top surface of the floor's ground tiles, in floor-local space.
 ##
 ## Used to spawn the player standing on the floor instead of dropping them from
@@ -202,7 +215,8 @@ func get_ground_surface_y() -> Variant:
 		lowest_row = maxi(lowest_row, cell.y)
 	# The slab is several rows thick, so measure from its top, not its bottom.
 	var surface_row := lowest_row - (_slab_rows() - 1) if _slab_rows() > 1 else lowest_row
-	return _ground_tiles.map_to_local(Vector2i(0, surface_row)).y
+	var tile_local := _ground_tiles.map_to_local(Vector2i(0, surface_row))
+	return to_local(_ground_tiles.to_global(tile_local)).y
 
 
 ## Number of solid rows making up the slab on this floor.

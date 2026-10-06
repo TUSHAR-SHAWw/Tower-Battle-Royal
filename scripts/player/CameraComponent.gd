@@ -18,16 +18,15 @@ extends Node
 ##   above `look_ahead_commit_speed` and eases in over `look_ahead_speed`.
 ## * **Vertical dead zone larger than a jump** — a routine jump goes up and comes
 ##   back down to the same ground, so it must not move the frame. Only a genuine
-##   climb crosses the boundary. The default player config's held jump peaks at
-##   about 270 px; the 600 px zone height gives it room to stay inside.
+##   climb crosses the boundary. Its distances are expressed in the scaled match
+##   gameplay world units.
 ## * **Ground re-centring** — once the player lands, the remembered height eases
 ##   back to theirs, so a staircase of jumps does not leave the anchor behind.
 ## * **Fall look-ahead** — a long drop slides the frame down in proportion to fall
 ##   speed, so the landing is on screen before you get there.
-## * **Scrolling framing** — floors are 6400x1080 and 1.5x zoom shows
-##   853x480, so the room scrolls horizontally across several screens while the
-##   horizon stays still. That is the framing the developer asked for; the trade is
-##   that one floor is no longer visible at once (the live map is, per design).
+## * **Scrolling framing** — the 426x240 logical canvas and adjusted camera zoom
+##   preserve the previous 1280x720 world view while allowing 8px source tiles
+##   to render at 24 screen pixels.
 ##
 ## All values are `@export` so they can be tuned without touching code, and every
 ## default here is a PROTOTYPE DEFAULT, not a balance decision.
@@ -36,7 +35,7 @@ extends Node
 @export var config: PlayerConfig
 
 @export_group("Framing")
-## Width / height of the still zone around the anchor, in pixels.
+## Width / height of the still zone around the anchor, in gameplay world units.
 ##
 ## The vertical zone clears the configured held jump without hiding a sustained
 ## climb; horizontally it swallows small corrections before a jump.
@@ -47,7 +46,7 @@ extends Node
 @export var follow_speed: float = 6.0
 
 @export_group("Look Ahead")
-## How far the frame leads in the direction of travel, in pixels.
+## How far the frame leads in the direction of travel, in gameplay world units.
 @export var look_ahead_distance: float = 150.0
 ## When > 0, overrides the lead distance with PlayerConfig.camera_lead_pixels at
 ## runtime so one config resource drives both the rig and the exported values.
@@ -377,7 +376,7 @@ func snap_to_target() -> void:
 	camera.global_position = _clamp_target_to_floor(_anchor)
 
 
-## The world-space rectangle the camera currently shows, in pixels.
+## The world-space rectangle the camera currently shows, in gameplay world units.
 ## `get_viewport_rect()` is the wrong source in a headless run and during the
 ## first frames: it can report a 1x1 or stale size, which framed the floor with a
 ## 640x640 view. The project's configured viewport size is authoritative for a

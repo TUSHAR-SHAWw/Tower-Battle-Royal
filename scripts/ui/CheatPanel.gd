@@ -20,6 +20,7 @@ func _ready() -> void:
 	
 	# Setup UI
 	_setup_ui()
+	PixelArtScale.fit_ui_root(_panel)
 	
 	# Register all commands from DevTools as buttons
 	_populate_buttons()

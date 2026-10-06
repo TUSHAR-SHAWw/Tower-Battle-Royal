@@ -374,6 +374,24 @@ func test_camera_is_current_and_shows_the_configured_view() -> void:
 	# `current` does not exist in Godot 4 — it is `enabled`, and reading the wrong
 	# one threw on every physics frame.
 	assert_true(cam.enabled, "camera must be enabled/current")
+	assert_eq(
+		Vector2i(
+			int(ProjectSettings.get_setting("display/window/size/viewport_width", 0)),
+			int(ProjectSettings.get_setting("display/window/size/viewport_height", 0))
+		),
+		PixelArtScale.LOGICAL_VIEWPORT,
+		"the logical canvas should be sized for 3x pixel-art output"
+	)
+	assert_eq(cam.zoom, Vector2.ONE * PixelArtScale.CAMERA_ZOOM,
+		"match camera zoom should preserve the existing world view")
+	assert_almost_eq(_config.camera_zoom, PixelArtScale.CAMERA_ZOOM,
+		"camera scale should preserve the old on-screen framing without scaling physics")
+	assert_almost_eq(
+		PixelArtScale.CAMERA_ZOOM * PixelArtScale.DISPLAY_SCALE
+			* PixelArtScale.tilemap_scale().x,
+		3.0,
+		"an 8px authored tile should render at 3 screen pixels per source pixel"
+	)
 
 	var expected := _camera_component.visible_world_size()
 	var width := int(ProjectSettings.get_setting("display/window/size/viewport_width", 0))
@@ -388,7 +406,7 @@ func test_camera_follows_the_player() -> void:
 	await _drive(Vector2.RIGHT, 90)
 	await get_tree().physics_frame
 
-	assert_greater((cam.global_position - before).length(), 1.0, "camera follows the player (rolling framing, 1.5x zoom)")
+	assert_greater((cam.global_position - before).length(), 1.0, "camera follows the player with pixel-art scaling")
 
 
 func test_camera_keeps_floor_edges_inside_the_visible_frame() -> void:
