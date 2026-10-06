@@ -36,6 +36,7 @@
 [ext_resource type="Script" uid="uid://cds3c0eq8xyq2" path="res://scripts/economy/DailyRewardComponent.gd" id="35_daily"]
 [ext_resource type="Script" uid="uid://csqakjl27pwkh" path="res://scripts/economy/BattlePassComponent.gd" id="36_battlepass"]
 [ext_resource type="Resource" path="res://resources/economy/season_1.tres" id="37_season"]
+[ext_resource type="Script" path="res://scripts/melee/MeleeHitbox.gd" id="38_melee_hitbox"]
 
 [sub_resource type="CircleShape2D" id="1_shape"]
 radius = 14.0
@@ -90,7 +91,8 @@ weapon = ExtResource("14_weapon")
 script = ExtResource("15_melee")
 weapon = ExtResource("16_melee_weapon")
 
-[node name="MeleeHitbox" type="Node" parent="." unique_id=386235984]
+[node name="MeleeHitbox" type="Area2D" parent="." unique_id=386235984]
+script = ExtResource("38_melee_hitbox")
 
 [node name="InventoryComponent" type="Node" parent="." unique_id=1304507926]
 script = ExtResource("18_inv")

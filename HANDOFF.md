@@ -19,16 +19,21 @@ Written by an agent that ran out of context. Read this before changing anything.
 
 ## Current test state
 
-**1175 assertions, 9 failures** — all 9 in `tests/player/player_test.gd`. `tower_test` is green.
+**Latest gate: 13 suites, 1,215 assertions, 0 failures** using
+`powershell -ExecutionPolicy Bypass -File tests\run_tests.ps1`.
 
-The 9 failures are all movement: scripted input produces **0 speed**, state stays `idle`:
-- `test_player_walks_when_input_is_held` (3 assertions)
-- `test_player_starts_when_input_is_released` / `test_player_stops_when_input_is_released`
-- `test_player_sprints_faster_than_walking` (3 assertions)
-- `test_player_revives_at_full_health`
-- `test_jumping_does_not_move_the_camera` (camera moves 260px, limit 200px)
+The previous 9 player-suite failures were caused by tests calling the asynchronous
+`_drive()` helper without `await`; assertions ran before their simulated physics
+frames completed, and the abandoned coroutines later accessed freed fixtures. All
+calls now await the helper. The jump-camera assertion also found the camera's
+vertical dead zone too small for the actual configured held jump; the default
+zone was increased and documented. The automated gate is green, but a human
+keyboard/gamepad and camera playtest is still required.
 
-**Verified so far and NOT the cause:** `StateMachine` dispatches `physics_update` itself via its own `_physics_process` (do not call `state_machine.physics_update()` from Player — that method doesn't exist); `PlayerConfig` resolves fine (no warnings); `ScriptedInputSource` is correctly installed and named `InputSource`. Next thing to measure: the scripted player's actual `is_on_floor()` and `global_position` in that harness. Suspect it isn't on a floor, so `MoveState` bounces straight back to `idle`.
+**Initial release scope confirmed:** Windows + Android, single-player first;
+online multiplayer is deferred to a later update. Android export templates are
+not installed in the current development environment. See
+`docs/SHIPPING_READINESS_PLAN.md` for the remaining gates and scope questions.
 
 ## Verified working
 
@@ -37,26 +42,31 @@ The 9 failures are all movement: scripted input produces **0 speed**, state stay
 - **Per-theme TileMapLayers**: `TowerTileSetBuilder` exposes 5 solid atlas sources (`THEME_SOURCES` + `source_for_theme()`); `FloorController` picks by `floor_data.theme_name`. Decor uses a separate collision-free source (`SOURCE_DECOR`) — important, or scenery becomes invisible platforms that trap the player.
 - **Lowest floor is sealed**: `FloorController` passes `shaft_width = 0` for `floor_id <= 1`. Verified — player dropped on the exact map centre lands (`on_floor=true`) instead of falling out.
 - **HUD renders**: instanced into `Match.tscn` as `ExtResource("7_hud")`, `layer = 120` (above `DebugOverlay`'s 100). `BackgroundCard` must stay a plain `Control`, **not** a `PanelContainer` — a PanelContainer stretches its child across the whole screen.
+- **HUD signals**: health, hunger, rage, XP, wave and floor updates now have
+  visible controls. `EnemySpawner` no longer emits an invalid one-argument
+  `SignalHub.wave_started`; `FloorController` forwards wave events with the
+  floor ID. `tests/ui/hud_test.gd` covers the signal-to-widget updates; visual
+  layout still needs desktop/Android playtesting.
+- **Combat smoke tests**: gun fire now acquires a pooled Bullet with an
+  actor-hurtbox detector and world collision; the player scene's `MeleeHitbox`
+  is now an `Area2D` running `MeleeHitbox.gd`. `tests/combat/combat_test.gd`
+  verifies enemy AI movement, projectile and melee damage against the production
+  `Enemy.tscn`, and exactly one global enemy-death event. Reward/loot handling
+  and full-match play remain to be verified.
 - Camera follows player, clamped to floor bounds with overshoot.
 
 ## Open bugs, in priority order
 
-### 1. Gun + melee unusable (requested, unverified)
-Neither has ever been confirmed working. My harness died on `await _spawn_enemy()` (coroutine called without `await`). Components exist and have full APIs:
-- `scripts/weapons/GunComponent.gd` — `try_fire(aim_dir, global_pos)`, `_fire_shot`, reload, ammo getters
-- `scripts/melee/MeleeComponent.gd` — `try_attack(aim_dir)`, hitbox activate/deactivate, combo states
-- `scripts/melee/MeleeHitbox.gd`, `scripts/weapons/Bullet.tscn`
-- `PlayerStateUtil.ensure_hurtbox()` exists and documents that **an actor without a hurtbox is invulnerable** — check both player and enemy have a `Hurtbox` with a sized `CollisionShape2D`.
+### 1. Combat needs full-match verification
+The automated smoke tests prove a projectile and melee swing damage the
+production `Enemy.tscn` and that its death is published once. Still verify
+kill-credit/reward/loot handling, range/aim behavior, and repeated combat in a
+running match.
 
-Write a harness that asserts: gun node + weapon resource present, ammo > 0, `try_fire` spawns a bullet, bullet damages an enemy, `try_attack` returns true and damages. Check collision layers/masks on `MeleeHitbox` and `Bullet` against `PhysicsLayers`.
-
-### 2. `HUD._on_wave_started` signature mismatch
-`SignalHub.wave_started` emits with a different arg count than the handler accepts → error every wave. Same class of bug I already fixed for hunger/rage (signal declared `(owner, current, maximum)`, `Player.gd` emitted 2 args). **When fixing, compare the `signal` declaration in `scripts/autoload/SignalHub.gd` against every `emit()` call site and every handler arity.**
-
-### 3. Debug overlay still covers top-left HUD
+### 2. Debug overlay still covers top-left HUD
 HP bar and `WAVE 1` are hidden under it. Raising the HUD layer to 120 did **not** fix it, so the overlay is drawing via some path other than its `CanvasLayer.layer` (probably a root-level `Control` with its own `z_index`). `scripts/ui/DebugOverlay.gd` extends `CanvasLayer`, `layer = 100`. Either find the real draw path or gate the overlay behind its F3 toggle.
 
-### 4. Decor tiles read as noise
+### 3. Decor tiles read as noise
 Densest visual complaint. Small orange icons scattered thickly, and identical on every theme (decor always uses the base sheet). Thin the density in `FloorTileLayout` and/or give decor a per-theme source.
 
 ## Queued: adopt reference project node combos

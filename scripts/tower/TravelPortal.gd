@@ -15,8 +15,10 @@ var _cooldown_timer: float = 0.0
 var _pulse_phase: float = 0.0
 
 func _ready() -> void:
-	monitoring = _active
-	monitorable = false
+	# A portal can be instantiated from another area's physics callback during
+	# floor travel; defer physics-server changes until query flushing completes.
+	set_deferred(&"monitoring", _active)
+	set_deferred(&"monitorable", false)
 	collision_layer = 0
 	# Must watch both the player body (PLAYER) and its hurtbox area
 	# (PLAYER_HURTBOX), otherwise the portal never detects anyone.
@@ -39,7 +41,7 @@ func _physics_process(delta: float) -> void:
 		_cooldown_timer = max(0.0, _cooldown_timer - delta)
 		if _cooldown_timer <= 0.0:
 			_active = true
-			monitoring = true
+			set_deferred(&"monitoring", true)
 	
 	_pulse_phase += delta * 3.0
 	queue_redraw()

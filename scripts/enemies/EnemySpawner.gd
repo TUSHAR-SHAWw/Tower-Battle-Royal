@@ -63,7 +63,6 @@ func _start_next_wave() -> void:
 	print("[DEBUG] EnemySpawner: Floor %d, Wave %d/%d starting (spawning %d enemies)" % [_floor, _current_wave, base_wave_count, count])
 	
 	wave_started.emit(_current_wave)
-	SignalHub.wave_started.emit(_current_wave)
 	
 	for i in range(count):
 		call_deferred("_spawn_enemy", i * 0.5)
@@ -112,7 +111,7 @@ func _spawn_enemy(delay: float) -> void:
 	# does not reset it back to the resource default.
 	enemy.health.max_health = scaled.max_health
 	enemy.health.current_health = scaled.max_health
-	enemy.movement.max_speed = scaled.move_speed
+	enemy.ai.move_speed = scaled.move_speed
 
 	_enemies_alive += 1
 	enemy_spawned.emit(enemy)

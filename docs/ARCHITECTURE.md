@@ -23,8 +23,9 @@ the risk/reward decisions.
 | Combat model | Twin-stick aim (`move_dir` + `aim_dir`) | Works for mouse, gamepad, touch and bots through one interface. Aim is independent of gravity, so strafing while firing works |
 | Camera | Scrolling framing rig (`CameraComponent`), zoom 0.75 | Shows 1707×960 of a 6400-wide floor: the room scrolls horizontally while the horizon stays still. One floor is *not* visible at once — the live map is the whole-tower view |
 | Tower model | Floors are **separate scenes loaded on demand**, not physically stacked | 12+ floors cost no memory; the map and tower logic never need a floor scene loaded |
-| Main scene (now) | `scenes/main/Match.tscn` (tower match with 10 floors + central platform) | Replaced by the menu (M17) |
-| Networking | **Built (server-authoritative)** | Architecture was designed for migration; M16 implemented GameServer/GameClient with snapshot interpolation and input prediction |
+| Match scene | `scenes/main/Match.tscn` (tower match) | Currently reached directly from the boot scene; a player-facing menu/results flow is still needed |
+| Initial release scope | Single-player on Windows and Android | Online multiplayer is deferred until after the initial release |
+| Networking | Prototype code exists, not release-ready | GameServer/GameClient are not integrated into the startup flow or verified in an end-to-end multiplayer match |
 
 ## 3. Folder map
 
@@ -231,11 +232,12 @@ confirmation pending):
 | Milestone | Contents | State |
 | --- | --- | --- |
 | **M0** | Foundation: project config, autoloads, test harness, debug tools, docs | **done** |
-| **M1–M15** | Player, floors, combat, inventory, metabolism, tower, enemies, merging, central platform, economy | **done** |
-| **M16** | Networking: server-authoritative architecture, GameServer, GameClient, snapshots, input prediction | **done** |
-| **M17** | Main menu scene + SceneRouter integration | next |
-| M18 | Economy, shop, packs, save | |
-| M19 | Polish: VFX/SFX/animation | |
+| **M1–M15** | Player, floors, combat, inventory, metabolism, tower, enemies, merging, central platform, economy | Prototype systems present; release validation remains |
+| **M16** | Networking: GameServer/GameClient, snapshots, input prediction | Prototype only; deferred until after initial single-player release |
+| **M17** | Main menu, settings, results and SceneRouter integration | Not complete; required for initial release |
+| **M18** | Economy, shop, packs and save | Scope/production requirements not confirmed; do not block initial release unless approved |
+| **M19** | Polish: VFX/SFX/animation | Placeholder presentation remains; scope to be decided for launch |
+| **Release** | Windows + Android single-player package, QA and distribution | Not started; see `docs/SHIPPING_READINESS_PLAN.md` |
 
 ## 15. Testing & debug tooling
 
@@ -260,5 +262,4 @@ confirmation pending):
 * Only the floor the player is on exists as a scene; others are data.
 * `DebugOverlay` refreshes at 5 Hz, not per frame.
 * Prefer signals and physics-frame logic over per-frame polling; profile before optimising.
-
 

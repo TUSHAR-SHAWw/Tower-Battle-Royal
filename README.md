@@ -1,27 +1,31 @@
 # Tower Battle Royal
 
-A multiplayer **2D platformer battle royale** set inside a vertical tower, built in
-**Godot 4.7** (side-view, flat-vector art direction).
+A **2D tower survival platformer** built in **Godot 4.7** (side-view, flat-vector
+art direction). The initial release target is **single-player on Windows and
+Android**; online multiplayer is planned for a later update, not a launch feature.
 
 Players spawn on random floors of a tall tower, loot weapons, food and rare resources,
 fight with guns and melee, travel between floors, and survive as floors are
 progressively deleted. Hunger, Rage, elemental weapons, weapon merging and a central
 descending platform drive the risk/reward decisions.
 
-## Status
+## Shipping status
 
-Pre-alpha, built milestone by milestone — **core gameplay first, tested at every step**.
-See `docs/DEVELOPMENT_LOG.md` for exactly what exists today.
+**Pre-alpha prototype; not ready to ship.** The automated Godot 4.7 import and
+headless test gate currently passes (13 suites, 1,215 assertions). That does not
+yet prove the full match loop, exported builds, or target-device behavior. See
+[`docs/SHIPPING_READINESS_PLAN.md`](docs/SHIPPING_READINESS_PLAN.md) for the
+release gates and [`docs/DEVELOPMENT_LOG.md`](docs/DEVELOPMENT_LOG.md) for
+implementation history.
 
-| Milestone | Contents | State |
-| --- | --- | --- |
-| M0 | Foundation, autoloads, test harness, debug tools | done |
-| M1 | Player: movement, camera, state machine, health, death | next |
-| M2 | One floor → reusable floor system | |
-| M3 | One gun | |
-| M4 | One melee weapon | |
-| M5–M6 | Inventory + hotbar; Hunger, Rage, Super Hunger | |
-| M7+ | Tower, floor deletion, floor travel, live map, loot, elements, merging, central platform, skins, menu, economy, multiplayer | |
+| Area | Current status |
+| --- | --- |
+| Player, tower, combat, items and progression systems | Implemented as prototype systems; end-to-end shipping validation remains |
+| Automated test gate | Passing; not a substitute for manual or device QA |
+| Startup, menu and results flow | Boot currently opens the match directly; player-facing flow is unfinished |
+| Online multiplayer | Prototype code is not integrated or end-to-end tested; deferred until after single-player launch |
+| Windows release build | No Windows export template or preset is currently available in the checked environment; package still to be verified |
+| Android release build | No Android export template is currently installed; touch controls, export setup and device testing remain |
 
 ## Getting started
 
@@ -42,6 +46,7 @@ lists commands). Both exist only in debug builds.
 
 ## Assets
 
-All current art and audio are procedural placeholders. No third-party or copyrighted
-assets are included; any future asset will be original or verified-licensed, and its
-source/licence will be documented under `docs/`.
+The repository includes procedural placeholder art and bundled third-party asset
+packs. Before release, audit the origin, license and attribution requirements of
+every asset group and document the results; the current license files do not cover
+all included asset folders.

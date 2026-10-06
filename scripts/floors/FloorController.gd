@@ -504,9 +504,22 @@ func _update_visual_state() -> void:
 			# Hidden/disabled
 			if _visual != null:
 				_visual.visible = false
+			if _ground_tiles != null:
+				_ground_tiles.visible = false
+				_ground_tiles.set_deferred(&"collision_enabled", false)
+			if _decor_tiles != null:
+				_decor_tiles.visible = false
 			if _collision != null:
-				_collision.set_collision_layer_value(1, false)
-				_collision.set_collision_mask_value(1, false)
+				_disable_collision_tree(_collision)
+
+
+func _disable_collision_tree(node: Node) -> void:
+	if node is CollisionObject2D:
+		var collision_object := node as CollisionObject2D
+		collision_object.set_deferred(&"collision_layer", 0)
+		collision_object.set_deferred(&"collision_mask", 0)
+	for child: Node in node.get_children():
+		_disable_collision_tree(child)
 
 
 func _physics_process(delta: float) -> void:

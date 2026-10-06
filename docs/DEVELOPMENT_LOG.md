@@ -5,6 +5,61 @@ tested, what is known-broken, and what happens next.
 
 ---
 
+## Shipping-readiness baseline, HUD and combat fixes — 2026-10-06
+
+### Scope confirmed
+* Initial release target: **single-player on Windows and Android**.
+* Online multiplayer is deferred to a later update and is not an initial-release
+  gate.
+
+### Fixed and verified
+* Awaited every asynchronous `_drive()` call in `tests/player/player_test.gd`.
+  Previously assertions ran before the scripted physics frames completed and
+  abandoned coroutines accessed freed fixtures.
+* Increased the camera's vertical dead zone to accommodate the configured held
+  jump and corrected its explanatory comments.
+* Fixed wave event arity: `EnemySpawner` had emitted a one-argument global
+  `wave_started`, while the signal requires the wave and floor ID. The owning
+  `FloorController` now supplies the canonical global notification.
+* Wired live health, hunger, rage, XP, wave and floor HUD values and added
+  `tests/ui/hud_test.gd`.
+* Fixed the gun path to acquire, configure and launch pooled Bullet scenes;
+  added body collision and a child Area2D to detect actor hurtboxes. Pooled
+  collision processing is deferred safely when a projectile hits during physics.
+* Replaced the Player scene's placeholder melee `Node` with the actual hitbox
+  Area2D and script.
+* Added `tests/combat/combat_test.gd` for projectile and melee damage against
+  the production Enemy scene, AI movement, and one-time global death signaling.
+* Fixed production Enemy setup: the scene now assigns its default Grunt resource,
+  EnemyAI reads data before selecting a patrol point, AI movement uses the
+  MovementComponent's real acceleration/gravity API, and floor scaling updates
+  the AI's speed instead of writing an unsupported component property.
+* Removed duplicate global enemy-death publication so the Enemy actor is the
+  single publisher.
+* Fixed three runtime errors from playtesting: deleted floors now disable
+  collision on their actual child physics bodies and ground TileMapLayer;
+  TravelPortal defers physics-flag updates when instantiated during a trigger;
+  ObjectPool defers attaching prewarmed nodes while its parent is still setting
+  up children.
+* Added regressions for floor collision shutdown, portal physics flags and
+  ObjectPool prewarming during parent initialization.
+* Godot 4.7 import and headless gate: **13 suites, 1,215 assertions, 0 failures**.
+
+### Remaining release blockers
+* No Windows or Android export templates or checked-in export presets.
+* Android touch controls and target-device UI/performance have not been verified.
+* Enemy kill-credit/reward/loot handling, wave progression, floor deletion,
+  match result/restart flow, and asset provenance audit still need release
+  validation.
+* The installed Godot 4.7 template directory contains Web templates only.
+
+### Next
+Proceed through `docs/SHIPPING_READINESS_PLAN.md`: reconcile product scope and
+status, verify the complete offline match loop, then build and QA Windows and
+Android exports. Multiplayer work remains post-launch.
+
+---
+
 ## Prototype Build — Placeholder UI + Fixed Player.tscn — 2026-09-30
 
 ### Context
@@ -263,4 +318,3 @@ gameplay.
 FSM states `Idle/Move/Sprint/Dead`, `HealthComponent` + death, debug HUD lines, and
 `tests/player/*` integration tests that drive synthetic `InputIntent`s across real physics
 frames. Gate: automation green **and** the developer can move, aim, take damage, die.
-

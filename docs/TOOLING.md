@@ -16,8 +16,10 @@ E:\GAMES\Godot_v4.7-stable_win64.exe
   * launched plainly, `print()` output never reaches a terminal.
   * Fix for both: `Start-Process -FilePath <godot> -ArgumentList <args> -NoNewWindow -Wait -PassThru`
     which attaches stdout to the current console *and* waits for the exit code.
-* Export templates for `4.7.stable` and `4.2.stable` are installed; **no Android
-  templates** for 4.7 yet.
+* The installed `4.7.stable` export-template directory was checked on 2026-10-06
+  and contains Web templates only; **Windows desktop and Android templates are
+  not installed**. Obtain templates for the target platforms before attempting
+  release exports. Recheck after changing the Godot installation.
 
 ## Common commands
 

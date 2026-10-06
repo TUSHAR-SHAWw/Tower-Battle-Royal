@@ -1,0 +1,45 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 3.3.0 Core Profile Context 23.19.24.12.260610 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon(TM) Vega 8 Graphics
+
+[Tests] engine 4.7-stable (official) | 11 suites
+[Tests] signal_hub_test: 34 assertions, 0 failures (221 ms)
+[Tests] game_state_test: 31 assertions, 0 failures (105 ms)
+[Tests] scene_router_test: 13 assertions, 0 failures (275 ms)
+[Tests] input_actions_test: 68 assertions, 0 failures (15 ms)
+[Tests] math_utils_test: 535 assertions, 0 failures (34 ms)
+[Tests] object_pool_test: 28 assertions, 0 failures (293 ms)
+[Tests] damage_info_test: 38 assertions, 0 failures (5 ms)
+[Tests] state_machine_test: 41 assertions, 0 failures (656 ms)
+[DEBUG] TowerController: Loading floor 1 (bounds: [P: (-3200.0, -1080.0), S: (6400.0, 1080.0)], target_floor: 45)
+[DEBUG] FloorController: Floor 1 spawned TravelPortal at position: (2560.0, -540.0) (target_floor: 45, bounds: [P: (-3200.0, -1080.0), S: (6400.0, 1080.0)])
+[StateMachine] <none> -> ACTIVE
+[DEBUG] FloorController: Floor 1 ready, bounds: [P: (-3200.0, -1080.0), S: (6400.0, 1080.0)], spawn points: 0
+[DEBUG] FloorController: Floor 1 starting enemy spawning (waves: 4, enemies/wave: 5, interval: 14.0)
+[DEBUG] EnemySpawner: Floor 1, Wave 1/4 starting (spawning 5 enemies)
+[Floor] Floor 1: Wave 1 started
+[DEBUG] TowerController: Floor 1 stacked at y=-0.0
+[DEBUG] TowerController: Floor 1 loaded, position: (0.0, 0.0)
+[StateMachine] <none> -> idle
+[Match] Tower match ready — player at floor 1
+[DEBUG] Match: Camera bounds set to: [P: (-3200.0, -1080.0), S: (6400.0, 1080.0)]
+[DEBUG] Match: Player spawn location: (-1268.422, -69.0) (floor bounds: [P: (-3200.0, -1080.0), S: (6400.0, 1080.0)])
+[DEBUG] Match: Camera component: CameraComponent:<Node#104404617039>, Camera2D: Camera2D:<Camera2D#104320730954>
+[Match] Player spawned at (-1268.422, -69.0), camera=Camera2D:<Camera2D#104320730954>
+[StateMachine] idle -> move
+[StateMachine] move -> idle
+[StateMachine] idle -> dead
+[StateMachine] dead -> idle
+[StateMachine] idle -> move
+[StateMachine] move -> idle
+[StateMachine] idle -> dead
+[StateMachine] dead -> idle
+[StateMachine] idle -> dead
+[StateMachine] dead -> idle
+[StateMachine] idle -> sprint
+[StateMachine] sprint -> idle
+[StateMachine] idle -> move
+[Tests] player_test: 42 assertions, 9 failures (6376 ms)
+[Tests] tower_test: 308 assertions, 0 failures (1223 ms)
+[Tests] network_test: 37 assertions, 0 failures (11 ms)
+[Tests] report written to E:/Godot Main Projects/Tower Battle Royal/Tower-Battle-Royal/tests/results/last_run.md
+[Tests] RESULT: FAIL | 11 suites | 1175 assertions | 9 failures | 10741 ms

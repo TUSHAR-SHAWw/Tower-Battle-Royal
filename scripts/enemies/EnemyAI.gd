@@ -14,12 +14,14 @@ var _target: Node = null
 var _owner: CharacterBody2D = null
 var _movement: MovementComponent = null
 var _health: HealthComponent = null
+var _move_direction: Vector2 = Vector2.ZERO
 
 var _patrol_target: Vector2 = Vector2.ZERO
 var _patrol_timer: float = 0.0
 var _attack_timer: float = 0.0
 var _stuck_timer: float = 0.0
 var _last_position: Vector2 = Vector2.ZERO
+var move_speed: float = 100.0
 
 enum State { IDLE, PATROL, CHASE, ATTACK, FLEE, DEAD }
 
@@ -27,6 +29,10 @@ func _ready() -> void:
 	_owner = get_parent() as CharacterBody2D
 	_movement = _owner.get_node_or_null("MovementComponent")
 	_health = _owner.get_node_or_null("HealthComponent")
+	if enemy_data == null and _owner is Enemy:
+		enemy_data = (_owner as Enemy).enemy_data
+	if enemy_data != null:
+		move_speed = enemy_data.move_speed
 	
 	if _health != null:
 		_health.died.connect(_on_died)
@@ -38,6 +44,7 @@ func _physics_process(delta: float) -> void:
 	if _state == &"dead" or enemy_data == null:
 		return
 	
+	_move_direction = Vector2.ZERO
 	_update_target()
 	
 	match _state:
@@ -47,18 +54,23 @@ func _physics_process(delta: float) -> void:
 		&"attack": _handle_attack(delta)
 		&"flee": _handle_flee(delta)
 	
+	if _movement != null:
+		_movement.accelerate_toward(_move_direction, move_speed, maxf(move_speed * 10.0, 600.0), delta)
+		_movement.apply_motion(delta)
 	_check_stuck(delta)
 
 
 func _update_target() -> void:
 	var player := _find_player()
-	if player != null:
-		var dist := _owner.global_position.distance_to(player.global_position)
-		if dist <= enemy_data.aggro_range:
-			_target = player
-		elif _target != null and dist > enemy_data.deaggro_range:
+	if player == null:
+		if not is_instance_valid(_target):
 			_target = null
-	else:
+		return
+
+	var dist := _owner.global_position.distance_to(player.global_position)
+	if dist <= enemy_data.aggro_range:
+		_target = player
+	elif _target != null and dist > enemy_data.deaggro_range:
 		_target = null
 
 
@@ -68,8 +80,15 @@ func _find_player() -> Node:
 		var p := tree.current_scene.get_node_or_null("PlayerInstance")
 		if p != null:
 			return p
-		return tree.current_scene.get_node_or_null("Player")
-	return null
+		p = tree.current_scene.get_node_or_null("Player")
+		if p != null:
+			return p
+
+	var local_player: Node = GameState.local_player
+	if is_instance_valid(local_player):
+		return local_player
+	var players := get_tree().get_nodes_in_group(&"player")
+	return players[0] as Node if not players.is_empty() else null
 
 
 func _handle_idle(delta: float) -> void:
@@ -95,7 +114,7 @@ func _handle_patrol(delta: float) -> void:
 		return
 	
 	var dir: Vector2 = (_patrol_target - _owner.global_position).normalized()
-	_movement.move(dir)
+	_move_direction = dir
 	
 	# Random chance to switch to idle
 	if randf() < 0.005:
@@ -119,7 +138,7 @@ func _handle_chase(delta: float) -> void:
 		return
 	
 	var dir: Vector2 = (_target.global_position - _owner.global_position).normalized()
-	_movement.move(dir)
+	_move_direction = dir
 	
 	# Check if stuck
 	if _owner.global_position.distance_to(_last_position) < 5.0:
@@ -170,7 +189,7 @@ func _handle_flee(delta: float) -> void:
 	
 	# Move away from target
 	var dir: Vector2 = (_owner.global_position - _target.global_position).normalized()
-	_movement.move(dir)
+	_move_direction = dir
 	
 	var dist := _owner.global_position.distance_to(_target.global_position)
 	if dist > enemy_data.deaggro_range:
@@ -184,6 +203,8 @@ func _check_stuck(_delta: float) -> void:
 
 
 func _pick_patrol_target() -> void:
+	if enemy_data == null or _owner == null:
+		return
 	var center := _owner.global_position
 	var angle := randf() * TAU
 	var dist := randf_range(50.0, enemy_data.patrol_radius)
@@ -208,7 +229,6 @@ func _set_state(new_state: StringName) -> void:
 func _on_died(info: DamageInfo) -> void:
 	_set_state(&"dead")
 	died.emit(info.source)
-	SignalHub.enemy_died.emit(_owner, info.source)
 
 
 func get_state() -> StringName:

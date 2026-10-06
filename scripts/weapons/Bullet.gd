@@ -20,6 +20,7 @@ var _max_trail_points: int = 8
 var _owner_id: int = 0
 var _instigator: Node = null
 var _hit_ids: Array[int] = []
+var _hit_detector: Area2D = null
 var _bullet_color: Color = Color(1.0, 1.0, 0.5, 1.0)
 var _bullet_size: float = 3.0
 
@@ -28,14 +29,22 @@ func _ready() -> void:
 	gravity_scale = 0.0
 	angular_damp = 1.0
 	linear_damp = 0.0
+	collision_layer = PhysicsLayers.PROJECTILE
+	collision_mask = PhysicsLayers.WORLD
 	
 	# A projectile can only ever touch *hurtboxes* and world geometry. Masking the
 	# actor body layers instead meant bullets passed straight through everyone.
-	collision_layer = PhysicsLayers.PROJECTILE
-	collision_mask = PhysicsLayers.PLAYER_HURTBOX | PhysicsLayers.ENEMY_HURTBOX | PhysicsLayers.WORLD
+	_hit_detector = get_node_or_null("HitDetector") as Area2D
+	if _hit_detector == null:
+		push_error("Bullet: missing HitDetector Area2D.")
+		return
+	_hit_detector.collision_layer = 0
+	_hit_detector.collision_mask = PhysicsLayers.PLAYER_HURTBOX | PhysicsLayers.ENEMY_HURTBOX
+	_hit_detector.monitoring = true
+	_hit_detector.monitorable = false
 
 	# Continuous collision detection for fast bullets
-	continuous_cd = true
+	continuous_cd = RigidBody2D.CCD_MODE_CAST_SHAPE
 	
 	# Visual
 	_visual = Node2D.new()
@@ -45,8 +54,8 @@ func _ready() -> void:
 	# actually fires for actors; body_entered is kept for world geometry.
 	if not body_entered.is_connected(_on_body_entered):
 		body_entered.connect(_on_body_entered)
-	if not area_entered.is_connected(_on_area_entered):
-		area_entered.connect(_on_area_entered)
+	if not _hit_detector.area_entered.is_connected(_on_area_entered):
+		_hit_detector.area_entered.connect(_on_area_entered)
 
 func _physics_process(delta: float) -> void:
 	lifetime -= delta
@@ -194,6 +203,11 @@ func configure(
 func _on_pool_acquire() -> void:
 	_hit_ids.clear()
 	_trail.clear()
+	gravity_scale = 0.0
+	angular_velocity = 0.0
+	linear_velocity = Vector2.ZERO
+	if _hit_detector != null:
+		_hit_detector.set_deferred(&"monitoring", true)
 	if _visual != null:
 		_visual.modulate = Color(1, 1, 1, 1)
 
@@ -205,6 +219,8 @@ func _on_pool_release() -> void:
 	_trail.clear()
 	_instigator = null
 	_owner_id = 0
+	if _hit_detector != null:
+		_hit_detector.set_deferred(&"monitoring", false)
 
 
 func _despawn() -> void:

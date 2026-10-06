@@ -242,7 +242,7 @@ func test_player_stands_on_the_floor() -> void:
 
 func test_player_walks_when_input_is_held() -> void:
 	var start_x: float = _player.global_position.x
-	_drive(Vector2.RIGHT, 30)
+	await _drive(Vector2.RIGHT, 30)
 
 	# Speed is read from the peak observed DURING the run, not after it: the state
 	# machine re-runs for the next frame with the intent already cleared, so the
@@ -253,10 +253,10 @@ func test_player_walks_when_input_is_held() -> void:
 
 
 func test_player_stops_when_input_is_released() -> void:
-	_drive(Vector2.RIGHT, 30)
+	await _drive(Vector2.RIGHT, 30)
 	assert_eq(_state_machine.current_state_name(), &"move")
 
-	_drive(Vector2.ZERO, 40)
+	await _drive(Vector2.ZERO, 40)
 	await get_tree().physics_frame
 
 	assert_eq(_state_machine.current_state_name(), &"idle")
@@ -264,11 +264,11 @@ func test_player_stops_when_input_is_released() -> void:
 
 
 func test_player_sprints_faster_than_walking() -> void:
-	_drive(Vector2.RIGHT, 30)
+	await _drive(Vector2.RIGHT, 30)
 	var walk_speed: float = _peak_speed
 	assert_eq(_state_machine.current_state_name(), &"move")
 
-	_drive(Vector2.RIGHT, 30, true)
+	await _drive(Vector2.RIGHT, 30, true)
 
 	assert_eq(_state_machine.current_state_name(), &"sprint")
 	assert_greater(_peak_speed, walk_speed, "sprint must be faster than the walk it replaced")
@@ -280,7 +280,7 @@ func test_player_is_clamped_by_the_floor_walls() -> void:
 	#
 	# 220 frames at sprint speed is enough to cross from the middle to the wall and
 	# press against it; 900 frames only proved the player eventually left the floor.
-	_drive(Vector2.RIGHT, 220, true)
+	await _drive(Vector2.RIGHT, 220, true)
 	await get_tree().physics_frame
 
 	var bounds: Rect2 = FloorData.DEFAULT_BOUNDS
@@ -316,7 +316,7 @@ func test_dead_player_does_not_move_or_accept_input() -> void:
 	assert_eq(_state_machine.current_state_name(), &"dead")
 
 	var start_x: float = _player.global_position.x
-	_drive(Vector2.RIGHT, 30)
+	await _drive(Vector2.RIGHT, 30)
 	await get_tree().physics_frame
 
 	assert_almost_eq(_player.global_position.x, start_x, "a dead player must not walk", 1.0)
@@ -358,7 +358,7 @@ func test_camera_follows_the_player() -> void:
 	if cam == null:
 		return
 	var before: Vector2 = cam.global_position
-	_drive(Vector2.RIGHT, 90)
+	await _drive(Vector2.RIGHT, 90)
 	await get_tree().physics_frame
 
 	assert_greater((cam.global_position - before).length(), 1.0, "camera follows the player (rolling framing, 1.5x zoom)")
@@ -370,7 +370,7 @@ func test_jumping_does_not_move_the_camera() -> void:
 	var cam := _camera_component.camera
 	if cam == null:
 		return
-	_drive(Vector2.ZERO, 10)
+	await _drive(Vector2.ZERO, 10)
 	await get_tree().physics_frame
 	var ground_y: float = cam.global_position.y
 

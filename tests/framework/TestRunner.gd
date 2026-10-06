@@ -39,6 +39,8 @@ const SUITE_PATHS: Array[String] = [
 	"res://tests/player/player_test.gd",
 	"res://tests/tower/tower_test.gd",
 	"res://tests/network/network_test.gd",
+	"res://tests/ui/hud_test.gd",
+	"res://tests/combat/combat_test.gd",
 ]
 
 var _suite_results: Array[Dictionary] = []

@@ -92,14 +92,18 @@ func _instantiate() -> Node:
 	_next_id += 1
 	var node := _scene.instantiate()
 	node.name = "%s%d" % [_name_prefix, _next_id]
-	_parent.add_child(node)
+	if _parent.is_inside_tree() and not _parent.is_node_ready():
+		_parent.add_child.call_deferred(node)
+	else:
+		_parent.add_child(node)
 	return node
 
 
 func _activate(node: Node) -> void:
+	node.set_meta(&"pool_owner", self)
 	if node is CanvasItem:
 		(node as CanvasItem).visible = true
-	node.process_mode = Node.PROCESS_MODE_INHERIT
+	node.set_deferred(&"process_mode", Node.PROCESS_MODE_INHERIT)
 	_set_collision(node, true)
 	if node.has_method(&"_on_pool_acquire"):
 		node.call(&"_on_pool_acquire")
@@ -108,10 +112,12 @@ func _activate(node: Node) -> void:
 func _deactivate(node: Node) -> void:
 	if node.has_method(&"_on_pool_release"):
 		node.call(&"_on_pool_release")
+	if node.has_meta(&"pool_owner") and node.get_meta(&"pool_owner") == self:
+		node.remove_meta(&"pool_owner")
 	if node is CanvasItem:
 		(node as CanvasItem).visible = false
 	# DISABLED also stops child timers, so a pooled projectile cannot keep ticking.
-	node.process_mode = Node.PROCESS_MODE_DISABLED
+	node.set_deferred(&"process_mode", Node.PROCESS_MODE_DISABLED)
 	_set_collision(node, false)
 
 

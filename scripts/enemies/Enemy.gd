@@ -28,10 +28,12 @@ func _ready() -> void:
 	if enemy_data != null:
 		health.max_health = enemy_data.max_health
 		health.current_health = enemy_data.max_health
-		movement.max_speed = enemy_data.move_speed
+		if ai != null:
+			ai.move_speed = enemy_data.move_speed
 
 	if ai != null:
-		ai.enemy_data = enemy_data
+		if ai.enemy_data == null:
+			ai.enemy_data = enemy_data
 		if not ai.died.is_connected(_on_ai_died):
 			ai.died.connect(_on_ai_died)
 

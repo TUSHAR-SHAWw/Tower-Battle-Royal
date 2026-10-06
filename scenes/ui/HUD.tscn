@@ -65,6 +65,48 @@ text = "100/100"
 horizontal_alignment = 2
 theme_override_colors/font_color = Color(0.9, 1, 0.9, 1)
 theme_override_font_sizes/font_size = 13
+[node name="HungerPanel" type="PanelContainer" parent="BackgroundCard/TopLeft"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Chip")
+[node name="HungerRow" type="HBoxContainer" parent="BackgroundCard/TopLeft/HungerPanel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+[node name="HungerText" type="Label" parent="BackgroundCard/TopLeft/HungerPanel/HungerRow"]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+text = "HUNGER 100/100"
+theme_override_colors/font_color = Color(0.9, 0.8, 0.55, 1)
+theme_override_font_sizes/font_size = 13
+[node name="HungerFill" type="ProgressBar" parent="BackgroundCard/TopLeft/HungerPanel/HungerRow"]
+custom_minimum_size = Vector2(150, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+value = 100.0
+show_percentage = false
+[node name="RagePanel" type="PanelContainer" parent="BackgroundCard/TopLeft"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Chip")
+[node name="RageRow" type="HBoxContainer" parent="BackgroundCard/TopLeft/RagePanel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+[node name="RageText" type="Label" parent="BackgroundCard/TopLeft/RagePanel/RageRow"]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+text = "RAGE 0/100"
+theme_override_colors/font_color = Color(1, 0.55, 0.4, 1)
+theme_override_font_sizes/font_size = 13
+[node name="RageFill" type="ProgressBar" parent="BackgroundCard/TopLeft/RagePanel/RageRow"]
+custom_minimum_size = Vector2(150, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+value = 0.0
+show_percentage = false
 [node name="WavePanel" type="PanelContainer" parent="BackgroundCard/TopLeft"]
 layout_mode = 2
 mouse_filter = 2
@@ -97,6 +139,16 @@ text = "4500"
 horizontal_alignment = 2
 theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
 theme_override_font_sizes/font_size = 16
+[node name="XPPanel" type="PanelContainer" parent="BackgroundCard/TopRight"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Chip")
+[node name="XPText" type="Label" parent="BackgroundCard/TopRight/XPPanel"]
+layout_mode = 2
+text = "XP 0"
+horizontal_alignment = 2
+theme_override_colors/font_color = Color(0.6, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 15
 [node name="FloorPanel" type="PanelContainer" parent="BackgroundCard/TopRight"]
 layout_mode = 2
 mouse_filter = 2

@@ -1,0 +1,186 @@
+WARNING: res://tests/framework/TestRunner.tscn:3 - ext_resource, invalid UID: uid://ctestrun1 - using text path instead: res://tests/framework/TestRunner.gd
+   at: load (scene/resources/resource_format_text.cpp:501)
+ERROR: SceneRouter: reload requested with no current route.
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] reload_current (res://scripts/autoload/SceneRouter.gd:83)
+       [1] test_reload_without_a_current_route_is_safe (res://tests/foundation/scene_router_test.gd:41)
+       [2] run_suite (res://tests/framework/TestCase.gd:49)
+ERROR: SceneRouter: unknown route 'definitely_not_a_route'.
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] goto (res://scripts/autoload/SceneRouter.gd:64)
+       [1] test_unknown_route_is_rejected_without_changing_scene (res://tests/foundation/scene_router_test.gd:22)
+       [2] run_suite (res://tests/framework/TestCase.gd:49)
+ERROR: ObjectPool: release() called for a node this pool does not own (@Area2D@12:<Area2D#50465867348>).
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] release (res://scripts/utilities/ObjectPool.gd:59)
+       [1] test_releasing_a_foreign_node_is_refused (res://tests/foundation/object_pool_test.gd:107)
+       [2] run_suite (res://tests/framework/TestCase.gd:49)
+       [3] test_collision_is_switched_off_while_pooled (res://tests/foundation/object_pool_test.gd:81)
+ERROR: StateMachine: duplicate state_name 'idle'; the later node wins.
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://scripts/core/StateMachine.gd:43)
+       [1] test_duplicate_state_names_do_not_break_the_machine (res://tests/foundation/state_machine_test.gd:220)
+       [2] run_suite (res://tests/framework/TestCase.gd:49)
+ERROR: StateMachine: initial_state_name 'nope' is not one of [&"idle"].
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] start (res://scripts/core/StateMachine.gd:52)
+       [1] test_bad_initial_state_does_not_crash (res://tests/foundation/state_machine_test.gd:183)
+       [2] run_suite (res://tests/framework/TestCase.gd:49)
+ERROR: StateMachine: node 'Nameless' has no state_name; it will be ignored.
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] setup (res://scripts/core/StateMachine.gd:40)
+       [1] test_state_without_a_name_is_ignored (res://tests/foundation/state_machine_test.gd:196)
+       [2] run_suite (res://tests/framework/TestCase.gd:49)
+ERROR: StateMachine: initial_state_name 'idle' is not one of [].
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] start (res://scripts/core/StateMachine.gd:52)
+       [1] test_state_without_a_name_is_ignored (res://tests/foundation/state_machine_test.gd:199)
+       [2] run_suite (res://tests/framework/TestCase.gd:49)
+WARNING: StateMachine: transition to 'move' ignored during a transition.
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] transition_to (res://scripts/core/StateMachine.gd:64)
+       [1] enter (res://tests/foundation/state_machine_test.gd:37)
+       [2] _change_to (res://scripts/core/StateMachine.gd:124)
+       [3] start (res://scripts/core/StateMachine.gd:54)
+       [4] test_nested_transition_inside_enter_is_refused (res://tests/foundation/state_machine_test.gd:152)
+       [5] run_suite (res://tests/framework/TestCase.gd:49)
+WARNING: StateMachine: transition to 'move' ignored before start().
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] transition_to (res://scripts/core/StateMachine.gd:68)
+       [1] test_transition_before_start_is_refused (res://tests/foundation/state_machine_test.gd:134)
+       [2] run_suite (res://tests/framework/TestCase.gd:49)
+WARNING: StateMachine: unknown state 'flying' requested by 'idle'.
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] transition_to (res://scripts/core/StateMachine.gd:61)
+       [1] test_unknown_state_is_refused (res://tests/foundation/state_machine_test.gd:121)
+       [2] run_suite (res://tests/framework/TestCase.gd:49)
+ERROR: [Test] player_test::test_jumping_does_not_move_the_camera — expected < 200.000000, got 260.761086 [a jump must not drag the frame away from the ground line]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] err (res://scripts/utilities/GameLog.gd:20)
+       [1] fail (res://tests/framework/TestCase.gd:73)
+       [2] assert_less (res://tests/framework/TestCase.gd:133)
+       [3] test_jumping_does_not_move_the_camera (res://tests/player/player_test.gd:387)
+ERROR: [Test] player_test::test_player_revives_at_full_health — expected idle, got move
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] err (res://scripts/utilities/GameLog.gd:20)
+       [1] fail (res://tests/framework/TestCase.gd:73)
+       [2] assert_eq (res://tests/framework/TestCase.gd:91)
+       [3] test_player_revives_at_full_health (res://tests/player/player_test.gd:336)
+ERROR: [Test] player_test::test_player_sprints_faster_than_walking — expected move, got idle
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] err (res://scripts/utilities/GameLog.gd:20)
+       [1] fail (res://tests/framework/TestCase.gd:73)
+       [2] assert_eq (res://tests/framework/TestCase.gd:91)
+       [3] test_player_sprints_faster_than_walking (res://tests/player/player_test.gd:269)
+       [4] run_suite (res://tests/framework/TestCase.gd:49)
+       [5] before_each (res://tests/player/player_test.gd:121)
+       [6] _settle (res://tests/player/player_test.gd:154)
+ERROR: [Test] player_test::test_player_sprints_faster_than_walking — expected sprint, got idle
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] err (res://scripts/utilities/GameLog.gd:20)
+       [1] fail (res://tests/framework/TestCase.gd:73)
+       [2] assert_eq (res://tests/framework/TestCase.gd:91)
+       [3] test_player_sprints_faster_than_walking (res://tests/player/player_test.gd:273)
+       [4] run_suite (res://tests/framework/TestCase.gd:49)
+       [5] before_each (res://tests/player/player_test.gd:121)
+       [6] _settle (res://tests/player/player_test.gd:154)
+ERROR: [Test] player_test::test_player_sprints_faster_than_walking — expected > 0.000000, got 0.000000 [sprint must be faster than the walk it replaced]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] err (res://scripts/utilities/GameLog.gd:20)
+       [1] fail (res://tests/framework/TestCase.gd:73)
+       [2] assert_greater (res://tests/framework/TestCase.gd:127)
+       [3] test_player_sprints_faster_than_walking (res://tests/player/player_test.gd:274)
+       [4] run_suite (res://tests/framework/TestCase.gd:49)
+       [5] before_each (res://tests/player/player_test.gd:121)
+       [6] _settle (res://tests/player/player_test.gd:154)
+ERROR: [Test] player_test::test_player_stops_when_input_is_released — expected move, got idle
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] err (res://scripts/utilities/GameLog.gd:20)
+       [1] fail (res://tests/framework/TestCase.gd:73)
+       [2] assert_eq (res://tests/framework/TestCase.gd:91)
+       [3] test_player_stops_when_input_is_released (res://tests/player/player_test.gd:257)
+       [4] run_suite (res://tests/framework/TestCase.gd:49)
+       [5] before_each (res://tests/player/player_test.gd:121)
+       [6] _settle (res://tests/player/player_test.gd:154)
+ERROR: [Test] player_test::test_player_walks_when_input_is_held — expected > 50.000000, got 0.000000 [player should reach walking speed while input is held]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] err (res://scripts/utilities/GameLog.gd:20)
+       [1] fail (res://tests/framework/TestCase.gd:73)
+       [2] assert_greater (res://tests/framework/TestCase.gd:127)
+       [3] test_player_walks_when_input_is_held (res://tests/player/player_test.gd:250)
+       [4] run_suite (res://tests/framework/TestCase.gd:49)
+       [5] before_each (res://tests/player/player_test.gd:121)
+       [6] _settle (res://tests/player/player_test.gd:154)
+ERROR: [Test] player_test::test_player_walks_when_input_is_held — expected > 60.000000, got 0.000000 [30 frames of walking should cover ground]
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] err (res://scripts/utilities/GameLog.gd:20)
+       [1] fail (res://tests/framework/TestCase.gd:73)
+       [2] assert_greater (res://tests/framework/TestCase.gd:127)
+       [3] test_player_walks_when_input_is_held (res://tests/player/player_test.gd:251)
+       [4] run_suite (res://tests/framework/TestCase.gd:49)
+       [5] before_each (res://tests/player/player_test.gd:121)
+       [6] _settle (res://tests/player/player_test.gd:154)
+ERROR: [Test] player_test::test_player_walks_when_input_is_held — expected move, got idle
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] err (res://scripts/utilities/GameLog.gd:20)
+       [1] fail (res://tests/framework/TestCase.gd:73)
+       [2] assert_eq (res://tests/framework/TestCase.gd:91)
+       [3] test_player_walks_when_input_is_held (res://tests/player/player_test.gd:252)
+       [4] run_suite (res://tests/framework/TestCase.gd:49)
+       [5] before_each (res://tests/player/player_test.gd:121)
+       [6] _settle (res://tests/player/player_test.gd:154)
+SCRIPT ERROR: Invalid access to property or key 'scripted' on a base object of type 'previously freed'.
+   at: _drive (res://tests/player/player_test.gd:211)
+   GDScript backtrace (most recent call first):
+       [0] _drive (res://tests/player/player_test.gd:211)
+SCRIPT ERROR: Invalid access to property or key 'scripted' on a base object of type 'previously freed'.
+   at: _drive (res://tests/player/player_test.gd:211)
+   GDScript backtrace (most recent call first):
+       [0] _drive (res://tests/player/player_test.gd:211)
+SCRIPT ERROR: Invalid access to property or key 'scripted' on a base object of type 'previously freed'.
+   at: _drive (res://tests/player/player_test.gd:211)
+   GDScript backtrace (most recent call first):
+       [0] _drive (res://tests/player/player_test.gd:211)
+SCRIPT ERROR: Invalid access to property or key 'scripted' on a base object of type 'previously freed'.
+   at: _drive (res://tests/player/player_test.gd:211)
+   GDScript backtrace (most recent call first):
+       [0] _drive (res://tests/player/player_test.gd:211)
+SCRIPT ERROR: Invalid access to property or key 'scripted' on a base object of type 'previously freed'.
+   at: _drive (res://tests/player/player_test.gd:211)
+   GDScript backtrace (most recent call first):
+       [0] _drive (res://tests/player/player_test.gd:211)
+SCRIPT ERROR: Invalid access to property or key 'scripted' on a base object of type 'previously freed'.
+   at: _drive (res://tests/player/player_test.gd:211)
+   GDScript backtrace (most recent call first):
+       [0] _drive (res://tests/player/player_test.gd:211)
+SCRIPT ERROR: Invalid access to property or key 'scripted' on a base object of type 'previously freed'.
+   at: _drive (res://tests/player/player_test.gd:211)
+   GDScript backtrace (most recent call first):
+       [0] _drive (res://tests/player/player_test.gd:211)
+SCRIPT ERROR: Invalid access to property or key 'scripted' on a base object of type 'previously freed'.
+   at: _drive (res://tests/player/player_test.gd:211)
+   GDScript backtrace (most recent call first):
+       [0] _drive (res://tests/player/player_test.gd:211)
+WARNING: 5 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2535)

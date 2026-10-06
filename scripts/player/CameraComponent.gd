@@ -18,8 +18,8 @@ extends Node
 ##   above `look_ahead_commit_speed` and eases in over `look_ahead_speed`.
 ## * **Vertical dead zone larger than a jump** — a routine jump goes up and comes
 ##   back down to the same ground, so it must not move the frame. Only a genuine
-##   climb crosses the boundary. `jump_velocity -620` / `gravity 1800` peaks at
-##   ~107 px, so the default 150 px zone swallows a full jump with margin.
+##   climb crosses the boundary. The default player config's held jump peaks at
+##   about 270 px; the 600 px zone height gives it room to stay inside.
 ## * **Ground re-centring** — once the player lands, the remembered height eases
 ##   back to theirs, so a staircase of jumps does not leave the anchor behind.
 ## * **Fall look-ahead** — a long drop slides the frame down in proportion to fall
@@ -36,13 +36,11 @@ extends Node
 @export var config: PlayerConfig
 
 @export_group("Framing")
-## Half-width / half-height of the still zone around the anchor, in pixels.
+## Width / height of the still zone around the anchor, in pixels.
 ##
-## Scaled to the player rather than fixed: the character is ~216 px tall, so the
-## vertical zone must clear a full jump (107 px) AND roughly a body height, or the
-## frame will not follow a climb onto a ledge. Horizontally it swallows the small
-## corrections a player makes before a jump.
-@export var dead_zone: Vector2 = Vector2(110.0, 190.0)
+## The vertical zone clears the configured held jump without hiding a sustained
+## climb; horizontally it swallows small corrections before a jump.
+@export var dead_zone: Vector2 = Vector2(110.0, 600.0)
 
 ## How fast the rig catches up to its target. Higher is snappier. Applied as
 ## 1 - exp(-speed * delta) so the feel is identical at 60 and 144 fps.

@@ -1,5 +1,14 @@
 extends TestCase
 
+class PoolConstructionHost:
+	extends Node2D
+
+	var pooled_scene: PackedScene
+	var pool: ObjectPool
+
+	func _ready() -> void:
+		pool = ObjectPool.new(pooled_scene, self, 3)
+
 ## ObjectPool will carry every projectile and element effect in a match, so its
 ## contract is pinned before any gun exists: accounting, instance reuse, and the
 ## guarantee that an idle pooled node costs nothing.
@@ -54,6 +63,7 @@ func test_release_disables_processing_and_visibility() -> void:
 	var node := pool.acquire()
 	pool.release(node)
 	assert_false((node as CanvasItem).visible, "a pooled node must be hidden")
+	await get_tree().physics_frame
 	assert_eq(node.process_mode, Node.PROCESS_MODE_DISABLED, "a pooled node must not tick")
 
 
@@ -62,6 +72,7 @@ func test_acquire_restores_processing_and_visibility() -> void:
 	var node := pool.acquire()
 	pool.release(node)
 	var again := pool.acquire()
+	await get_tree().physics_frame
 	assert_true((again as CanvasItem).visible)
 	assert_eq(again.process_mode, Node.PROCESS_MODE_INHERIT)
 
@@ -98,6 +109,20 @@ func test_prewarm_instantiates_up_front() -> void:
 	pool.acquire()
 	assert_eq(pool.available_count(), 2)
 	assert_eq(pool.spawned_count(), 3, "acquiring must not instantiate past the prewarm")
+
+
+func test_prewarm_is_safe_while_parent_is_being_initialized() -> void:
+	var host := PoolConstructionHost.new()
+	host.pooled_scene = _stub_scene()
+	add_child(host)
+
+	assert_not_null(host.pool)
+	assert_eq(host.pool.available_count(), 3)
+	await get_tree().process_frame
+	assert_eq(host.get_child_count(), 3, "deferred prewarm nodes must be attached once the host is ready")
+
+	host.queue_free()
+	await get_tree().process_frame
 
 
 func test_releasing_a_foreign_node_is_refused() -> void:

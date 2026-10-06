@@ -4,6 +4,9 @@ extends Node
 ## Handles weapon firing, reloading, and ammo management.
 ## Designed to be attached to Player and driven by InputIntent.
 
+const BULLET_SCENE: PackedScene = preload("res://scenes/weapons/Bullet.tscn")
+const PROJECTILE_POOL_PREWARM: int = 16
+
 @export var weapon: WeaponResource
 
 ## Emitted when a shot is fired (position, direction, weapon_id).
@@ -29,9 +32,11 @@ var _burst_timer: float = 0.0
 var _burst_aim_direction: Vector2 = Vector2.RIGHT
 var _burst_global_position: Vector2 = Vector2.ZERO
 var _owner: Node = null
+var _projectile_pool: ObjectPool
 
 func _ready() -> void:
 	_owner = get_parent()
+	_ensure_projectile_pool()
 	_validate_weapon()
 	_reset_ammo()
 	ammo_changed.emit(_current_mag, _reserve_ammo)
@@ -61,7 +66,8 @@ func _physics_process(delta: float) -> void:
 			_burst_shots_remaining -= 1
 			if _burst_shots_remaining > 0:
 				_burst_timer = weapon.burst_delay
-				_fire_shot(_burst_aim_direction, _burst_global_position)
+				if not _fire_shot(_burst_aim_direction, _burst_global_position):
+					_burst_shots_remaining = 0
 			else:
 				_fire_cooldown = weapon.get_fire_interval()
 	
@@ -101,26 +107,59 @@ func try_fire(aim_direction: Vector2, global_position: Vector2) -> bool:
 	_burst_timer = 0.0
 	_burst_aim_direction = aim_direction
 	_burst_global_position = global_position
-	_fire_shot(aim_direction, global_position)
+	if not _fire_shot(aim_direction, global_position):
+		_burst_shots_remaining = 0
+		return false
 	_fire_cooldown = weapon.get_fire_interval()
 	return true
 
 
-func _fire_shot(aim_direction: Vector2, global_position: Vector2) -> void:
+func _fire_shot(aim_direction: Vector2, shot_position: Vector2) -> bool:
+	_ensure_projectile_pool()
+	if _projectile_pool == null:
+		push_error("GunComponent: projectile pool is unavailable; shot was not fired.")
+		return false
+	var bullet := _projectile_pool.acquire() as Bullet
+	if bullet == null:
+		push_error("GunComponent: projectile pool failed to acquire a bullet.")
+		return false
+
+	var shot_dir := aim_direction.normalized() if not aim_direction.is_zero_approx() else Vector2.RIGHT
+	var spread_rad := deg_to_rad(weapon.spread_degrees)
+	var spread_angle := randf_range(-spread_rad, spread_rad)
+	shot_dir = shot_dir.rotated(spread_angle)
+	bullet.configure(
+		weapon.damage,
+		weapon.damage_type,
+		weapon.knockback,
+		weapon.pierce_count,
+		weapon.bullet_lifetime,
+		weapon.bullet_gravity,
+		_owner,
+		&"",
+		weapon.bullet_color,
+		weapon.bullet_size
+	)
+	bullet.global_position = shot_position + shot_dir * 76.0
+	bullet.linear_velocity = shot_dir * weapon.bullet_speed
+
 	_current_mag -= 1
 	if not weapon.infinite_ammo:
 		_reserve_ammo = max(0, _reserve_ammo)
 	ammo_changed.emit(_current_mag, _reserve_ammo)
 	
-	# Apply spread
-	var spread_rad := deg_to_rad(weapon.spread_degrees)
-	var spread_angle := randf_range(-spread_rad, spread_rad)
-	var shot_dir := aim_direction.rotated(spread_angle)
+	shot_fired.emit(shot_position, shot_dir, weapon.weapon_id)
 	
-	shot_fired.emit(global_position, shot_dir, weapon.weapon_id)
-	
-	# SignalHub integration for other systems (HUD, etc.)
-	SignalHub.weapon_fired.emit(weapon.weapon_id, global_position, shot_dir)
+	return true
+
+
+func _ensure_projectile_pool() -> void:
+	if _projectile_pool != null:
+		return
+	var world: Node = get_tree().current_scene
+	if world == null:
+		world = get_tree().root
+	_projectile_pool = ObjectPool.new(BULLET_SCENE, world, PROJECTILE_POOL_PREWARM)
 
 
 ## Start reloading if possible.

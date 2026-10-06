@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Tower Battle Royal"
-config/description="Multiplayer vertical tower survival battle royale."
+config/description="Single-player vertical tower survival game."
 run/main_scene="uid://bjroeoj63176k"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 

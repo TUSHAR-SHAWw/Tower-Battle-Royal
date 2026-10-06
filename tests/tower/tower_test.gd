@@ -82,3 +82,43 @@ func test_floors_have_unique_ids() -> void:
 			continue
 		assert_false(seen.has(fd.floor_id), "floor_id %d is duplicated" % fd.floor_id)
 		seen[fd.floor_id] = true
+
+
+func test_deleted_floor_disables_collision_bodies_in_its_container() -> void:
+	var floor_scene := load("res://scenes/floors/FloorController.tscn") as PackedScene
+	assert_not_null(floor_scene)
+	if floor_scene == null:
+		return
+
+	var floor := floor_scene.instantiate() as FloorController
+	add_child(floor)
+	await get_tree().physics_frame
+
+	var collision_container := floor.get_node("Collision") as Node2D
+	var wall := StaticBody2D.new()
+	wall.collision_layer = PhysicsLayers.WORLD
+	wall.collision_mask = PhysicsLayers.PLAYER
+	collision_container.add_child(wall)
+	floor._state = FloorData.FloorState.DELETED
+	floor._update_visual_state()
+	await get_tree().physics_frame
+
+	assert_eq(wall.collision_layer, 0, "deletion should disable the wall's collision layer")
+	assert_eq(wall.collision_mask, 0, "deletion should disable the wall's collision mask")
+	assert_false((floor.get_node("Ground") as TileMapLayer).collision_enabled,
+		"deletion should disable ground tile collisions")
+
+	floor.queue_free()
+	await get_tree().process_frame
+
+
+func test_travel_portal_defers_initial_physics_flags() -> void:
+	var portal := TravelPortal.new()
+	add_child(portal)
+	await get_tree().physics_frame
+
+	assert_true(portal.monitoring, "portal should monitor after deferred initialization")
+	assert_false(portal.monitorable, "portal should not be detected by other areas")
+
+	portal.queue_free()
+	await get_tree().process_frame
