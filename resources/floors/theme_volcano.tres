@@ -18,5 +18,5 @@ light_pool_radius = 280.0
 ambient_color = Color(0.10, 0.05, 0.05, 1.0)
 prop_types = ["crate", "lamp", "barrel"]
 prop_count = 5
-loot_items_on_lip = ["gem_5", "adrenaline"]
+loot_items_on_lip = ["adrenaline", "health_pack"]
 loot_marker_size = 24.0

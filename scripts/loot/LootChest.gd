@@ -13,6 +13,7 @@ signal opened(player: Node, drops: Array)
 var _opened: bool = false
 var _opening: bool = false
 var _open_timer: float = 0.0
+var _chest_sprite: Sprite2D
 
 func _ready() -> void:
 	monitoring = true
@@ -26,6 +27,12 @@ func _ready() -> void:
 	shape.shape = circle
 	add_child(shape)
 	shape.owner = self
+	_chest_sprite = Sprite2D.new()
+	_chest_sprite.name = "ChestSprite"
+	_chest_sprite.texture = MapAssetLibrary.tile_texture("tile_0064.png")
+	_chest_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	_chest_sprite.scale = Vector2.ONE * 2.0
+	add_child(_chest_sprite)
 	
 	area_entered.connect(_on_area_entered)
 	area_exited.connect(_on_area_exited)
@@ -34,6 +41,9 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if _opening:
 		_open_timer += delta
+		var progress := clampf(_open_timer / open_time, 0.0, 1.0)
+		_chest_sprite.position.y = lerpf(0.0, -8.0, progress)
+		_chest_sprite.modulate = Color(1.0, 0.75 + progress * 0.25, 0.55 + progress * 0.45)
 		if _open_timer >= open_time:
 			_finish_open()
 
@@ -69,7 +79,7 @@ func _cancel_open() -> void:
 func _finish_open() -> void:
 	_opened = true
 	_opening = false
-	monitoring = false
+	set_deferred(&"monitoring", false)
 	
 	var drops: Array = []
 	if loot_table != null:
@@ -84,24 +94,3 @@ func _finish_open() -> void:
 	
 	opened.emit(get_parent(), drops)
 	queue_free()
-
-
-func _draw() -> void:
-	if _opened:
-		return
-	
-	# Draw chest box
-	var color := Color(0.4, 0.25, 0.1, 1.0) if not _opening else Color(0.6, 0.4, 0.15, 1.0)
-	draw_rect(Rect2(-16, -16, 32, 32), color)
-	draw_rect(Rect2(-16, -16, 32, 32), Color(0.2, 0.1, 0.05, 1.0), false, 2.0)
-	
-	# Lid
-	var lid_y := -16
-	if _opening:
-		var progress := _open_timer / open_time
-		lid_y = lerp(-16, -32, progress)
-	draw_rect(Rect2(-18, lid_y - 4, 36, 4), Color(0.3, 0.18, 0.08, 1.0))
-	draw_rect(Rect2(-18, lid_y - 4, 36, 4), Color(0.1, 0.05, 0.02, 1.0), false, 2.0)
-	
-	# Lock
-	draw_rect(Rect2(-4, 0, 8, 8), Color(0.6, 0.5, 0.2, 1.0))

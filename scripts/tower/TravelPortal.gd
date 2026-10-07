@@ -13,6 +13,8 @@ signal activated(player: Node)
 var _active: bool = true
 var _cooldown_timer: float = 0.0
 var _pulse_phase: float = 0.0
+var _portal_sprite: Sprite2D
+var _base_scale: Vector2
 
 func _ready() -> void:
 	# A portal can be instantiated from another area's physics callback during
@@ -23,6 +25,7 @@ func _ready() -> void:
 	# Must watch both the player body (PLAYER) and its hurtbox area
 	# (PLAYER_HURTBOX), otherwise the portal never detects anyone.
 	collision_mask = PhysicsLayers.PLAYER | PhysicsLayers.PLAYER_HURTBOX
+	_create_visual()
 
 	area_entered.connect(_on_area_entered)
 	body_entered.connect(_on_body_entered)
@@ -51,7 +54,7 @@ func _physics_process(delta: float) -> void:
 			set_deferred(&"monitoring", true)
 	
 	_pulse_phase += delta * 3.0
-	queue_redraw()
+	_update_visual()
 
 
 func _on_area_entered(area: Area2D) -> void:
@@ -88,14 +91,21 @@ func _resolve_player(detected: Node) -> Node:
 	return null
 
 
-func _draw() -> void:
-	if not _active:
+func _create_visual() -> void:
+	_portal_sprite = Sprite2D.new()
+	_portal_sprite.name = "PortalSprite"
+	_portal_sprite.texture = MapAssetLibrary.tile_texture("tile_0073.png", true)
+	_portal_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	_portal_sprite.z_index = 3
+	_portal_sprite.z_as_relative = false
+	_base_scale = Vector2.ONE * (activation_radius * 1.5 / 18.0)
+	_portal_sprite.scale = _base_scale
+	add_child(_portal_sprite)
+
+
+func _update_visual() -> void:
+	if _portal_sprite == null:
 		return
-	
 	var pulse := sin(_pulse_phase) * 0.3 + 0.7
-	var color := Color(0.2, 0.8, 1.0, pulse)
-	var radius := activation_radius * (0.8 + pulse * 0.2)
-	
-	draw_circle(Vector2.ZERO, radius, color, false, 3.0)
-	draw_circle(Vector2.ZERO, radius * 0.7, color, false, 2.0)
-	draw_circle(Vector2.ZERO, radius * 0.4, Color(1, 1, 1, pulse * 0.5))
+	_portal_sprite.scale = _base_scale * (0.9 + pulse * 0.1)
+	_portal_sprite.modulate = Color(0.38, 0.86, 1.0, pulse if _active else 0.35)

@@ -1,7 +1,13 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/tower/CentralPlatformController.gd" id="1_platform"]
 [ext_resource type="Script" path="res://scripts/tower/CentralPlatformVisual.gd" id="2_visual"]
+
+[sub_resource type="RectangleShape2D" id="platform_body_shape"]
+size = Vector2(270, 18)
+
+[sub_resource type="RectangleShape2D" id="platform_sensor_shape"]
+size = Vector2(310, 128)
 
 [node name="CentralPlatform" type="Node2D"]
 script = ExtResource("1_platform")
@@ -9,10 +15,19 @@ script = ExtResource("1_platform")
 [node name="Visual" type="Node2D" parent="."
 ]
 script = ExtResource("2_visual")
+controller = NodePath("..")
 
-[node name="Area" type="Area2D" parent="."
-]
+[node name="Body" type="StaticBody2D" parent="."]
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+position = Vector2(0, 9)
+shape = SubResource("platform_body_shape")
+
+[node name="Area" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
+position = Vector2(0, -28)
+shape = SubResource("platform_sensor_shape")

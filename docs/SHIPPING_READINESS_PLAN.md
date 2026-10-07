@@ -15,20 +15,30 @@ while its exit criteria are failing.
   driver without awaiting it, so assertions ran before the simulated frames had
   completed and leftover coroutines accessed freed fixtures. The camera's
   vertical dead zone was also too small for the actual configured held jump.
-- Current headless run after correcting the test/camera issues, wiring HUD
-  updates and adding production-enemy integration coverage: **15 suites, 1,281
+- Current headless run after the map presentation, platform route, camera lift
+  tracking, compact HUD, hotbar and themed-loot work: **16 suites, 1,404
   assertions, 0 failures**. See
   [`tests/results/last_run.md`](../tests/results/last_run.md).
 - Pixel-art scale is configured for a 426×240 logical canvas at 3× integer
   output (1278×720), with 8×8 source tiles targeting 24×24 screen pixels.
   Camera zoom retains the previous framing without changing physics units.
   Actual authored floors and target-device scaling still need manual validation.
-- Floor background accents have been reduced from 10% to 0.2% of room cells;
-  the density regression passes and the live-game screenshot confirms the
-  repeated specks are sparse. Environment art is still placeholder quality:
-  the slab repeats small atlas tiles, and `PropSpawner` is not wired into
-  production floors. A theme-aware, asset-friendly art workflow remains part
-  of Gate 3.
+- A first node- and sprite-based map pass is in place: the actual 50-floor
+  tower feeds the minimap/world map and a reversible central-platform route;
+  player position relative to the central shaft is also shown. The minimized
+  in-match map tracks the player row, the compact hotbar leaves more room, and
+  lift riders have a camera that follows them across floors;
+  themed room backdrops, shaft pickups, portal, hotbar, pickups, chest and prop
+  presentation use Godot nodes/textures instead of draw callbacks. Regression
+  tests cover route reversal, 50-floor map population, hotbar icons/stack
+  counts, themed loot, player boarding/carry/exit behavior and the no-draw
+  map-art constraint. A production player also rides the moving lift to its
+  next stop and remains grounded at deck height; the Match-level test verifies
+  the camera follows a lift rider and restores floor bounds on exit. The
+  screenshot confirms the match HUD/map render, but the environment remains
+  placeholder quality and the lift still needs a manual full-route playtest. The
+  developer plans to author custom 8×8 floor art later; retain this atlas/node
+  workflow rather than procedurally repainting those layers.
 - Enemy AI movement, gun projectiles, melee damage and single emission of the
   global enemy-death signal now pass automated integration tests against the
   production `Enemy.tscn`. The spawner suite also verifies staggered spawns,
@@ -76,7 +86,7 @@ and monetization remain open dependencies—not assumptions.
 | 0. Scope and baseline | P0 | Resolve the decisions above; reconcile the README, architecture, handoff, and development log into one accurate status and feature list. Choose one canonical tower size and match loop. | A reviewed launch scope exists; documentation agrees on current behavior and on what is deferred. |
 | 1. Core stability | P0 | Fix player movement, jump, camera, spawn/grounding and death/revive failures. Add regression coverage for any root cause found. Keep import/parse diagnostics and headless tests in the gate. | Fresh import succeeds; all tests pass repeatedly; manual keyboard/gamepad control and camera checks pass in the Godot 4.7 editor. |
 | 2. Playable match loop | P0 | Verify end-to-end spawn → move/traverse → loot → fight → floor hazard/deletion → victory/defeat → results/restart. Enemy AI, gun/projectile, melee damage, one-time death signaling, staggered wave completion, killer attribution, XP/gold reward scaling, stacked-floor spawn coordinates, portal-to-floor-deletion handoff, and controlled enemy-death-to-pickup-to-inventory flow now have automated coverage; extend it to full-match loot balance and match termination. Repair HUD signal wiring and live health/hunger/rage/XP/ammo/floor/wave updates. | Automated tests cover the critical loop; a human can complete and restart a match without errors, blockers, or stale critical UI. |
-| 3. Launch UX and content | P1 | Implement only the menu, settings, pause, results and onboarding required by Gate 0. Add usable Android touch controls and validate UI layouts on target aspect ratios. Use the 8×8/24-screen-pixel art scale; define theme-aware floor surfaces and props; replace procedural placeholder floors with approved, licensable assets. Tune balance using recorded playtests; finish launch visuals/audio and accessibility basics. Defer nonessential shop/battle-pass systems unless explicitly in scope. | New player can launch, understand controls/objectives, finish a match, and return/restart on Windows and Android; touch controls and device layouts pass playtests; floor assets read coherently at gameplay camera scale and pass provenance review. |
+| 3. Launch UX and content | P1 | Implement only the menu, settings, pause, results and onboarding required by Gate 0. Add usable Android touch controls and validate UI layouts on target aspect ratios. The initial node/sprite-based map, 50-floor map UI and reversible lift route are implemented; manually verify a full ride and continue with the developer's planned 8×8 authored floors, final props and floor-theme polish. Tune balance using recorded playtests; finish launch visuals/audio and accessibility basics. Defer nonessential shop/battle-pass systems unless explicitly in scope. | New player can launch, understand controls/objectives, finish a match, and return/restart on Windows and Android; touch controls and device layouts pass playtests; floor assets read coherently at gameplay camera scale and pass provenance review. |
 | 4. Multiplayer (post-launch) | Deferred | Integrate networking into the real match flow. Test host/server and clients across connect, spawn, movement, combat, authority/validation, disconnect/reconnect and match end. Exercise latency/loss and capacity targets. | Two or more independent clients complete a match reliably; invalid inputs do not grant authority; disconnects and server errors have defined outcomes; automated integration coverage passes. |
 | 5. Persistence, economy and policy (conditional) | P1 if in scope | Define and implement save format/migrations, account/backend responsibilities, economy rules, privacy/consent and purchase handling only for features approved in Gate 0. | Data survives supported upgrades; recovery/error behavior is tested; legal, privacy and platform requirements are reviewed. |
 | 6. Build, QA and release | P0 | Create export presets for agreed platforms; automate clean import, tests and exports; document versioning/signing/release steps. Audit asset licenses/attributions and dependencies. Test exported builds on target devices. Run crash/performance, resolution/input, accessibility and regression passes; prepare rollback/support notes. | Reproducible clean build/export; all release gates pass; no known blocker/critical defects; target-device smoke tests, asset audit, store materials and release checklist are signed off. |

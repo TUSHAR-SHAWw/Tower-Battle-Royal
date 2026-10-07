@@ -38,8 +38,7 @@ window/size/viewport_width=426
 window/size/viewport_height=240
 window/size/window_width_override=1278
 window/size/window_height_override=720
-window/stretch/mode="viewport"
-window/stretch/aspect="keep"
+window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
 window/handheld/orientation="landscape"
 

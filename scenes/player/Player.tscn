@@ -36,7 +36,7 @@
 [ext_resource type="Script" uid="uid://cds3c0eq8xyq2" path="res://scripts/economy/DailyRewardComponent.gd" id="35_daily"]
 [ext_resource type="Script" uid="uid://csqakjl27pwkh" path="res://scripts/economy/BattlePassComponent.gd" id="36_battlepass"]
 [ext_resource type="Resource" path="res://resources/economy/season_1.tres" id="37_season"]
-[ext_resource type="Script" path="res://scripts/melee/MeleeHitbox.gd" id="38_melee_hitbox"]
+[ext_resource type="Script" uid="uid://b7pkr0ttauid" path="res://scripts/melee/MeleeHitbox.gd" id="38_melee_hitbox"]
 
 [sub_resource type="CircleShape2D" id="1_shape"]
 radius = 14.0
@@ -136,11 +136,8 @@ map_resource = ExtResource("27_tower_map")
 script = ExtResource("26_worldmap")
 map_resource = ExtResource("27_tower_map")
 
-[node name="HotbarUI" type="Control" parent="." unique_id=329084773]
-layout_mode = 3
-anchors_preset = 0
+[node name="HotbarUI" type="CanvasLayer" parent="." unique_id=329084773]
 script = ExtResource("19_hotbar")
-inventory = NodePath("InventoryComponent")
 
 [node name="StateMachine" type="Node" parent="." unique_id=684782162]
 script = ExtResource("12_statemachine")

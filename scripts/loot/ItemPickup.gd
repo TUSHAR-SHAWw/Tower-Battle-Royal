@@ -14,6 +14,8 @@ signal picked_up(item: ItemResource, count: int)
 var _spawn_time: float = 0.0
 var _base_y: float = 0.0
 var _collected: bool = false
+var _icon: Sprite2D
+var _count_label: Label
 
 func _ready() -> void:
 	monitoring = true
@@ -30,6 +32,7 @@ func _ready() -> void:
 	
 	area_entered.connect(_on_area_entered)
 	body_entered.connect(_on_body_entered)
+	_build_visual()
 	_base_y = global_position.y
 	_spawn_time = Time.get_ticks_msec() / 1000.0
 
@@ -72,6 +75,8 @@ func _try_pickup(detected: Node) -> void:
 		_collected = true
 		set_deferred(&"monitoring", false)
 		queue_free()
+	else:
+		_update_visual()
 	picked_up.emit(item, added)
 
 
@@ -84,25 +89,26 @@ func _resolve_player(detected: Node) -> Node:
 	return null
 
 
-func _draw() -> void:
-	if item == null:
+func _build_visual() -> void:
+	_icon = Sprite2D.new()
+	_icon.name = "ItemIcon"
+	_icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	_icon.scale = Vector2.ONE * 2.0
+	add_child(_icon)
+	_count_label = Label.new()
+	_count_label.name = "StackCount"
+	_count_label.position = Vector2(12.0, -18.0)
+	_count_label.add_theme_font_size_override("font_size", 16)
+	_count_label.add_theme_color_override("font_color", Color.WHITE)
+	_count_label.add_theme_color_override("font_outline_color", Color(0.02, 0.02, 0.03, 1))
+	_count_label.add_theme_constant_override("outline_size", 4)
+	add_child(_count_label)
+	_update_visual()
+
+
+func _update_visual() -> void:
+	if _icon == null or _count_label == null:
 		return
-	
-	# Draw item icon or placeholder
-	var color := item.icon_color
-	if item.icon_texture != null:
-		draw_texture(item.icon_texture, Vector2(-16, -16), color)
-	else:
-		draw_rect(Rect2(-12, -12, 24, 24), color)
-	
-	# Count
-	if count > 1:
-		draw_string(
-			ThemeDB.get_default_theme().get_font("font", "Label"),
-			Vector2(14, 4),
-			str(count),
-			HORIZONTAL_ALIGNMENT_LEFT,
-			-1.0,
-			12,
-			Color(1, 1, 1, 1)
-		)
+	_icon.texture = MapAssetLibrary.item_texture(item)
+	_icon.modulate = item.icon_color if item != null else Color.WHITE
+	_count_label.text = str(count) if count > 1 else ""

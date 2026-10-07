@@ -18,5 +18,5 @@ light_pool_radius = 280.0
 ambient_color = Color(0.12, 0.10, 0.08, 1.0)
 prop_types = ["desk", "cabinet", "plant"]
 prop_count = 6
-loot_items_on_lip = ["coin_10", "gem_5"]
+loot_items_on_lip = ["health_pack", "adrenaline"]
 loot_marker_size = 24.0

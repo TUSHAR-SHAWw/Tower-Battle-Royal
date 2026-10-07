@@ -74,6 +74,10 @@ extends Node
 ## are the walls of the room and the frame should not drift past them.
 @export var bounds_overshoot: float = 0.0
 
+@export_group("Platform")
+## Vertical dead zone while riding the moving lift, so the camera tracks its travel.
+@export var platform_dead_zone_height: float = 96.0
+
 @export_group("Effects")
 @export var shake_decay: float = 6.0
 @export var punch_recover: float = 8.0
@@ -89,6 +93,7 @@ var _shake_duration: float = 0.0
 var _shake_frequency: float = 20.0
 var _punch: Vector2 = Vector2.ZERO
 var _floor_bounds: Rect2 = FloorData.DEFAULT_BOUNDS
+var _platform_tracking: bool = false
 var _needs_initial_snap: bool = true
 var _last_debug_frame: int = -1
 
@@ -148,6 +153,10 @@ func set_floor_bounds(bounds: Rect2) -> void:
 	camera.limit_top = int(bounds.position.y - half.y - pad)
 	camera.limit_right = int(bounds.position.x + bounds.size.x + half.x + pad)
 	camera.limit_bottom = int(bounds.position.y + bounds.size.y + half.y + pad)
+
+
+func set_platform_tracking(enabled: bool) -> void:
+	_platform_tracking = enabled
 
 
 ## Called once per physics frame from Player._physics_process().
@@ -234,6 +243,8 @@ func _update_vertical(body: Node2D, delta: float) -> void:
 func _update_anchor(body: Node2D) -> void:
 	var p := body.global_position
 	var half := dead_zone * 0.5
+	if _platform_tracking:
+		half.y = maxf(platform_dead_zone_height, 0.0) * 0.5
 
 	if p.x < _anchor.x - half.x:
 		_anchor.x = p.x + half.x

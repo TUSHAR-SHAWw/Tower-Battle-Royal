@@ -13,7 +13,7 @@ extends CanvasLayer
 const REFRESH_INTERVAL := 0.2
 
 @export var toggle_action: StringName = &"debug_toggle_overlay"
-@export var start_visible: bool = true
+@export var start_visible: bool = false
 
 var _panel: PanelContainer
 var _label: RichTextLabel

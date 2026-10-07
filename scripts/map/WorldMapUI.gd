@@ -1,223 +1,229 @@
 class_name WorldMapUI
 extends CanvasLayer
 
-## Full-screen world map with floor navigation, fog of war, and teleport.
-##
-## CanvasLayer can't draw directly, so a child Control does the drawing.
-
 signal floor_selected(floor_id: int)
 signal map_closed()
 
 @export var map_resource: MapResource
-@export var background_color: Color = Color(0.05, 0.05, 0.1, 0.95)
-@export var border_color: Color = Color(0.2, 0.6, 1.0, 1.0)
 
-var _player: Node = null
+var _tower: TowerController
+var _platform: CentralPlatformController
+var _player: Node2D
 var _explored_floors: Array[int] = []
 var _current_floor: int = 1
 var _selected_floor: int = 1
-var _visible: bool = false
-
-var _draw_control: Control = null
+var _open: bool = false
+var _rows: Array[Button] = []
+var _row_floor_ids: Array[int] = []
+var _status_label: Label
+var _last_refresh_key: String = ""
 
 
 func _ready() -> void:
 	visible = false
-	_visible = false
-	var canvas := PixelArtScale.ensure_ui_root(self)
-
-	# Create a child Control that does the drawing (CanvasLayer can't draw)
-	_draw_control = Control.new()
-	_draw_control.name = "DrawControl"
-	# Full screen layout
-	_draw_control.anchor_left = 0.0
-	_draw_control.anchor_top = 0.0
-	_draw_control.anchor_right = 1.0
-	_draw_control.anchor_bottom = 1.0
-	_draw_control.offset_left = 0
-	_draw_control.offset_top = 0
-	_draw_control.offset_right = 0
-	_draw_control.offset_bottom = 0
-	_draw_control.draw.connect(_on_draw)
-	# The Control must be focusable for grab_focus() to work when the map opens;
-	# without this the keyboard navigation silently does nothing.
-	_draw_control.focus_mode = Control.FOCUS_ALL
-	_draw_control.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	canvas.add_child(_draw_control)
-
-	# Find player
-	var tree := get_tree()
-	if tree != null and tree.current_scene != null:
-		var player_instance := tree.current_scene.get_node_or_null("PlayerInstance")
-		var player := tree.current_scene.get_node_or_null("Player")
-		_player = player_instance if player_instance != null else player
-	_draw_control.focus_entered.connect(_on_focus_entered)
+	var scene := get_tree().current_scene
+	if scene != null:
+		var player := scene.get_node_or_null("PlayerInstance")
+		if player == null:
+			player = scene.get_node_or_null("Player")
+		_player = player as Node2D
+		_tower = scene.get_node_or_null("TowerController") as TowerController
+		_platform = scene.get_node_or_null("CentralPlatform") as CentralPlatformController
+		if _tower != null:
+			_current_floor = _tower.get_current_floor_id()
+			_selected_floor = _current_floor
+	if map_resource != null:
+		map_resource.synchronize_floor_count(_floor_count())
+	var root := PixelArtScale.ensure_ui_root(self)
+	_build_map(root)
+	_refresh_rows()
 
 
-## Redraws when the map takes focus so the selection highlight is never stale.
-func _on_focus_entered() -> void:
-	if _draw_control != null:
-		_draw_control.queue_redraw()
+func _process(_delta: float) -> void:
+	_current_floor = _get_player_floor()
+	var lift_floor := _platform.get_display_floor() if _platform != null else -1
+	var direction := _platform.get_direction_name() if _platform != null else "IDLE"
+	var player_side := _get_player_side()
+	var refresh_key := "%d:%d:%s:%d:%s" % [
+		_current_floor, lift_floor, direction, _selected_floor, player_side
+	]
+	if refresh_key != _last_refresh_key:
+		_refresh_rows()
+
+
+func _build_map(root: Control) -> void:
+	var overlay := ColorRect.new()
+	overlay.name = "DimBackground"
+	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	overlay.color = Color(0.015, 0.02, 0.035, 0.94)
+	overlay.mouse_filter = Control.MOUSE_FILTER_STOP
+	root.add_child(overlay)
+
+	var panel := PanelContainer.new()
+	panel.name = "WorldMapPanel"
+	panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	panel.offset_left = 48.0
+	panel.offset_top = 32.0
+	panel.offset_right = -48.0
+	panel.offset_bottom = -32.0
+	root.add_child(panel)
+
+	var margin := MarginContainer.new()
+	margin.add_theme_constant_override("margin_left", 18)
+	margin.add_theme_constant_override("margin_top", 14)
+	margin.add_theme_constant_override("margin_right", 18)
+	margin.add_theme_constant_override("margin_bottom", 14)
+	panel.add_child(margin)
+	var stack := VBoxContainer.new()
+	stack.add_theme_constant_override("separation", 8)
+	margin.add_child(stack)
+
+	var title := Label.new()
+	title.text = "SPIRE OF ETERNITY"
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_font_size_override("font_size", 28)
+	stack.add_child(title)
+	_status_label = Label.new()
+	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	stack.add_child(_status_label)
+
+	var scroll := ScrollContainer.new()
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	stack.add_child(scroll)
+	var list := VBoxContainer.new()
+	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(list)
+	for floor_id in range(_floor_count(), 0, -1):
+		var button := Button.new()
+		button.custom_minimum_size.y = 36.0
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button.pressed.connect(_on_floor_selected.bind(floor_id))
+		list.add_child(button)
+		_rows.append(button)
+		_row_floor_ids.append(floor_id)
+		var row_style := StyleBoxFlat.new()
+		row_style.bg_color = MapAssetLibrary.floor_theme_color(_floor_data(floor_id)).darkened(0.6)
+		row_style.bg_color.a = 0.8
+		button.add_theme_stylebox_override("normal", row_style)
+		var hover_style := row_style.duplicate() as StyleBoxFlat
+		hover_style.bg_color = hover_style.bg_color.lightened(0.15)
+		button.add_theme_stylebox_override("hover", hover_style)
+
+	var hint := Label.new()
+	hint.text = "UP / DOWN to select   ENTER to travel   TAB or ESC to close"
+	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	stack.add_child(hint)
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo:
-		# Always allow opening the map
-		if event.keycode == KEY_TAB or event.keycode == KEY_M:
-			_toggle_map()
-			get_viewport().set_input_as_handled()
-			return
-		if not _visible:
-			return
-		if event.keycode == KEY_UP:
-			_select_floor(_selected_floor - 1)
-			_draw_control.queue_redraw()
-			get_viewport().set_input_as_handled()
-		elif event.keycode == KEY_DOWN:
-			_select_floor(_selected_floor + 1)
-			_draw_control.queue_redraw()
-			get_viewport().set_input_as_handled()
-		elif event.keycode == KEY_ENTER:
-			_confirm_travel()
-			get_viewport().set_input_as_handled()
-		elif event.keycode == KEY_ESCAPE:
-			_toggle_map()
-			get_viewport().set_input_as_handled()
+	if not event is InputEventKey or not event.pressed or event.echo:
+		return
+	if event.keycode == KEY_TAB or event.keycode == KEY_M:
+		_toggle_map()
+		get_viewport().set_input_as_handled()
+	elif _open and event.keycode == KEY_ESCAPE:
+		_toggle_map()
+		get_viewport().set_input_as_handled()
+	elif _open and event.keycode == KEY_UP:
+		_select_floor(_selected_floor + 1)
+		get_viewport().set_input_as_handled()
+	elif _open and event.keycode == KEY_DOWN:
+		_select_floor(_selected_floor - 1)
+		get_viewport().set_input_as_handled()
+	elif _open and event.keycode == KEY_ENTER:
+		_on_floor_selected(_selected_floor)
+		get_viewport().set_input_as_handled()
 
 
 func _toggle_map() -> void:
-	_visible = not _visible
-	visible = _visible
-	if _visible:
-		# Refresh explored floors from player
-		if _player != null:
-			var tower := _player.get_node_or_null("TowerController")
-			if tower != null and tower.has_method("get_explored_floors"):
-				_explored_floors = tower.get_explored_floors()
-		_draw_control.grab_focus()
-		_draw_control.queue_redraw()
-	else:
+	_open = not _open
+	visible = _open
+	if _open and _tower != null:
+		_explored_floors = _tower.get_explored_floors()
+		_refresh_rows()
+	elif not _open:
 		map_closed.emit()
 
 
-func _select_floor(delta: int) -> void:
-	if map_resource == null:
-		return
-	_selected_floor = clamp(_selected_floor + delta, 1, map_resource.total_floors)
-	if _draw_control != null:
-		_draw_control.queue_redraw()
+func _select_floor(floor_id: int) -> void:
+	_selected_floor = clampi(floor_id, 1, _floor_count())
+	_refresh_rows()
 
 
-func _confirm_travel() -> void:
-	if _selected_floor != _current_floor and _player != null:
-		var tower := _player.get_node_or_null("TowerController")
-		if tower != null and tower.has_method("start_travel"):
-			tower.start_travel(_selected_floor)
+func _on_floor_selected(floor_id: int) -> void:
+	_selected_floor = floor_id
+	floor_selected.emit(floor_id)
+	if _tower != null and floor_id != _current_floor:
+		_tower.start_travel(floor_id)
 	_toggle_map()
+
+
+func _refresh_rows() -> void:
+	if _status_label == null:
+		return
+	if _tower != null:
+		_current_floor = _get_player_floor()
+	var lift_floor := _platform.get_display_floor() if _platform != null else -1
+	var direction := _platform.get_direction_name().to_upper() if _platform != null else "IDLE"
+	var player_side := _get_player_side()
+	_status_label.text = "PLAYER %02d %s     LIFT %02d / %s" % [
+		_current_floor, player_side, lift_floor, direction
+	]
+	for index in range(_rows.size()):
+		var floor_id := _row_floor_ids[index]
+		var button := _rows[index]
+		var data := _floor_data(floor_id)
+		var status := "UNEXPLORED"
+		if floor_id == _current_floor:
+			status = "PLAYER " + player_side
+		elif floor_id == lift_floor:
+			status = "PLATFORM"
+		elif _explored_floors.has(floor_id):
+			status = "EXPLORED"
+		button.text = "FLOOR %02d   %-14s   %s" % [floor_id, MapAssetLibrary.floor_theme_name(data).to_upper(), status]
+		button.modulate = Color(0.55, 0.9, 1.0) if floor_id == _selected_floor else Color.WHITE
+	_last_refresh_key = "%d:%d:%s:%d" % [_current_floor, lift_floor, direction, _selected_floor]
+
+
+func _get_player_side() -> String:
+	if _player == null or _tower == null:
+		return ""
+	var floor_node := _tower.get_current_floor() as FloorController
+	if floor_node == null:
+		return ""
+	var center: float = floor_node.to_global(Vector2(floor_node.shaft_center_x(), 0.0)).x
+	var offset: float = _player.global_position.x - center
+	if absf(offset) < 80.0:
+		return "CENTER"
+	return "LEFT" if offset < 0.0 else "RIGHT"
+
+
+func _get_player_floor() -> int:
+	if _platform != null and _player != null and _platform.get_players().has(_player):
+		return _platform.get_display_floor()
+	return _tower.get_current_floor_id() if _tower != null else _current_floor
+
+
+func _floor_count() -> int:
+	if _tower != null and not _tower.tower_data.is_empty():
+		return _tower.tower_data.size()
+	return map_resource.total_floors if map_resource != null else 50
+
+
+func _floor_data(floor_id: int) -> FloorData:
+	if _tower == null or floor_id < 1 or floor_id > _tower.tower_data.size():
+		return null
+	var data := _tower.tower_data[floor_id - 1]
+	return data.floor_data if data != null else null
 
 
 func set_current_floor(floor_id: int) -> void:
 	_current_floor = floor_id
 	_selected_floor = floor_id
-	if _draw_control != null:
-		_draw_control.queue_redraw()
+	_refresh_rows()
 
 
 func mark_floor_explored(floor_id: int) -> void:
 	if not _explored_floors.has(floor_id):
 		_explored_floors.append(floor_id)
-	if _draw_control != null:
-		_draw_control.queue_redraw()
-
-
-func _on_draw() -> void:
-	if not _visible or map_resource == null:
-		return
-
-	var rect := _draw_control.get_rect()
-	var center := rect.size * 0.5
-
-	# Background
-	_draw_control.draw_rect(Rect2(Vector2.ZERO, rect.size), background_color)
-	_draw_control.draw_rect(Rect2(Vector2.ZERO, rect.size), border_color, false, 3.0)
-
-	# Title
-	var font := ThemeDB.get_default_theme().get_font("font", "Label")
-	_draw_control.draw_string(font, Vector2(20, 40), "%s - World Map" % map_resource.map_name, 0, 0, 28, Color(1, 0.9, 0.2, 1))
-
-	# Draw tower
-	var tower_width := rect.size.x * 0.3
-	var tower_height := rect.size.y * 0.8
-	var tower_rect := Rect2(center.x - tower_width * 0.5, center.y - tower_height * 0.5, tower_width, tower_height)
-	_draw_control.draw_rect(tower_rect, Color(0.08, 0.08, 0.12, 1.0))
-	_draw_control.draw_rect(tower_rect, Color(0.2, 0.4, 0.6, 1.0), false, 2.0)
-	
-	# Floor cells
-	var cell_height := tower_height / map_resource.total_floors
-	var cell_width := tower_width * 0.8
-	var cell_x := tower_rect.position.x + (tower_width - cell_width) * 0.5
-	
-	for i in range(map_resource.total_floors):
-		var floor_id := map_resource.total_floors - i  # top to bottom
-		var floor_y := tower_rect.position.y + i * cell_height
-		var floor_rect := Rect2(cell_x, floor_y, cell_width, cell_height * 0.9)
-		
-		var color := Color(0.15, 0.15, 0.2, 1.0)
-		var border_col := Color(0.3, 0.3, 0.4, 1.0)
-		
-		if floor_id == _current_floor:
-			color = Color(0.1, 0.3, 0.5, 1.0)
-			border_col = Color(0.2, 0.8, 1.0, 1.0)
-		elif _explored_floors.has(floor_id):
-			color = Color(0.15, 0.25, 0.4, 1.0)
-			border_col = Color(0.4, 0.6, 0.8, 1.0)
-		elif map_resource.central_platform_floor == floor_id:
-			color = Color(0.25, 0.2, 0.05, 1.0)
-			border_col = Color(1.0, 0.9, 0.3, 1.0)
-		
-		if floor_id == _selected_floor:
-			border_col = Color(1.0, 1.0, 0.2, 1.0)
-			color = Color(0.2, 0.4, 0.6, 1.0)
-		
-		_draw_control.draw_rect(floor_rect, color)
-		var border_width: float = 3.0 if floor_id == _selected_floor else 1.0
-		_draw_control.draw_rect(floor_rect, border_col, false, border_width)
-		
-		# Floor label
-		var label := "FLOOR %d" % floor_id
-		if map_resource.central_platform_floor == floor_id:
-			label = "CENTRAL PLATFORM"
-		_draw_control.draw_string(font, floor_rect.position + Vector2(10, floor_rect.size.y * 0.5 + 8), label, 0, 0, 16, Color(1, 1, 1, 0.9))
-
-		# Status
-		var status := ""
-		if floor_id == _current_floor:
-			status = "← CURRENT"
-		elif _explored_floors.has(floor_id):
-			status = "EXPLORED"
-		elif map_resource.central_platform_floor == floor_id:
-			status = "HUB"
-		else:
-			status = "UNEXPLORED"
-		_draw_control.draw_string(font, floor_rect.position + Vector2(floor_rect.size.x - 120, floor_rect.size.y * 0.5 + 8), status, 2, 0, 12, Color(1, 1, 1, 0.6))
-
-	# Legend
-	var legend_y := tower_rect.position.y + tower_height + 20
-	_draw_control.draw_string(font, Vector2(tower_rect.position.x, legend_y),
-		"[UP/DOWN] Select Floor   [ENTER] Travel   [TAB/M] Close   [ESC] Cancel",
-		0, 0, 14, Color(0.8, 0.8, 0.8, 1))
-
-	# Current floor info
-	_draw_control.draw_string(font, Vector2(20, rect.size.y - 40),
-		"Current: Floor %d (%s)" % [_current_floor, _get_floor_status(_current_floor)],
-		0, 0, 16, Color(0.2, 1, 0.4, 1))
-
-
-func _get_floor_status(floor_id: int) -> String:
-	if floor_id == _current_floor:
-		return "CURRENT"
-	if _explored_floors.has(floor_id):
-		return "EXPLORED"
-	if map_resource.central_platform_floor == floor_id:
-		return "CENTRAL HUB"
-	return "UNEXPLORED"

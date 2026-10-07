@@ -87,7 +87,11 @@ func set_active_slot(index: int) -> void:
 
 
 func _find_partial_stack(item: ItemResource) -> int:
-	for i in range(TOTAL_SIZE):
+	for i in range(HOTBAR_SIZE):
+		var slot := _slots[i]
+		if not slot.is_empty() and slot.item.item_id == item.item_id and slot.quantity < slot.item.max_stack:
+			return i
+	for i in range(HOTBAR_SIZE, TOTAL_SIZE):
 		var slot := _slots[i]
 		if not slot.is_empty() and slot.item.item_id == item.item_id and slot.quantity < slot.item.max_stack:
 			return i
@@ -107,16 +111,7 @@ func add_item(item: ItemResource, count: int = 1) -> int:
 				item_added.emit(item.item_id, existing_slot)
 				return added
 	
-	# Find empty slot
-	for i in range(HOTBAR_SIZE, TOTAL_SIZE):
-		var slot := _slots[i]
-		if slot.is_empty():
-			var added := slot.add(item, count)
-			if added > 0:
-				item_added.emit(item.item_id, i)
-				return added
-	
-	# Try hotbar first if it's a new item type
+	# Put new pickup types on the hotbar first so they are immediately usable.
 	if _grid_enabled:
 		for i in range(HOTBAR_SIZE):
 			var slot := _slots[i]
@@ -125,6 +120,15 @@ func add_item(item: ItemResource, count: int = 1) -> int:
 				if added > 0:
 					item_added.emit(item.item_id, i)
 					return added
+
+	# Spill over into the backpack only after the quick-use slots are full.
+	for i in range(HOTBAR_SIZE, TOTAL_SIZE):
+		var slot := _slots[i]
+		if slot.is_empty():
+			var added := slot.add(item, count)
+			if added > 0:
+				item_added.emit(item.item_id, i)
+				return added
 	
 	return 0
 

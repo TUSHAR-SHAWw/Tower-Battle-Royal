@@ -1,7 +1,7 @@
 extends TestCase
 
 ## Tests for the tower structure: TowerData, FloorData, and floor sequencing.
-## Ensures all 10 floors plus the central platform are properly configured.
+## Ensures all 50 floors plus the central platform are properly configured.
 
 class FloorWithData:
 	extends Node2D
@@ -13,7 +13,7 @@ func test_tower_definition_exists() -> void:
 	var tower := load("res://resources/tower/tower_definition.tres") as TowerResource
 	assert_not_null(tower, "tower_definition.tres must exist")
 
-func test_tower_has_ten_floors() -> void:
+func test_tower_has_fifty_floors() -> void:
 	var tower := load("res://resources/tower/tower_definition.tres") as TowerResource
 	assert_eq(tower.floors.size(), 50, "tower should have 50 floors")
 	assert_eq(tower.total_floors, 50, "total_floors should match the floor list")

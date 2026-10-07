@@ -19,13 +19,14 @@ Written by an agent that ran out of context. Read this before changing anything.
 
 ## Current test state
 
-**Latest gate: 15 suites, 1,281 assertions, 0 failures** using
+**Latest gate: 16 suites, 1,404 assertions, 0 failures** using
 `powershell -ExecutionPolicy Bypass -File tests\run_tests.ps1`.
 
 ## Pixel-art scale
 
 The logical viewport is 426×240, shown at 3× integer scale in a 1278×720
-window. Use 8×8 atlas tiles for new floors: `FloorController` scales those
+window. Canvas-item stretching keeps text/UI at display resolution. Use 8×8
+atlas tiles for new floors: `FloorController` scales those
 TileMapLayers to 24 screen pixels per tile and converts ground-surface
 coordinates through the layer transform. Camera zoom is 13/60 to preserve the
 previous camera framing; gameplay physics/world coordinates are not rescaled.
@@ -50,6 +51,30 @@ not installed in the current development environment. See
 
 - **50 floors, randomly themed, stacked.** Floors 1–50 at `y = -1080 * (floor_id - 1)`, via `TowerController._place_in_tower()`. Stacking must come from node position — `FloorData.bounds` is canonical and `validate()` rejects anything else.
 - **5 themes**: volcano, ice, mountain, water, desert. `theme_water.tres` was created by me. Randomised with seed `20261004` (in `build_tower.py`, since deleted — re-create or hand-edit if rerolling). Central platform at floor 25.
+- **Map presentation pass**: the compact minimap and full map list the actual 50-floor
+  tower in tower order, show live player/platform floors and player side
+  relative to the central shaft, and use the floor theme palette.
+  `tower_map.tres` is reconciled to 50 floors.
+- **Central platform**: `Match.tscn` instances the sprite/collider platform;
+  it runs through all 50 stops and reverses at either end. Automated tests
+  verify floor arrivals, reversal, deck collision, player boarding, carry to a
+  floor stop and leaving the boarding sensor. A production-player physics test
+  now rides to the next floor and confirms the player remains grounded at the
+  correct deck height. When boarded, Match expands camera bounds across the
+  tower and tightens the vertical dead zone; the rider camera is tested moving
+  with the lift. Match startup places it at the player's initial floor; a manual
+  full-route playtest remains.
+- **Node/sprite map visuals**: floor backdrop, lift, portal, prop, hotbar, chest
+  and pickup visuals use TextureRect/Sprite2D/Control nodes and bundled tiles.
+  The compact nine-slot hotbar displays stack counts and supports click/number keys.
+  Themed floor data now creates two collectible shaft-lip pickups from existing
+  item resources. No targeted map-presentation script uses `_draw()` or
+  `draw_*()`.
+- **Map validation**: `tests/map/map_test.gd` covers the 50-floor map, lift route,
+  player boarding/carry/exit using both a sensor test body and the production
+  player scene, camera follow while riding, compact map/hotbar layout, themed
+  loot, hotbar updates and map-asset drawing restriction. The latest Godot 4.7
+  run passes 16 suites / 1,404 assertions.
 - **Per-theme TileMapLayers**: `TowerTileSetBuilder` exposes 5 solid atlas sources (`THEME_SOURCES` + `source_for_theme()`); `FloorController` picks by `floor_data.theme_name`. Decor uses a separate collision-free source (`SOURCE_DECOR`) — important, or scenery becomes invisible platforms that trap the player.
 - **Lowest floor is sealed**: `FloorController` passes `shaft_width = 0` for `floor_id <= 1`. Verified — player dropped on the exact map centre lands (`on_floor=true`) instead of falling out.
 - **HUD renders**: instanced into `Match.tscn` as `ExtResource("7_hud")`, `layer = 120` (above `DebugOverlay`'s 100). `BackgroundCard` must stay a plain `Control`, **not** a `PanelContainer` — a PanelContainer stretches its child across the whole screen.
@@ -106,18 +131,14 @@ loot pickup/inventory, plus portal activation through delayed floor deletion
 and floor handoff. Still verify loot balance, range/aim behavior, repeated
 combat, and victory/defeat/restart in a running match.
 
-### 2. Debug overlay still covers top-left HUD
-HP bar and `WAVE 1` are hidden under it. Raising the HUD layer to 120 did **not** fix it, so the overlay is drawing via some path other than its `CanvasLayer.layer` (probably a root-level `Control` with its own `z_index`). `scripts/ui/DebugOverlay.gd` extends `CanvasLayer`, `layer = 100`. Either find the real draw path or gate the overlay behind its F3 toggle.
-
-### 3. Floor art pipeline is still placeholder quality
+### 2. Floor art pipeline is still placeholder quality
 `FloorTileLayout` now limits background accents to 0.2% of room cells; the
 regression gate confirms the full floor remains walkable and has at most 100
-accents. A live-game screenshot confirms the room is much less noisy, but the
-slab still repeats small atlas tiles and the room has little authored detail.
-`PropSpawner.gd` is not instantiated or called by production floor scenes.
-Before treating floor art as shippable, establish a theme-aware workflow for
-larger asset props and floor surfaces; do not mistake sparse procedural accents
-for finished environment art.
+accents. Floors now have a theme-tinted tiled backdrop and sprite placeholders,
+but the room still repeats bundled tiles and has no authored environment
+content. `PropSpawner.gd` is not instantiated or called by production floor
+scenes. The developer plans to author 8×8 floor art later; use the existing
+TileMapLayer workflow and do not mistake this placeholder pass for finished art.
 
 ## Queued: adopt reference project node combos
 

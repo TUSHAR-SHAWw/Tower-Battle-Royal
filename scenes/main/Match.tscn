@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dhgyr50pn74qs" path="res://scripts/main/Match.gd" id="1_match"]
 [ext_resource type="Resource" path="res://resources/tower/tower_definition.tres" id="3_tower_def"]
 [ext_resource type="Script" uid="uid://vettwv2e1xbi" path="res://scripts/tower/TowerController.gd" id="4_tower"]
-[ext_resource type="Script" uid="uid://bm4iqstian43k" path="res://scripts/tower/CentralPlatformController.gd" id="5_platform"]
+[ext_resource type="PackedScene" path="res://scenes/tower/CentralPlatform.tscn" id="5_platform"]
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="6_player"]
 [ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="7_hud"]
 
@@ -14,12 +14,9 @@ script = ExtResource("1_match")
 script = ExtResource("4_tower")
 tower_resource = ExtResource("3_tower_def")
 
-[node name="CentralPlatform" type="Node2D" parent="." unique_id=1820745024]
-script = ExtResource("5_platform")
-descent_speed = 24.0
-pause_duration = 10.0
-floor_stops = Array[int]([5, 6, 7, 8, 9, 10])
-starting_floor = 5
+[node name="CentralPlatform" parent="." unique_id=1820745024 instance=ExtResource("5_platform")]
+descent_speed = 120.0
+pause_duration = 3.0
 platform_radius = 128.0
 
 [node name="HUD" parent="." instance=ExtResource("7_hud")]

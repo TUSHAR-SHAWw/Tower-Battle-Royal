@@ -5,6 +5,58 @@ tested, what is known-broken, and what happens next.
 
 ---
 
+## Rebuilding the map presentation — 2026-10-07
+
+### Follow-up: compact HUD and lift camera tracking
+* Reduced the minimap panel to 220×270 design pixels with shorter floor rows;
+  it scrolls to keep the player's current floor visible.
+* Resized the nine hotbar slots from 64×70 to 44×48 design pixels, reducing the
+  screen-space footprint while preserving all nine item slots and controls.
+* On lift boarding, the camera limits now span the tower vertically and its
+  vertical dead zone tightens so it follows the rider. Leaving the lift restores
+  current-floor camera limits. The map marks the player's current lift floor.
+* Added regressions for compact HUD dimensions and a production Match lift ride
+  that verifies camera movement and bound restoration.
+* Godot 4.7 import/headless gate: **16 suites, 1,404 assertions, 0 failures**.
+
+### Built
+* Connected the Match scene to the sprite-based central platform scene. The
+  platform now has a real deck collider, carries registered riders, stops at
+  all 50 tower floors, and reverses direction at each end. The minimap and
+  world-map floor lists reflect the same tower data and live lift position;
+  both maps show which side of the central shaft the player is on.
+* Replaced map, hotbar, portal, floor-prop, pickup and chest drawing callbacks
+  with standard Godot controls, Sprite2D/TextureRect nodes and bundled tile art.
+  The map-specific visual scripts no longer depend on `_draw()`/`draw_*()`.
+* Added a subdued tiled room backdrop tinted from each floor theme, keeping the
+  existing generated/authored ground TileMapLayers intact. The five floor
+  themes now create actual health/adrenaline pickups on their shaft lips.
+* Rebuilt the hotbar as nine screen-space slots with item icons, stack counts,
+  click/number selection, and immediate hotbar placement for new pickup types.
+* Reconciled the map resource with the 50-floor tower and updated the saved map
+  and floor-theme loot definitions to use existing item resources.
+
+### Verified
+* Godot 4.7 import/headless gate: **16 suites, 1,389 assertions, 0 failures**;
+  report: [`tests/results/last_run.md`](../tests/results/last_run.md).
+* New map regressions verify the complete 50-floor map, floor-to-floor lift
+  travel and reversal, sprite/collision construction, themed floor loot,
+  player boarding/carry/exit behavior, nine-slot hotbar updates, and absence
+  of drawing callbacks in map visuals. The production player now rides the
+  moving lift through a floor stop while remaining grounded at deck height.
+* Launched the match and captured/reviewed a session-local screenshot. The HUD
+  and 50-floor minimap render at the target window size. Art is still bundled
+  placeholder art, not final authored floor content; a manual full-route ride
+  and target-device layouts still need QA.
+
+### Remaining
+Replace or refine the temporary tiled floor backdrop and props with approved
+8×8 authored art later. Complete commercial provenance review for every
+bundled asset group, test a full lift ride in the running match, and validate
+map/hotbar layouts on Android and other target aspect ratios.
+
+---
+
 ## Adopting 8px floor-art scale — 2026-10-06
 
 ### Built
@@ -28,6 +80,11 @@ tested, what is known-broken, and what happens next.
   overlays; both now use the shared 1280×720 design-space wrapper, and the
   follow-up capture confirms the overlay is back in the corner without
   obstructing the player or floor.
+* The initial viewport stretch mode rasterized small HUD fonts at the low
+  logical resolution. Switched to canvas-item stretching so text is rendered at
+  display resolution while 3x integer scaling and nearest-filtered art remain.
+* Hid the debug overlay by default; it was drawn over the health/wave HUD and
+  made readable text inaccessible. F3 still toggles it on when needed.
 * Physics and world coordinates remain unchanged; camera tests verify the
   approved view and the 8px tile-scale contract.
 

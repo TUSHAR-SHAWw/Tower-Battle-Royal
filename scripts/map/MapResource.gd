@@ -26,9 +26,27 @@ func validate() -> Array[String]:
 	var problems: Array[String] = []
 	if total_floors < 1:
 		problems.append("total_floors must be >= 1")
-	if floor_positions.size() != total_floors:
+	if not floor_positions.is_empty() and floor_positions.size() != total_floors:
 		problems.append("floor_positions must have exactly total_floors entries")
 	return problems
+
+
+func synchronize_floor_count(floor_count: int) -> void:
+	if floor_count < 1:
+		push_error("MapResource: floor_count must be positive.")
+		return
+	total_floors = floor_count
+	tower_height = floor_count
+	floor_positions.clear()
+	floor_connections.clear()
+	for floor_id in range(1, floor_count + 1):
+		floor_positions.append(Vector2i(2, floor_count - floor_id))
+		var connections: Array[int] = []
+		if floor_id > 1:
+			connections.append(floor_id - 1)
+		if floor_id < floor_count:
+			connections.append(floor_id + 1)
+		floor_connections[floor_id] = connections
 
 
 func get_floor_position(floor_id: int) -> Vector2i:

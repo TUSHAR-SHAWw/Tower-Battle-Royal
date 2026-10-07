@@ -109,14 +109,8 @@ func _configure_from_data() -> void:
 	# The floor visual is drawn to match bounds.
 	# Child nodes (walls, spawn points) should be positioned relative to bounds.
 	
-	# Pass floor data to visual component
-	if _visual != null and _visual.get_script() != null and _visual.get_script().resource_path.ends_with("FloorVisual.gd"):
-		_visual.floor_data = floor_data
-
-	# Art direction for this storey. The theme's ambient colour wins so each
-	# floor reads distinctly as the player climbs the tower.
-	if floor_data.theme != null and _visual != null and "theme" in _visual:
-		_visual.set("theme", floor_data.theme)
+	if _visual != null and _visual.has_method("configure_floor"):
+		_visual.call("configure_floor", floor_data, floor_data.theme)
 
 	_build_tile_layers()
 
@@ -358,21 +352,34 @@ func _build_loot_lip() -> void:
 	var surface: Variant = get_ground_surface_y()
 	if surface == null:
 		return
-	var bounds := floor_data.bounds
 	var y := float(surface) - 40.0
 	var lip := _shaft_half_width() + 90.0
 	var center_x := shaft_center_x()
-	for side in [-1.0, 1.0]:
-		var marker := Node2D.new()
-		marker.name = "LootLip%s" % ("L" if side < 0.0 else "R")
-		marker.position = Vector2(center_x + side * lip, y)
-		_spawn_points.add_child(marker)
+	var theme := floor_data.theme
+	if theme == null or theme.loot_items_on_lip.is_empty():
+		return
+	for index in range(mini(theme.loot_items_on_lip.size(), 2)):
+		var item_id := theme.loot_items_on_lip[index]
+		var item := load("res://resources/items/%s.tres" % item_id) as ItemResource
+		if item == null:
+			push_warning("FloorController: theme '%s' has no item resource for shaft loot '%s'." % [theme.theme_name, item_id])
+			continue
+		var pickup := ItemPickup.new()
+		pickup.name = "ShaftLoot_%s" % item_id
+		pickup.item = item
+		pickup.count = 1
+		pickup.position = Vector2(center_x + (-1.0 if index == 0 else 1.0) * lip, y)
+		pickup.z_index = 5
+		pickup.z_as_relative = false
+		_spawn_points.add_child(pickup)
 
 ## Call this after instancing if floor_data wasn't set in the inspector.
 func set_floor_data(data: FloorData) -> void:
 	floor_data = data
 	_configure_from_data()
 	_update_visual_state()
+	_build_walls()
+	_build_loot_lip()
 	
 	# Start spawning if floor is active
 	if _state == FloorData.FloorState.ACTIVE:

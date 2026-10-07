@@ -5,23 +5,12 @@
 [resource]
 script = ExtResource("1_map")
 map_name = "Spire of Eternity"
-total_floors = 10
-central_platform_floor = 5
-floor_positions = [Vector2i(2, 9), Vector2i(2, 8), Vector2i(2, 7), Vector2i(2, 6), Vector2i(2, 5), Vector2i(2, 4), Vector2i(2, 3), Vector2i(2, 2), Vector2i(2, 1), Vector2i(2, 0)]
-floor_connections = {
-1: [2],
-2: [1, 3],
-3: [2, 4],
-4: [3, 5],
-5: [4, 6],
-6: [5, 7],
-7: [6, 8],
-8: [7, 9],
-9: [8, 10],
-10: [9]
-}
+total_floors = 50
+central_platform_floor = 25
+floor_positions = []
+floor_connections = {}
 tower_width = 5
-tower_height = 10
+tower_height = 50
 cell_size = 24.0
 unexplored_color = Color(0.1, 0.1, 0.15, 1)
 explored_color = Color(0.2, 0.3, 0.5, 1)

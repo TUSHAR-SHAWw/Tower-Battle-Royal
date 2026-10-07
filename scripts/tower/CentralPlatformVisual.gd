@@ -1,36 +1,54 @@
 class_name CentralPlatformVisual
 extends Node2D
 
-## Visual representation of the central platform.
-## Draws the descending platform with a distinctive marker.
+## Tile-sprite elevator deck built from the bundled Kenney industrial tiles.
 
 @export var platform_radius: float = 128.0
 @export var controller: CentralPlatformController
 
-
-func _draw() -> void:
-	if controller == null:
-		return
-
-	var state := controller.get_state()
-	var color := Color(1.0, 0.9, 0.3, 0.8)
-	if state == &"paused":
-		color = Color(1.0, 1.0, 0.3, 1.0)
-	elif state == &"arrived":
-		color = Color(0.3, 1.0, 0.8, 0.9)
-
-	var pulse := sin(OS.get_ticks_msec() / 400.0) * 0.3 + 0.7
-	var radius := platform_radius * (0.9 + pulse * 0.1)
-
-	draw_circle(Vector2.ZERO, radius, color, true, 0, true)
-	draw_circle(Vector2.ZERO, radius, Color(1, 1, 1, 0.8), false, 4.0)
-
-	# Downward arrow indicator
-	var arrow_size := 24.0
-	draw_line(Vector2(-arrow_size, -arrow_size), Vector2(0, -arrow_size * 2 + radius), Color(0, 0, 0, 0.8), 2.0)
-	draw_line(Vector2(arrow_size, -arrow_size), Vector2(0, -arrow_size * 2 + radius), Color(0, 0, 0, 0.8), 2.0)
-	draw_line(Vector2(0, -arrow_size * 2 + radius), Vector2(0, -arrow_size + radius), Color(0, 0, 0, 0.8), 2.0)
+const DECK_WIDTH_TILES := 15
+const TILE_SIZE := 18.0
 
 
-func _process(_delta: float) -> void:
-	queue_redraw()
+func _ready() -> void:
+	z_index = 3
+	z_as_relative = false
+	_build_deck()
+
+
+func _build_deck() -> void:
+	var half_width := float(DECK_WIDTH_TILES - 1) * TILE_SIZE * 0.5
+	for index in range(DECK_WIDTH_TILES):
+		var sprite := Sprite2D.new()
+		sprite.name = "DeckTile_%02d" % index
+		sprite.texture = MapAssetLibrary.tile_texture("tile_0007.png", true)
+		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		sprite.position = Vector2(float(index) * TILE_SIZE - half_width, TILE_SIZE * 0.5)
+		add_child(sprite)
+
+	var rail_y := TILE_SIZE * 1.5
+	for side in [-1, 1]:
+		var rail := Sprite2D.new()
+		rail.name = "Rail_%d" % side
+		rail.texture = MapAssetLibrary.tile_texture("tile_0000.png", true)
+		rail.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		rail.position = Vector2(float(side) * (half_width - TILE_SIZE * 0.5), rail_y)
+		add_child(rail)
+
+	var signal_light := Sprite2D.new()
+	signal_light.name = "DirectionLight"
+	signal_light.texture = MapAssetLibrary.tile_texture("tile_0030.png")
+	signal_light.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	signal_light.position = Vector2(0.0, TILE_SIZE * 1.5)
+	signal_light.scale = Vector2.ONE * 0.65
+	add_child(signal_light)
+
+	if controller != null:
+		controller.descent_speed_changed.connect(_on_speed_changed)
+		_on_speed_changed(controller._speed)
+
+
+func _on_speed_changed(speed: float) -> void:
+	var indicator := get_node_or_null("DirectionLight") as Sprite2D
+	if indicator != null:
+		indicator.modulate = Color(0.35, 1.0, 0.55) if speed > 0.0 else Color(1.0, 0.45, 0.25)

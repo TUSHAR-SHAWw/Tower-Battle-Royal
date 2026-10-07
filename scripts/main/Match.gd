@@ -51,6 +51,7 @@ func _setup_player() -> void:
 		return
 
 	GameLog.info("Match", "Tower match ready — player at floor %d" % tower.get_current_floor_id())
+	central_platform.configure_route(tower.tower_data.size(), tower.get_current_floor_id())
 
 	# Give the camera something to clamp to from the floor data, and size the
 	# character against the floor it is about to stand on.
@@ -90,6 +91,8 @@ func _setup_player() -> void:
 
 	# Listen for floor changes
 	tower.floor_changed.connect(_on_floor_changed)
+	central_platform.player_boarded.connect(_on_platform_player_boarded)
+	central_platform.player_left.connect(_on_platform_player_left)
 
 	# Start the central platform descent
 	central_platform.start_descent()
@@ -145,13 +148,6 @@ func _on_floor_changed(_new_floor_id: int) -> void:
 		camera_component.set_floor_bounds(tower.get_floor_world_rect(current_floor, _new_floor_id))
 	_apply_floor_scale(body, current_floor)
 
-	# Update platform stops to only include unvisited floors
-	var stops: Array[int] = []
-	for fd: TowerData in tower.tower_data:
-		if fd.floor_id >= _new_floor_id:
-			stops.append(fd.floor_id)
-	central_platform.floor_stops = stops
-
 	# Re-spawn player on the new floor's slab, clear of the central shaft.
 	var spawn_pos: Vector2 = current_floor.get_player_spawn_position() if current_floor.has_method(&"get_player_spawn_position") \
 		else current_floor.get_random_spawn_point()
@@ -180,6 +176,35 @@ func _on_floor_changed(_new_floor_id: int) -> void:
 	_set_travel_portal(_find_travel_portal())
 
 	GameLog.info("Match", "Moved to Floor %d" % _new_floor_id)
+
+
+func _on_platform_player_boarded(rider: Node2D) -> void:
+	if rider != _get_player_body():
+		return
+	_set_camera_platform_tracking(true)
+
+
+func _on_platform_player_left(rider: Node2D) -> void:
+	if rider != _get_player_body():
+		return
+	_set_camera_platform_tracking(false)
+
+
+func _set_camera_platform_tracking(enabled: bool) -> void:
+	var body := _get_player_body()
+	var camera_component := body.get_node_or_null("CameraComponent") as CameraComponent if body != null else null
+	var current_floor := tower.get_current_floor() as Node2D if tower != null else null
+	if camera_component == null or current_floor == null:
+		return
+	var floor_id := tower.get_current_floor_id()
+	var bounds := tower.get_floor_world_rect(current_floor, floor_id)
+	if enabled:
+		var storey_height := FloorData.DEFAULT_BOUNDS.size.y
+		var floor_count := tower.tower_data.size()
+		bounds.position.y -= storey_height * float(floor_count - floor_id)
+		bounds.size.y = storey_height * float(floor_count)
+	camera_component.set_floor_bounds(bounds)
+	camera_component.set_platform_tracking(enabled)
 
 
 func _on_portal_activated(body: Node2D) -> void:

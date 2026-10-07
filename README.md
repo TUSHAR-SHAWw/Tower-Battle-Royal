@@ -1,7 +1,7 @@
 # Tower Battle Royal
 
-A **2D tower survival platformer** built in **Godot 4.7** (side-view, flat-vector
-art direction). The initial release target is **single-player on Windows and
+A **2D tower survival platformer** built in **Godot 4.7** (side-view, pixel-art
+presentation). The initial release target is **single-player on Windows and
 Android**; online multiplayer is planned for a later update, not a launch feature.
 
 Players spawn on random floors of a tall tower, loot weapons, food and rare resources,
@@ -12,7 +12,7 @@ descending platform drive the risk/reward decisions.
 ## Shipping status
 
 **Pre-alpha prototype; not ready to ship.** The automated Godot 4.7 import and
-headless test gate currently passes (15 suites, 1,281 assertions). That does not
+headless test gate currently passes (16 suites, 1,404 assertions). That does not
 yet prove the full match loop, exported builds, or target-device behavior. See
 [`docs/SHIPPING_READINESS_PLAN.md`](docs/SHIPPING_READINESS_PLAN.md) for the
 release gates and [`docs/DEVELOPMENT_LOG.md`](docs/DEVELOPMENT_LOG.md) for
@@ -27,14 +27,21 @@ implementation history.
 | Windows release build | No Windows export template or preset is currently available in the checked environment; package still to be verified |
 | Android release build | No Android export template is currently installed; touch controls, export setup and device testing remain |
 
-Floor background accents are now sparse (0.2% of room cells) so they do not
-compete with authored art. The live floor still uses repeated small atlas tiles,
-and the existing prop-spawning script is not wired into production floors; a
-theme-aware, asset-friendly floor authoring pipeline remains unfinished.
+The 50-floor map and lift now share live tower data; the sprite-based lift
+travels up/down the route, while the compact minimap and full map show floor
+themes, player/lift floors and exploration status. Automated physics integration
+verifies the production player can board the lift, ride to the next floor, and
+have the camera track the ride. The nine-slot hotbar has been reduced to leave
+more of the play area visible. Themed shaft loot and floor backdrops use
+controls and bundled sprite/tile assets rather than drawing callbacks. The map
+also indicates whether the player is left or right of the central shaft. This
+is a presentation pass with placeholder art, not final environment content;
+custom 8×8 floors and visual polish remain planned.
 
 ## Pixel-art scale
 
-The game canvas is **426×240**, presented at **3× integer scale** (1278×720).
+The game canvas is **426×240**, presented at **3× integer scale** (1278×720)
+using canvas-item stretching so text and vector UI render at display resolution.
 Gameplay retains the established framing through a matching camera zoom;
 physics and gameplay world coordinates are not rescaled.
 Author floor atlases with **8×8 source-pixel tiles**; `FloorController` scales
