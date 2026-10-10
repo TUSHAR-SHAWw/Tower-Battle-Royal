@@ -8,8 +8,8 @@ Written by an agent that ran out of context. Read this before changing anything.
 - **The Windows Godot binary does not attach stdout to PowerShell pipes.** `godot ... | Out-File` produces empty files. Use this instead, which works reliably:
   ```powershell
   $p = Start-Process -FilePath "E:\GAMES\Godot_v4.7-stable_win64.exe" `
-        -ArgumentList "--path",".","res://your_test.tscn" `
-        -RedirectStandardOutput "out.txt" -RedirectStandardError "err.txt" -PassThru -NoNewWindow
+		-ArgumentList "--path",".","res://your_test.tscn" `
+		-RedirectStandardOutput "out.txt" -RedirectStandardError "err.txt" -PassThru -NoNewWindow
   if (-not $p.WaitForExit(90000)) { $p.Kill(); Write-Output "TIMED OUT" }
   Get-Content out.txt | Select-String -Pattern "^\[TAG\]"
   ```
